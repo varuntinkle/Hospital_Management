@@ -13,8 +13,9 @@ def index(request):
     context = RequestContext(request)
     if 'index' not  in request.session:
             return render_to_response('login/login.html', context)
-    message =request.session["index"]
-    return HttpResponse(message)
+    username =request.session["index"]
+    Object_Searched = Registration.objects.filter(username = username)
+    Category = Object_Searched.category
 
 
 def authenticate (request):
