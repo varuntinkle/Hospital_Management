@@ -13,9 +13,22 @@ def index(request):
     context = RequestContext(request)
     if 'index' not  in request.session:
             return render_to_response('login/login.html', context)
-    username =request.session["index"]
-    Object_Searched = Registration.objects.filter(username = username)
-    Category = Object_Searched.category
+    else:
+        username =request.session["index"]
+        Object_Searched = Registration.objects.filter(username = username)
+        Object_Searched = Object_Searched[0]
+        Category = Object_Searched.category
+        if Category == 1:
+            message="Hi"
+            return render_to_response('login/base.html')
+
+
+
+def logout(request):
+    if 'index'  in request.session:
+         del request.session['index']    
+    return HttpResponseRedirect("/")
+
 
 
 def authenticate (request):
@@ -30,15 +43,9 @@ def authenticate (request):
                 Category=Object_Searched.category
                 message=Object_Searched.id
                 request.session["index"]=Object_Searched.username
-                if  Category==1:
-                    context = RequestContext(request)
-                    message= "Hi1"
-                    return HttpResponseRedirect("")
-                    #return HttpResponse(Category)
-                    return ('Doctor_login/index.html', context)
-                else:
-                    message= "Hi"
-                    return HttpResponse(message)
+                context = RequestContext(request)
+                #return HttpResponse(Category)
+                return HttpResponseRedirect("/")
 
             else:
                 message = "Wrong Password"
