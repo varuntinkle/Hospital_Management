@@ -2,6 +2,7 @@
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from database.models import Registration
 import django.contrib.auth.hashers 
 # Create your views here.
@@ -10,7 +11,10 @@ def index(request):
     # Request the context of the request.
     # The context contains information such as the client's machine details, for example.
     context = RequestContext(request)
-    return render_to_response('login/login.html', context)
+    if 'index' not  in request.session:
+            return render_to_response('login/login.html', context)
+    message =request.session["index"]
+    return HttpResponse(message)
 
 
 def authenticate (request):
@@ -24,13 +28,13 @@ def authenticate (request):
                 #django.contrib.auth.hashers.check_password(password, Object_Searched.password):
                 Category=Object_Searched.category
                 message=Object_Searched.id
-                request.session["id"]=Object_Searched.username
+                request.session["index"]=Object_Searched.username
                 if  Category==1:
                     context = RequestContext(request)
                     message= "Hi1"
-                    #return HttpResponse(message)
+                    return HttpResponseRedirect("")
                     #return HttpResponse(Category)
-                    return render_to_response('Doctor_login/index.html', context)
+                    return ('Doctor_login/index.html', context)
                 else:
                     message= "Hi"
                     return HttpResponse(message)
