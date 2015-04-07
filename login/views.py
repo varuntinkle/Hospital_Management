@@ -4,7 +4,8 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from database.models import Registration
-import django.contrib.auth.hashers 
+import django.contrib.auth.hashers
+from django.shortcuts import render 
 # Create your views here.
 
 def index(request):
@@ -18,18 +19,17 @@ def index(request):
         Object_Searched = Registration.objects.filter(username = username)
         Object_Searched = Object_Searched[0]
         Category = Object_Searched.category
-        if Category == 1:
-            message="Hi"
-            return render_to_response('login/base.html')
-
+        context_dict = {'username': request.session["index"]}
+        if(Category==1):
+            return render(request,'login/doctor_homepage.html', context_dict)
+        elif(Category==2):
+            return render(request,'login/patient_homepage.html', context_dict)
 
 
 def logout(request):
     if 'index'  in request.session:
          del request.session['index']    
     return HttpResponseRedirect("/")
-
-
 
 def authenticate (request):
     if request.method == 'POST':
@@ -43,10 +43,7 @@ def authenticate (request):
                 Category=Object_Searched.category
                 message=Object_Searched.id
                 request.session["index"]=Object_Searched.username
-                context = RequestContext(request)
-                #return HttpResponse(Category)
                 return HttpResponseRedirect("/")
-
             else:
                 message = "Wrong Password"
                 return HttpResponse(message)  
