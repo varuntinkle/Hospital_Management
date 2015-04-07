@@ -28,6 +28,8 @@ def index(request):
             object_pat = object_pat[0]
             context_dict = {'object_reg': Object_Searched,'object_pat': object_pat}
             return render(request,'login/patient_homepage.html', context_dict)
+        elif(Category==3):
+            return render(request,'login/recep_homepage.html', context_dict)
 
 
 def logout(request):
