@@ -1,3 +1,51 @@
-<h1>Hello, {{ object.username }} !</h1>
-<h1>This is receptionist's page ! :)</h1>
+<h2>Hello, {{ object.username }} !</h2>
+<h2>This is receptionist's page ! :)</h2>
+<br>
+<h5>Ambulance Schedules for the week</h5> 
+<ol>
+{% for num in object_schedule %}
+
+<li>{{ num }}</li>
+
+{% endfor %}
+</ol>
+<br><br>
+<div class="update_schedule">
+      <h3>Update Ambulance Schedule</h3>
+      <form method="post" action="login/recep_homepage">
+        {% csrf_token %}
+        <!--<p><input type="text" name="Day" value="" placeholder="Enter Day"></p>-->
+
+        <select name="Day" size="1">
+		    <option value="Monday">Monday</option>
+		    <option value="Tuesday">Tuesday</option>
+		    <option value="Wednesday">Wednesday</option>
+		    <option value="Thursday">Thursday</option>
+		    <option value="Friday">Friday</option>
+		    <option value="Saturday">Saturday</option>
+		    <option value="Sunday">Sunday</option>
+		  </select>
+
+
+        <!--<p><input type="time" name="Time" value="" placeholder="Enter Time"></p>-->
+
+        <p><input type="number" min="0" max="23" name="Time_h" value="" placeholder="Hour of Departure"></p>
+
+        <p><input type="number" min="0" max="59" name="Time_m" value="" placeholder="Min of Departure"></p>
+		 <!--      
+		<select name="chk_availabale" size="2">
+		    <option value="Available">Available</option>
+		    <option value="Not Available">Not Available</option>
+		  </select>
+		-->
+         
+        <input type="radio" name="availability" value="1" checked>Available
+		<br>
+		<input type="radio" name="availability" value="0">Not Available
+		<br><br>
+        
+        <p class="submit"><input type="submit" name="commit" value="Submit"></p>
+      </form>
+    </div>
+
 <h2><a href="/login/logout">LOG OUT</a></h2>

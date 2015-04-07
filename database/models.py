@@ -93,6 +93,22 @@ class Patient(models.Model):
 	patient_test = models.TextField(blank=True)
 	outsider = models.BooleanField(default= False)
 
+class AmbulanceBooking(models.Model):
+	Source = models.CharField(max_length=50)
+	Destination = models.CharField(max_length=50)
+	DateBooked = models.DateTimeField('Date booked')
+	Purpose = models.CharField(max_length=200)
+	Day = models.IntegerField()
+	Time = models.TimeField()
+
+class AmbulanceSchedule(models.Model):
+	Day = models.CharField(max_length=9)
+	Time = models.TimeField()
+	Availability = models.BooleanField()
+	Count = models.IntegerField()
+	def __str__(self):
+		return "Day-"+str(self.Day)+", Time-"+str(self.Time)+", Availability-"+str(self.Availability)+", Count-"+str(self.Count)
+
 ########################################
 
 
