@@ -20,7 +20,10 @@ def index(request):
         Object_Searched = Object_Searched[0]
         Category = Object_Searched.category
         context_dict = {'username': request.session["index"]}
-        return render(request,'login/doctor_homepage.html', context_dict)
+        if(Category==1):
+            return render(request,'login/doctor_homepage.html', context_dict)
+        elif(Category==2):
+            return render(request,'login/patient_homepage.html', context_dict)
 
 
 def logout(request):
