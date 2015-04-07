@@ -27,7 +27,7 @@ def index(request):
             object_pat = Patient.objects.filter(username = username)
             object_pat = object_pat[0]
             context_dict = {'object_reg': Object_Searched,'object_pat': object_pat}
-            return render(request,'login/patient_homepage.html', context_dict)
+            return render(request,'login/patient.html', context_dict)
         elif(Category==3):
             return render(request,'login/recep_homepage.html', context_dict)
 
@@ -56,4 +56,11 @@ def authenticate (request):
         else:
             message="Wrong Username"
             return HttpResponse(message)
+
+def call_appoint(request):
+    context = RequestContext(request)
+    if 'index' not  in request.session:
+        return render_to_response('login/login.html', context)
+    else:
+        return render_to_response('login/appointment.html', context)
 
