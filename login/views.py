@@ -24,6 +24,8 @@ def index(request):
             return render(request,'login/doctor_homepage.html', context_dict)
         elif(Category==2):
             return render(request,'login/patient_homepage.html', context_dict)
+        elif(Category==3):
+            return render(request,'login/recep_homepage.html', context_dict)
 
 
 def logout(request):
