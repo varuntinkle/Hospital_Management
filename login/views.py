@@ -3,7 +3,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-from database.models import Registration
+from database.models import Registration, Patient
 import django.contrib.auth.hashers
 from django.shortcuts import render 
 # Create your views here.
@@ -19,12 +19,17 @@ def index(request):
         Object_Searched = Registration.objects.filter(username = username)
         Object_Searched = Object_Searched[0]
         Category = Object_Searched.category
-        context_dict = {'object': Object_Searched}
+        
         if(Category==1):
+            context_dict = {'object_reg': Object_Searched}
             return render(request,'login/doctor_homepage.html', context_dict)
         elif(Category==2):
+            object_pat = Patient.objects.filter(username = username)
+            object_pat = object_pat[0]
+            context_dict = {'object_reg': Object_Searched,'object_pat': object_pat}
             return render(request,'login/patient_homepage.html', context_dict)
         elif(Category==3):
+            context_dict = {'object': Object_Searched}
             return render(request,'login/recep_homepage.html', context_dict)
 
 
