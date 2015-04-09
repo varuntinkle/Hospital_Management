@@ -70,27 +70,33 @@ def call_appoint(request):
 
 def recep_homepage (request):
     if request.method == 'POST':
-        day = request.POST['Day']
-        timeh = request.POST['Time_h']
-        timem = request.POST['Time_m']
-        time = timeh+":"+timem+":00"
-        
-        availability1 = request.POST['availability']
-        if(availability1=='0'):
-            available=False
-        else:
-            available=True
-        Schedule_Search = AmbulanceSchedule.objects.filter(Day = day, Time = time)
-        
-        if Schedule_Search:
-            Schedule_Search = Schedule_Search[0]
-            Schedule_Search.Availability = available
-            Schedule_Search.save()
 
-        else:
-            new_schedule = AmbulanceSchedule(Day=day,Time=time,Availability=available,Count=0)
-            new_schedule.save()
-        return HttpResponseRedirect("/")
+        if 'commit' in request.POST:
+            day = request.POST['Day']
+            timeh = request.POST['Time_h']
+            timem = request.POST['Time_m']
+            time = timeh+":"+timem+":00"
+            
+            availability1 = request.POST['availability']
+            if(availability1=='0'):
+                available=False
+            else:
+                available=True
+            Schedule_Search = AmbulanceSchedule.objects.filter(Day = day, Time = time)
+            
+            if Schedule_Search:
+                Schedule_Search = Schedule_Search[0]
+                Schedule_Search.Availability = available
+                Schedule_Search.save()
+
+            else:
+                new_schedule = AmbulanceSchedule(Day=day,Time=time,Availability=available,Count=0)
+                new_schedule.save()
+            return HttpResponseRedirect("/")
+        elif 'reset' in request.POST:
+            reset_day = request.POST['reset_day']
+            AmbulanceSchedule.objects.filter(Day = reset_day).delete()
+            return HttpResponseRedirect("/")
 
 def book_amb(request):
     context = RequestContext(request)

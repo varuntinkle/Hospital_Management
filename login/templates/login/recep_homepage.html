@@ -1,7 +1,6 @@
-<h2>Hello, {{ object.username }} !</h2>
-<h2>This is receptionist's page ! :)</h2>
-<br>
-<h5>Ambulance Schedules for the week</h5> 
+<h2>Hello, {{ object_reg.username }} !</h2>
+<h2>RECEPTIONIST HOMEPAGE</h2>
+<h3>AMBULANCE SCHEDULES FOR THE WEEK</h3> 
 <ol>
 {% for num in object_schedule %}
 
@@ -11,7 +10,7 @@
 </ol>
 <br><br>
 <div class="update_schedule">
-      <h3>Update Ambulance Schedule</h3>
+      <h3>UPDATE AMBULANCE SCHEDULE</h3>
       <form method="post" action="login/recep_homepage">
         {% csrf_token %}
         <!--<p><input type="text" name="Day" value="" placeholder="Enter Day"></p>-->
@@ -26,26 +25,37 @@
 		    <option value="Sunday">Sunday</option>
 		  </select>
 
-
-        <!--<p><input type="time" name="Time" value="" placeholder="Enter Time"></p>-->
-
-        <p><input type="number" min="0" max="23" name="Time_h" value="" placeholder="Hour of Departure"></p>
+        <p><input type="number" min="0" max="23" name="Time_h" value="" placeholder="Hour of Departure"> (24 hrs system)</p>
 
         <p><input type="number" min="0" max="59" name="Time_m" value="" placeholder="Min of Departure"></p>
-		 <!--      
-		<select name="chk_availabale" size="2">
-		    <option value="Available">Available</option>
-		    <option value="Not Available">Not Available</option>
-		  </select>
-		-->
          
         <input type="radio" name="availability" value="1" checked>Available
-		<br>
 		<input type="radio" name="availability" value="0">Not Available
-		<br><br>
         
         <p class="submit"><input type="submit" name="commit" value="Submit"></p>
       </form>
+
+      <br>
+      <h3>RESET AMBULANCE SCHEDULE</h3>
+      <form method="post" action="login/recep_homepage">
+      	 {% csrf_token %}
+   
+      	  <select name="reset_day" size="1">
+		    <option value="Monday">Monday</option>
+		    <option value="Tuesday">Tuesday</option>
+		    <option value="Wednesday">Wednesday</option>
+		    <option value="Thursday">Thursday</option>
+		    <option value="Friday">Friday</option>
+		    <option value="Saturday">Saturday</option>
+		    <option value="Sunday">Sunday</option>
+		  </select>
+
+	      <p class="submit"><input type="submit" name="reset" value="Reset"></p>
+	      <p> *click reset to Reset the ambulance schedules for the selected day </p>
+	      <br>
+      </form>
+
+
     </div>
 
 <h2><a href="/login/logout">LOG OUT</a></h2>
