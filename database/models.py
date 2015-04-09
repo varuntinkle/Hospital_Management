@@ -98,7 +98,7 @@ class AmbulanceBooking(models.Model):
 	Destination = models.CharField(max_length=50)
 	DateBooked = models.DateTimeField('Date booked')
 	Purpose = models.CharField(max_length=200)
-	Day = models.IntegerField()
+	Day = models.CharField(max_length=9)
 	Time = models.TimeField()
 
 class AmbulanceSchedule(models.Model):

@@ -5,7 +5,7 @@
 <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Appointment booking</h1>
+                    <h1 class="page-header">Ambulance booking</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -17,24 +17,31 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form">
+                                    <form role="form" method="post" action="amb_submit">
+                                    {% csrf_token %}
                                         <div class="form-group">
                                             <label>From</label>
-                                            <input class="form-control">
+                                            <input class="form-control" name="source">
                                             <p class="help-block">Enter the place from where u have to be picked</p>
                                         </div>
                                         <div class="form-group">
-                                            <label>Date</label>
-                                            <input class="form-control" placeholder="Date-Month-Year">
+                                                <label for="disabledSelect">To</label>
+                                                <input class="form-control" name="destination">
                                         </div>
                                         <div class="form-group">
-                                            <label>Time</label>
-                                            <input class="form-control" placeholder="Hour-Min-Sec">
+                                            <label>Availability of Ambulance</label>
+                                            <select name="DayTime" size="1">
+                                            {% for val in object_amb %}
+                                            {% if val.Count < 6 %}
+                                            <option value="{{ val.Day }},{{ val.Time }}">{{ val.Day }}, {{ val.Time }}</option>
+                                            {% endif %}
+                                            {% endfor %}
+                                            </select>
                                         </div>
                                         
                                         <div class="form-group">
                                             <label>State your problem</label>
-                                            <textarea class="form-control" rows="3"></textarea>
+                                            <textarea class="form-control" rows="3" name="purpose"></textarea>
                                         </div>
                                         
                                         
@@ -43,20 +50,17 @@
                                     </form>
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->
-                                <div class="col-lg-6">
+                                <!--<div class="col-lg-6">
                                     <form role="form">
 
-                                            <div class="form-group">
-                                                <label for="disabledSelect">To</label>
-                                                <input class="form-control">
-                                            </div>
+                                            
                                             
                                         
                                     </form>
                                     
                                     <h3>You can also call at this number for help.</h3>
                                     
-                                </div>
+                                </div>-->
                                 <!-- /.col-lg-6 (nested) -->
                             </div>
                             <!-- /.row (nested) -->

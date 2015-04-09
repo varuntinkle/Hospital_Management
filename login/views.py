@@ -3,9 +3,10 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-from database.models import Registration, Patient, AmbulanceSchedule
+from database.models import Registration, Patient, AmbulanceSchedule, AmbulanceBooking
 import django.contrib.auth.hashers
-from django.shortcuts import render 
+from django.shortcuts import render
+import datetime
 # Create your views here.
 
 def index(request):
@@ -91,4 +92,33 @@ def recep_homepage (request):
             new_schedule.save()
         return HttpResponseRedirect("/")
 
-
+def book_amb(request):
+    context = RequestContext(request)
+    if 'index' not  in request.session:
+        return render_to_response('login/login.html', context)
+    else:
+        Object_Searched = AmbulanceSchedule.objects.all()
+        context_dict = {'object_amb': Object_Searched}
+        return render(request,'login/ambulance.html', context_dict)
+               
+def set_amb_sch(request):
+    if request.method=="POST":
+        source=request.POST['source']
+        destination=request.POST['destination']
+        day_time=request.POST['DayTime']
+        purpose=request.POST['purpose']
+        present_date=datetime.datetime.now()
+        listed=day_time.split(",")
+        day=listed[0]
+        time=listed[1]
+        time_list=time.split()
+        time=time_list[0]+":00"
+        new_object=AmbulanceBooking(Source=source,Destination=destination,DateBooked=present_date,Purpose=purpose,Day=day,Time=time)
+        new_object.save()
+        search = AmbulanceSchedule.objects.filter(Day = day, Time = time)
+        if search:
+            search=search[0]
+            search.Count=search.Count+1
+            search.save()
+    return HttpResponseRedirect("/")
+    
