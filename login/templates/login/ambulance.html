@@ -1,0 +1,77 @@
+{% extends "login/patient.html" %}
+
+{% block page-wrapper %}
+
+<div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Ambulance booking</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <form role="form" method="post" action="amb_submit">
+                                    {% csrf_token %}
+                                        <div class="form-group">
+                                            <label>From</label>
+                                            <input class="form-control" name="source">
+                                            <p class="help-block">Enter the place from where u have to be picked</p>
+                                        </div>
+                                        <div class="form-group">
+                                                <label for="disabledSelect">To</label>
+                                                <input class="form-control" name="destination">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Availability of Ambulance</label>
+                                            <select name="DayTime" size="1">
+                                            {% for val in object_amb %}
+                                            {% if val.Count < 6 and val.Availability != 0 %}
+                                            <option value="{{ val.Day }},{{ val.Time }}">{{ val.Day }}, {{ val.Time }}</option>
+                                            {% endif %}
+                                            {% endfor %}
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label>State your problem</label>
+                                            <textarea class="form-control" rows="3" name="purpose"></textarea>
+                                        </div>
+                                        
+                                        
+                                        <button type="submit" class="btn btn-default">Submit Button</button>
+                                        <button type="reset" class="btn btn-default">Reset Button</button>
+                                    </form>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                                <!--<div class="col-lg-6">
+                                    <form role="form">
+
+                                            
+                                            
+                                        
+                                    </form>
+                                    
+                                    <h3>You can also call at this number for help.</h3>
+                                    
+                                </div>-->
+                                <!-- /.col-lg-6 (nested) -->
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+        {% endblock page-wrapper %}
