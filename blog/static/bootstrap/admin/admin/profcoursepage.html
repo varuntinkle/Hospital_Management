@@ -1,0 +1,834 @@
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="js/plugins/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="js/plugins/morris/raphael.min.js"></script>
+    <script src="js/plugins/morris/morris.min.js"></script>
+    <script src="js/plugins/morris/morris-data.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/sb-admin-2.js"></script>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://code.highcharts.com/highcharts.js"></script>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Timeline CSS -->
+    <link href="css/plugins/timeline.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="css/plugins/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+     
+
+  <script>
+  $(function () { 
+    $('.graph1').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Overall The Instructor was excellent'
+        },
+        xAxis: {
+            categories: ['Strongly Agree', 'Agree', 'Neutral', 'Disagree', 'Strongly Disagree']
+        },
+        yAxis: {
+            title: {
+                text: 'No.of Students'
+            }
+        },
+        series: [{
+            name: 'Students',
+            data: [10, 20, 4, 20, 30]
+        }]
+    });
+});
+  $(document).ready(function(){
+    $(".graphs").hide();
+    
+  $(".view").click(function(){
+    $(".graphs").toggle(1000);
+  });
+});
+  
+
+  $(function () { 
+    $('.maingraph').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Overall Graph'
+        },
+        xAxis: {
+            categories: ['5', '4', '3', '4', '1']
+        },
+        yAxis: {
+            title: {
+                text: 'No.of Students'
+            }
+        },
+        series: [{
+            name: 'Students',
+            data: [10, 20, 4, 20, 30]
+        }]
+    });
+});
+  
+  </script>
+
+  
+  <style type="text/css" media="screen">
+    
+    body {
+      
+       background: #ee4c8d;
+    background: url(iitgpic1.jpg);
+    background-repeat: no-repeast;
+    background-position: fixed;
+    background-attachment: fixed;
+    }
+    div.graph{
+      overflow: auto;
+      margin: 0px auto;
+
+    }
+    div.graph1{
+      border:solid 2px;
+      border-color: black;
+      margin-top: 100px;
+      width: 500px;
+      float: left;
+
+      margin-left: 100px;
+      display: block;
+      height: 384px;
+    }
+
+ 
+
+.logout {
+  margin-left: 1200px;
+  background-color:#ed8223;
+  color:#fff;
+  font-family:'Helvetica Neue',sans-serif;
+  font-size:18px;
+  line-height:30px;
+  border-radius:20px;
+  -webkit-border-radius:20px;
+  -moz-border-radius:20px;
+  border:0;
+  text-shadow:#C17C3A 0 -1px 0;
+  width:120px;
+  height:32px;
+   cursor: pointer;
+}                
+
+
+.submit {
+  background-color:#ed8223;
+  color:#fff;
+  font-family:'Helvetica Neue',sans-serif;
+  font-size:18px;
+  line-height:30px;
+  border-radius:20px;
+  -webkit-border-radius:20px;
+  -moz-border-radius:20px;
+  border:0;
+  text-shadow:#C17C3A 0 -1px 0;
+  width:120px;
+  height:32px;
+   margin-left:650px;
+    cursor: pointer;
+} 
+
+.addbox{
+  border:solid 2px;
+  border-color: black;
+  background-color:#fff;
+  color:#ed8223;
+  font-family:'Helvetica Neue',sans-serif;
+  font-size:14px;
+  line-height:30px;
+  border-radius:20px;
+  -webkit-border-radius:20px;
+  -moz-border-radius:20px;
+  border:0;
+  text-shadow:#C17C3A 0 -1px 0;
+  width:300px;
+  height:75px;
+  margin-left:450px;
+}
+
+    div.graph2{
+      border:solid 2px;
+      border-color: black;
+      margin-top: 100px;
+      margin-left: 100px;
+      float: left;
+      width: 500px;
+      display: block;
+      height: 384px;
+      
+    }
+    div.graph3{
+      border:solid 2px;
+      border-color: black;
+      margin-top: 100px;
+      width: 500px;
+      float: left;
+      
+      margin-left: 100px;
+      display: block;
+      height: 384px;
+    }
+
+    div.graph4{
+      border:solid 2px;
+      border-color: black;
+      margin-top: 100px;
+      margin-left: 100px;
+      float: left;
+      width: 500px;
+      display: block;
+      height: 384px;
+      
+    }
+    div.view{
+        margin-left: 450px;
+        font-size: 40px;
+        color: orange;
+        cursor: pointer;
+
+    }
+
+
+    div.addquestion{
+        margin-left: 450px;
+        margin-top: 500px;
+        font-size: 20px;
+        color: orange;
+
+    }
+
+
+    div.maingraph{
+      border:solid 2px;
+      border-color: black;
+      margin-top: 100px;
+      margin-left: 150px;
+      float: left;
+      width: 1000px;
+      display: block;
+      height: 384px;
+      
+    }
+    .text{
+      color: orange;
+       margin-left:550px;
+    }
+    .radio{
+       margin-left:550px;
+    }
+    .chats{
+       overflow: auto;
+      margin: 0px auto;
+
+    }
+
+    </style>
+
+
+  
+  <title>Professors' CoursePage</title>
+</head>
+
+<body>
+      <img src="topp.jpg" width=100% height=100% >
+      <input type="submit" class="logout" value="LogOut" />
+  <div class="graph">
+    <div class = "maingraph">
+
+      </div>
+
+
+  <div class = "addquestion">
+    <br>
+    <u>Type the Question which you wan't to add</u>
+    <br>
+    <br>
+    
+  </div> 
+  <div>
+    <textarea type="text" class="addbox" name="question"></textarea>
+    <br>
+    <input type="radio" class="radio" name="radioquestion" /> <div class="text">Ratings</div>
+    <input type="radio" class="radio" name="radioquestion"  /> <div class="text">Text Answer</div>
+    <input type="submit" class="submit" value="Submit" />
+  </div>
+  <div class="chats">
+  <div class="chat-panel panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-comments fa-fw"></i>
+                            Chat
+                            <div class="btn-group pull-right">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-chevron-down"></i>
+                                </button>
+                                <ul class="dropdown-menu slidedown">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-refresh fa-fw"></i> Refresh
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-check-circle fa-fw"></i> Available
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-times fa-fw"></i> Busy
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-clock-o fa-fw"></i> Away
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-sign-out fa-fw"></i> Sign Out
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <ul class="chat">
+                                <li class="left clearfix">
+                                    <span class="chat-img pull-left">
+                                        <img src="http://placehold.it/50/55C1E7/fff"  class="img-circle" />
+                                    </span>
+                                    <div class="chat-body clearfix">
+                                        <div class="header">
+                                            <strong class="primary-font">Jack Sparrow</strong> 
+                                            <small class="pull-right text-muted">
+                                                <i class="fa fa-clock-o fa-fw"></i> 
+                                            </small>
+                                        </div>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="right clearfix">
+                                    <span class="chat-img pull-right">
+                                        <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar" class="img-circle" />
+                                    </span>
+                                    <div class="chat-body clearfix">
+                                        <div class="header">
+                                            <small class=" text-muted">
+                                                <i class="fa fa-clock-o fa-fw"></i> </small>
+                                            <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                                        </div>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                        </p>
+                                    </div>
+                                </li>
+                               </div>
+                        <!-- /.panel-body -->
+                        <div class="panel-footer">
+                            <div class="input-group">
+                                <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-warning btn-sm" id="btn-chat">
+                                        Send
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- /.panel-footer -->
+                    </div>
+
+  <div class="chat-panel panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-comments fa-fw"></i>
+                            Chat
+                            <div class="btn-group pull-right">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-chevron-down"></i>
+                                </button>
+                                <ul class="dropdown-menu slidedown">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-refresh fa-fw"></i> Refresh
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-check-circle fa-fw"></i> Available
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-times fa-fw"></i> Busy
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-clock-o fa-fw"></i> Away
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-sign-out fa-fw"></i> Sign Out
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <ul class="chat">
+                                <li class="left clearfix">
+                                    <span class="chat-img pull-left">
+                                        <img src="http://placehold.it/50/55C1E7/fff"  class="img-circle" />
+                                    </span>
+                                    <div class="chat-body clearfix">
+                                        <div class="header">
+                                            <strong class="primary-font">Jack Sparrow</strong> 
+                                            <small class="pull-right text-muted">
+                                                <i class="fa fa-clock-o fa-fw"></i> 
+                                            </small>
+                                        </div>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="right clearfix">
+                                    <span class="chat-img pull-right">
+                                        <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar" class="img-circle" />
+                                    </span>
+                                    <div class="chat-body clearfix">
+                                        <div class="header">
+                                            <small class=" text-muted">
+                                                <i class="fa fa-clock-o fa-fw"></i> </small>
+                                            <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                                        </div>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                        </p>
+                                    </div>
+                                </li>
+                               </div>
+                        <!-- /.panel-body -->
+                        <div class="panel-footer">
+                            <div class="input-group">
+                                <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-warning btn-sm" id="btn-chat">
+                                        Send
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- /.panel-footer -->
+                    </div>
+                     <div class="chat-panel panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-comments fa-fw"></i>
+                            Chat
+                            <div class="btn-group pull-right">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-chevron-down"></i>
+                                </button>
+                                <ul class="dropdown-menu slidedown">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-refresh fa-fw"></i> Refresh
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-check-circle fa-fw"></i> Available
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-times fa-fw"></i> Busy
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-clock-o fa-fw"></i> Away
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-sign-out fa-fw"></i> Sign Out
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <ul class="chat">
+                                <li class="left clearfix">
+                                    <span class="chat-img pull-left">
+                                        <img src="http://placehold.it/50/55C1E7/fff"  class="img-circle" />
+                                    </span>
+                                    <div class="chat-body clearfix">
+                                        <div class="header">
+                                            <strong class="primary-font">Jack Sparrow</strong> 
+                                            <small class="pull-right text-muted">
+                                                <i class="fa fa-clock-o fa-fw"></i> 
+                                            </small>
+                                        </div>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="right clearfix">
+                                    <span class="chat-img pull-right">
+                                        <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar" class="img-circle" />
+                                    </span>
+                                    <div class="chat-body clearfix">
+                                        <div class="header">
+                                            <small class=" text-muted">
+                                                <i class="fa fa-clock-o fa-fw"></i> </small>
+                                            <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                                        </div>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                        </p>
+                                    </div>
+                                </li>
+                               </div>
+                        <!-- /.panel-body -->
+                        <div class="panel-footer">
+                            <div class="input-group">
+                                <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-warning btn-sm" id="btn-chat">
+                                        Send
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- /.panel-footer -->
+                    </div>
+                    
+  <div class="chat-panel panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-comments fa-fw"></i>
+                            Chat
+                            <div class="btn-group pull-right">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-chevron-down"></i>
+                                </button>
+                                <ul class="dropdown-menu slidedown">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-refresh fa-fw"></i> Refresh
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-check-circle fa-fw"></i> Available
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-times fa-fw"></i> Busy
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-clock-o fa-fw"></i> Away
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-sign-out fa-fw"></i> Sign Out
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <ul class="chat">
+                                <li class="left clearfix">
+                                    <span class="chat-img pull-left">
+                                        <img src="http://placehold.it/50/55C1E7/fff"  class="img-circle" />
+                                    </span>
+                                    <div class="chat-body clearfix">
+                                        <div class="header">
+                                            <strong class="primary-font">Jack Sparrow</strong> 
+                                            <small class="pull-right text-muted">
+                                                <i class="fa fa-clock-o fa-fw"></i> 
+                                            </small>
+                                        </div>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="right clearfix">
+                                    <span class="chat-img pull-right">
+                                        <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar" class="img-circle" />
+                                    </span>
+                                    <div class="chat-body clearfix">
+                                        <div class="header">
+                                            <small class=" text-muted">
+                                                <i class="fa fa-clock-o fa-fw"></i> </small>
+                                            <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                                        </div>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                        </p>
+                                    </div>
+                                </li>
+                               </div>
+                        <!-- /.panel-body -->
+                        <div class="panel-footer">
+                            <div class="input-group">
+                                <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-warning btn-sm" id="btn-chat">
+                                        Send
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- /.panel-footer -->
+                    </div>
+                     <div class="chat-panel panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-comments fa-fw"></i>
+                            Chat
+                            <div class="btn-group pull-right">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-chevron-down"></i>
+                                </button>
+                                <ul class="dropdown-menu slidedown">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-refresh fa-fw"></i> Refresh
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-check-circle fa-fw"></i> Available
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-times fa-fw"></i> Busy
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-clock-o fa-fw"></i> Away
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-sign-out fa-fw"></i> Sign Out
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <ul class="chat">
+                                <li class="left clearfix">
+                                    <span class="chat-img pull-left">
+                                        <img src="http://placehold.it/50/55C1E7/fff"  class="img-circle" />
+                                    </span>
+                                    <div class="chat-body clearfix">
+                                        <div class="header">
+                                            <strong class="primary-font">Jack Sparrow</strong> 
+                                            <small class="pull-right text-muted">
+                                                <i class="fa fa-clock-o fa-fw"></i> 
+                                            </small>
+                                        </div>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="right clearfix">
+                                    <span class="chat-img pull-right">
+                                        <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar" class="img-circle" />
+                                    </span>
+                                    <div class="chat-body clearfix">
+                                        <div class="header">
+                                            <small class=" text-muted">
+                                                <i class="fa fa-clock-o fa-fw"></i> </small>
+                                            <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                                        </div>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                        </p>
+                                    </div>
+                                </li>
+                               </div>
+                        <!-- /.panel-body -->
+                        <div class="panel-footer">
+                            <div class="input-group">
+                                <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-warning btn-sm" id="btn-chat">
+                                        Send
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- /.panel-footer -->
+                    </div>
+                    
+  <div class="chat-panel panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-comments fa-fw"></i>
+                            Chat
+                            <div class="btn-group pull-right">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-chevron-down"></i>
+                                </button>
+                                <ul class="dropdown-menu slidedown">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-refresh fa-fw"></i> Refresh
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-check-circle fa-fw"></i> Available
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-times fa-fw"></i> Busy
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-clock-o fa-fw"></i> Away
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-sign-out fa-fw"></i> Sign Out
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <ul class="chat">
+                                <li class="left clearfix">
+                                    <span class="chat-img pull-left">
+                                        <img src="http://placehold.it/50/55C1E7/fff"  class="img-circle" />
+                                    </span>
+                                    <div class="chat-body clearfix">
+                                        <div class="header">
+                                            <strong class="primary-font">Jack Sparrow</strong> 
+                                            <small class="pull-right text-muted">
+                                                <i class="fa fa-clock-o fa-fw"></i> 
+                                            </small>
+                                        </div>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="right clearfix">
+                                    <span class="chat-img pull-right">
+                                        <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar" class="img-circle" />
+                                    </span>
+                                    <div class="chat-body clearfix">
+                                        <div class="header">
+                                            <small class=" text-muted">
+                                                <i class="fa fa-clock-o fa-fw"></i> </small>
+                                            <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                                        </div>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                        </p>
+                                    </div>
+                                </li>
+                               </div>
+                        <!-- /.panel-body -->
+                        <div class="panel-footer">
+                            <div class="input-group">
+                                <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-warning btn-sm" id="btn-chat">
+                                        Send
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- /.panel-footer -->
+                    </div>
+</div>
+       
+  <div class = "view">
+    <u>View Questionwise Graph</u>
+
+
+  </div>
+
+
+      <div class="graphs">
+<div class="graph1">
+  
+  
+</div>
+<div class="graph2">
+  j
+  </div>
+
+
+<div class="graph3">
+  </div>
+
+<div class="graph4">
+  </div>
+</div>
+</div>
+  </body>
+</html>
