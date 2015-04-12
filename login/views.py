@@ -3,10 +3,11 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-from database.models import Registration, Patient, AmbulanceSchedule, AmbulanceBooking
+from database.models import Registration, Patient, AmbulanceSchedule, AmbulanceBooking, Post
 import django.contrib.auth.hashers
 from django.shortcuts import render
 import datetime
+from datetime import datetime
 # Create your views here.
 
 def index(request):
@@ -144,3 +145,24 @@ def end_recep_schedule(request):
             AmbulanceSchedule.objects.filter(Day = reset_day).delete()
             AmbulanceBooking.objects.filter(Day = reset_day).delete()
             return HttpResponseRedirect("/")
+    #return HttpResponseRedirect("/")
+
+def new_notice(request):
+    context = RequestContext(request)
+    if 'index' not  in request.session:
+        return render_to_response('login/login.html', context)
+    else:
+        Access_Post = Post.objects.all()
+        context_dict = {'object_schedule': Access_Post}
+        return render(request,'login/new_notice.html', context_dict)
+
+def notice_submit(request):
+    if request.method == 'POST':
+        title=request.POST['title']
+        body=request.POST['body']
+        date=datetime.now()
+
+        new_notice = Post(title=title,body=body,date=date)
+        new_notice.save()
+        return HttpResponseRedirect("/")
+    #return HttpResponseRedirect("/")
