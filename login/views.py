@@ -30,12 +30,17 @@ def index(request):
             object_pat = object_pat[0]
             object_notice = Post.objects.all().order_by('-date')[:5]
             context_dict = {'object_reg': Object_Searched,'object_pat': object_pat, 'object_notice':object_notice}
-            return render(request,'login/patient.html', context_dict)
+            return render(request,'login/patient_homepage.html', context_dict)
         elif(Category==3):
             Access_Schedule = AmbulanceSchedule.objects.all()
             object_notice = Post.objects.all().order_by('-date')[:5]
             context_dict = {'object_reg': Object_Searched, 'object_schedule': Access_Schedule, 'object_notice':object_notice}
             return render(request,'login/recep_homepage.html', context_dict)
+        elif(Category==4):
+            Access_Schedule = AmbulanceSchedule.objects.all()
+            object_notice = Post.objects.all().order_by('-date')[:5]
+            context_dict = {'object_reg': Object_Searched, 'object_schedule': Access_Schedule, 'object_notice':object_notice}
+            return render(request,'login/admin_homepage.html',context_dict)
 
 
 def logout(request):
