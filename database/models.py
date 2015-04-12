@@ -109,5 +109,6 @@ class AmbulanceSchedule(models.Model):
 	def __str__(self):
 		return "Day-"+str(self.Day)+", Time-"+str(self.Time)+", Availability-"+str(self.Availability)+", Count-"+str(self.Count)
 
+
 ########################################
 
