@@ -37,9 +37,8 @@ def index(request):
             context_dict = {'object_reg': Object_Searched, 'object_schedule': Access_Schedule, 'object_notice':object_notice}
             return render(request,'login/recep_homepage.html', context_dict)
         elif(Category==4):
-            Access_Schedule = AmbulanceSchedule.objects.all()
             object_notice = Post.objects.all().order_by('-date')[:5]
-            context_dict = {'object_reg': Object_Searched, 'object_schedule': Access_Schedule, 'object_notice':object_notice}
+            context_dict = {'object_reg': Object_Searched, 'object_notice':object_notice}
             return render(request,'login/admin_homepage.html',context_dict)
 
 

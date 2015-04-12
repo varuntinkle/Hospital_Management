@@ -21,8 +21,8 @@
                                     <h3>AMBULANCE SCHEDULES FOR THE WEEK</h3> 
                                     <ol>
                                     {% for sch in object_schedule %}
-
-                                    <li>{{ sch }}</li>
+                                    {%      val=sch.Day %}
+                                    <li>{{ val }}</li>
 
                                     {% endfor %}
                                     </ol>
