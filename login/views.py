@@ -113,7 +113,7 @@ def call_recep_schedule(request):
     if 'index' not  in request.session:
         return HttpResponseRedirect("/")
     else:
-        Access_Schedule = AmbulanceSchedule.objects.all()
+        Access_Schedule = AmbulanceSchedule.objects.all().order_by('-Day').reverse()
         context_dict = {'object_schedule': Access_Schedule}
         return render(request,'login/recep_schedule.html', context_dict)
 
@@ -152,7 +152,7 @@ def end_recep_schedule(request):
 def new_notice(request):
     context = RequestContext(request)
     if 'index' not  in request.session:
-        return render_to_response('login/login.html', context)
+        return HttpResponseRedirect("/")
     else:
         Access_Post = Post.objects.all()
         context_dict = {'object_schedule': Access_Post}
