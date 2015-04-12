@@ -3,7 +3,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-from database.models import Registration, Patient, AmbulanceSchedule, AmbulanceBooking, Post
+from database.models import Registration, Patient, AmbulanceSchedule, AmbulanceBooking, Post, Doctor
 import django.contrib.auth.hashers
 from django.shortcuts import render
 import datetime
@@ -23,7 +23,8 @@ def index(request):
         Category = Object_Searched.category
         
         if(Category==1):
-            context_dict = {'object_reg': Object_Searched}
+            object_notice = Post.objects.all().order_by('-date')[:5]
+            context_dict = {'object_reg': Object_Searched, 'object_notice':object_notice}
             return render(request,'login/doctor_homepage.html', context_dict)
         elif(Category==2):
             object_pat = Patient.objects.filter(username = username)
@@ -162,6 +163,15 @@ def new_notice(request):
         context_dict = {'object_schedule': Access_Post}
         return render(request,'login/new_notice.html', context_dict)
 
+def call_adduser(request):
+    context = RequestContext(request)
+    if 'index' not  in request.session:
+        return HttpResponseRedirect("/")
+    else:
+        Access_Post = Post.objects.all()
+        context_dict = {'object_schedule': Access_Post}
+        return render(request,'login/admin_adduser.html', context_dict)
+
 def notice_submit(request):
     if request.method == 'POST':
         title=request.POST['title']
@@ -172,3 +182,18 @@ def notice_submit(request):
         new_notice.save()
         return HttpResponseRedirect("/")
     #return HttpResponseRedirect("/")
+def user_added(request):
+    if request.method == 'POST':
+        username=request.POST['username']
+        password=request.POST['password']
+        name=request.POST['name']
+        category=request.POST['category']
+        new_user = Registration(username=username,password=password,name=name,category=category)
+        new_user.save()
+        if(category=='1'):
+            new_doc = Doctor(name=name,speciality="NA",qualification="NA",patients_visited="NA",schedule="NA")
+            new_doc.save()
+        elif(category=='2'):
+            new_patient = Patient(username=username,password=password,patient_history="NA",patient_test="NA")
+            new_patient.save()
+        return HttpResponseRedirect("/")
