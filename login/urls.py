@@ -13,7 +13,9 @@ urlpatterns = [
 
 	url(r'^noticeboard/',include('blog.urls')),
 	url(r'^login/new_notice$',views.new_notice),
+	url(r'^login/adduser$',views.call_adduser),
 	url(r'^login/notice_submit$',views.notice_submit),
+	url(r'^login/user_added$',views.user_added),
 
 
 	#url(r'^login/recep_homepage$',views.recep_homepage),
