@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+8<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -97,9 +97,7 @@
                         <li>
                             <a href="/login/ambulance"><i class="fa fa-edit fa-fw"></i>Ambulance Booking</a>
                         </li>
-                        <li>
-                            <a href="/static/editprof.html"><i class="fa fa-edit fa-fw"></i>Edit Profile</a>
-                        </li>
+                
                         <li>
                             <a href="/static/guidelines.html"><i class="fa fa-edit fa-fw"></i>First Aid Guidelines</a>
                         </li>
@@ -179,12 +177,18 @@
                             NoticeBoard
                         </div>
                         <div class="panel-body">
-                            {% for obj in object_notice %}
-                            <div class="alert alert-info">
-                                <div>{{ obj.date }}</div>
-                                <div><a href="noticeboard/{{ obj.id }}" target="_blank" class="alert-link">{{ obj.title }}</a></div>
+                            <div class="alert alert-success">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. <a href="#" class="alert-link">Alert Link</a>.
                             </div>
-                            {% endfor %}
+                            <div class="alert alert-info">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. <a href="#" class="alert-link">Alert Link</a>.
+                            </div>
+                            <div class="alert alert-warning">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. <a href="#" class="alert-link">Alert Link</a>.
+                            </div>
+                            <div class="alert alert-danger">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. <a href="#" class="alert-link">Alert Link</a>.
+                            </div>
                         </div>
                     </div>
                 </div>

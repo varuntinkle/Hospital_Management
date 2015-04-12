@@ -38,7 +38,7 @@ def index(request):
             return render(request,'login/recep_homepage.html', context_dict)
         elif(Category==4):
             object_notice = Post.objects.all().order_by('-date')[:5]
-            context_dict = {'object_reg': Object_Searched,'object_notice':object_notice}
+            context_dict = {'object_reg': Object_Searched, 'object_notice':object_notice}
             return render(request,'login/admin_homepage.html',context_dict)
 
 
@@ -117,7 +117,7 @@ def call_recep_schedule(request):
     if 'index' not  in request.session:
         return HttpResponseRedirect("/")
     else:
-        Access_Schedule = AmbulanceSchedule.objects.all()
+        Access_Schedule = AmbulanceSchedule.objects.all().order_by('-Day').reverse()
         context_dict = {'object_schedule': Access_Schedule}
         return render(request,'login/recep_schedule.html', context_dict)
 
