@@ -138,18 +138,12 @@
                             NoticeBoard
                         </div>
                         <div class="panel-body">
-                            <div class="alert alert-success">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. <a href="#" class="alert-link">Alert Link</a>.
-                            </div>
+                           {% for obj in object_notice %}
                             <div class="alert alert-info">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. <a href="#" class="alert-link">Alert Link</a>.
+                                <div>{{ obj.date }}</div>
+                                <div><a href="noticeboard/{{ obj.id }}" target="_blank" class="alert-link">{{ obj.title }}</a></div>
                             </div>
-                            <div class="alert alert-warning">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. <a href="#" class="alert-link">Alert Link</a>.
-                            </div>
-                            <div class="alert alert-danger">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. <a href="#" class="alert-link">Alert Link</a>.
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
