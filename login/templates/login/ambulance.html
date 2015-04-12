@@ -32,7 +32,7 @@
                                             <label>Availability of Ambulance</label>
                                             <select name="DayTime" size="1">
                                             {% for val in object_amb %}
-                                            {% if val.Count < 6 %}
+                                            {% if val.Count < 6 and val.Availability != 0 %}
                                             <option value="{{ val.Day }},{{ val.Time }}">{{ val.Day }}, {{ val.Time }}</option>
                                             {% endif %}
                                             {% endfor %}
