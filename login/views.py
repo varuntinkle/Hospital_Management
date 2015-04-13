@@ -3,10 +3,11 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-from database.models import Registration, Patient, AmbulanceSchedule, AmbulanceBooking
+from database.models import Registration, Patient, AmbulanceSchedule, AmbulanceBooking, Post, Doctor
 import django.contrib.auth.hashers
 from django.shortcuts import render
 import datetime
+from datetime import datetime
 # Create your views here.
 
 def index(request):
@@ -22,17 +23,24 @@ def index(request):
         Category = Object_Searched.category
         
         if(Category==1):
-            context_dict = {'object_reg': Object_Searched}
+            object_notice = Post.objects.all().order_by('-date')[:5]
+            context_dict = {'object_reg': Object_Searched, 'object_notice':object_notice}
             return render(request,'login/doctor_homepage.html', context_dict)
         elif(Category==2):
             object_pat = Patient.objects.filter(username = username)
             object_pat = object_pat[0]
-            context_dict = {'object_reg': Object_Searched,'object_pat': object_pat}
-            return render(request,'login/patient.html', context_dict)
+            object_notice = Post.objects.all().order_by('-date')[:5]
+            context_dict = {'object_reg': Object_Searched,'object_pat': object_pat, 'object_notice':object_notice}
+            return render(request,'login/patient_homepage.html', context_dict)
         elif(Category==3):
             Access_Schedule = AmbulanceSchedule.objects.all()
-            context_dict = {'object_reg': Object_Searched, 'object_schedule': Access_Schedule}
+            object_notice = Post.objects.all().order_by('-date')[:5]
+            context_dict = {'object_reg': Object_Searched, 'object_schedule': Access_Schedule, 'object_notice':object_notice}
             return render(request,'login/recep_homepage.html', context_dict)
+        elif(Category==4):
+            object_notice = Post.objects.all().order_by('-date')[:5]
+            context_dict = {'object_reg': Object_Searched, 'object_notice':object_notice}
+            return render(request,'login/admin_homepage.html',context_dict)
 
 
 def logout(request):
@@ -64,7 +72,7 @@ def authenticate (request):
 def call_appoint(request):
     context = RequestContext(request)
     if 'index' not  in request.session:
-        return render_to_response('login/login.html', context)
+        return HttpResponseRedirect("/")
     else:
         return render_to_response('login/appointment.html', context)
 
@@ -72,7 +80,7 @@ def call_appoint(request):
 def book_amb(request):
     context = RequestContext(request)
     if 'index' not  in request.session:
-        return render_to_response('login/login.html', context)
+        return HttpResponseRedirect("/")
     else:
         Object_Searched = AmbulanceSchedule.objects.all()
         context_dict = {'object_amb': Object_Searched}
@@ -108,9 +116,9 @@ def set_amb_sch(request):
 def call_recep_schedule(request):
     context = RequestContext(request)
     if 'index' not  in request.session:
-        return render_to_response('login/login.html', context)
+        return HttpResponseRedirect("/")
     else:
-        Access_Schedule = AmbulanceSchedule.objects.all()
+        Access_Schedule = AmbulanceSchedule.objects.all().order_by('-Day').reverse()
         context_dict = {'object_schedule': Access_Schedule}
         return render(request,'login/recep_schedule.html', context_dict)
 
@@ -144,3 +152,48 @@ def end_recep_schedule(request):
             AmbulanceSchedule.objects.filter(Day = reset_day).delete()
             AmbulanceBooking.objects.filter(Day = reset_day).delete()
             return HttpResponseRedirect("/")
+    #return HttpResponseRedirect("/")
+
+def new_notice(request):
+    context = RequestContext(request)
+    if 'index' not  in request.session:
+        return HttpResponseRedirect("/")
+    else:
+        Access_Post = Post.objects.all()
+        context_dict = {'object_schedule': Access_Post}
+        return render(request,'login/new_notice.html', context_dict)
+
+def call_adduser(request):
+    context = RequestContext(request)
+    if 'index' not  in request.session:
+        return HttpResponseRedirect("/")
+    else:
+        Access_Post = Post.objects.all()
+        context_dict = {'object_schedule': Access_Post}
+        return render(request,'login/admin_adduser.html', context_dict)
+
+def notice_submit(request):
+    if request.method == 'POST':
+        title=request.POST['title']
+        body=request.POST['body']
+        date=datetime.now()
+
+        new_notice = Post(title=title,body=body,date=date)
+        new_notice.save()
+        return HttpResponseRedirect("/")
+    #return HttpResponseRedirect("/")
+def user_added(request):
+    if request.method == 'POST':
+        username=request.POST['username']
+        password=request.POST['password']
+        name=request.POST['name']
+        category=request.POST['category']
+        new_user = Registration(username=username,password=password,name=name,category=category)
+        new_user.save()
+        if(category=='1'):
+            new_doc = Doctor(name=name,speciality="NA",qualification="NA",patients_visited="NA",schedule="NA")
+            new_doc.save()
+        elif(category=='2'):
+            new_patient = Patient(username=username,password=password,patient_history="NA",patient_test="NA")
+            new_patient.save()
+        return HttpResponseRedirect("/")

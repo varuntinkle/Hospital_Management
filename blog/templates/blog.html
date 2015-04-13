@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<body>
+<ul>
+	{% for post in object_list %}
+		<h3>   <a href="/noticeboard/{{ post.id }}"> {{ post.title }} </a>   </h3>
+		<div class = "post_meta">
+			on {{ post.date }}
+		</div>
+		<div class = "post_body" style="color:#000000">
+			{{ post.body|truncatewords:20|safe|linebreaks }}
+		</div>
+	{% endfor %}
+</ul>
+
+</body>
+{% endblock %}

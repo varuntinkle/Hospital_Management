@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Patient Login</title>
+    <title>Administrator Login</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
@@ -79,34 +79,10 @@
                         <li>
                             <a class="active" href="/"><i class="fa fa-dashboard fa-fw"></i> Profile</a>
                         </li>
-                        <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Doctor's List<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="/static/flot.html">Flot Charts</a>
-                                </li>
-                                <li>
-                                    <a href="/static/morris.html">Morris.js Charts</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="/login/appointment"><i class="fa fa-table fa-fw"></i>Appointment form</a>
-                        </li>
-                        <li>
-                            <a href="/login/ambulance"><i class="fa fa-edit fa-fw"></i>Ambulance Booking</a>
-                        </li>
-                        <li>
-                            <a href="/static/editprof.html"><i class="fa fa-edit fa-fw"></i>Edit Profile</a>
-                        </li>
-                        <li>
-                            <a href="/static/guidelines.html"><i class="fa fa-edit fa-fw"></i>First Aid Guidelines</a>
-                        </li>
                          <li>
-                            <a href="/static/resources.html"><i class="fa fa-edit fa-fw"></i>Resources</a>
+                            <a class="active" href="login/adduser"><i class="fa fa-dashboard fa-fw"></i>Add New User</a>
                         </li>
-                       
+                                
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
@@ -152,45 +128,19 @@
                 
             </div>
             <div class="row">
-                <div class = "col-lg-8">
-                    <div class="panel panel-default">
-                        <div class = "panel-heading">
-                            Medical History
-                        </div>
-                    
-                    <div class="panel-body">
-                            <p>{{ object_pat.patient_history }}
-                    </div>
-                    </div>
-
-                    <div class="panel panel-default">
-                        <div class = "panel-heading">
-                            Medical Test
-                        </div>
-                    
-                    <div class="panel-body">
-                            {{ object_pat.patient_test }}
-                    </div>
-                    </div>
-                </div>
+                
                 <div class = "col-lg-4">
                     <div class="panel panel-default">
                         <div class = "panel-heading">
                             NoticeBoard
                         </div>
                         <div class="panel-body">
-                            <div class="alert alert-success">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. <a href="#" class="alert-link">Alert Link</a>.
-                            </div>
+                           {% for obj in object_notice %}
                             <div class="alert alert-info">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. <a href="#" class="alert-link">Alert Link</a>.
+                                <div>{{ obj.date }}</div>
+                                <div><a href="noticeboard/{{ obj.id }}" target="_blank" class="alert-link">{{ obj.title }}</a></div>
                             </div>
-                            <div class="alert alert-warning">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. <a href="#" class="alert-link">Alert Link</a>.
-                            </div>
-                            <div class="alert alert-danger">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. <a href="#" class="alert-link">Alert Link</a>.
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>

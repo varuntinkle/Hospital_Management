@@ -1,0 +1,52 @@
+{% load staticfiles %}
+<html>
+  <head>
+    <link href="{% static 'bootstrap/admin/admin/css/bootstrap.min.css' %}"
+          rel="stylesheet" media="screen">
+  </head>
+
+
+
+<body bgcolor="#FFFFFF" >
+<style type="text/css">
+body {
+	background-color: #FFFFFF;
+	margin:120px 80px 100px 100px;
+}
+
+div#fixedheader {
+	position:fixed;
+	top:0px;
+	left:0px;
+	width:100%;
+	color:#CCC;
+	background:#0033CC;
+	padding:20px;
+	
+}
+div#fixedfooter {
+	position:fixed;
+	bottom:0px;
+	left:0px;
+	width:100%;
+	color:#CCC;
+	background:#0033CC;
+	padding:8px;
+}
+</style>
+
+<div id="fixedheader"><h1 align="center";style="font-color:#000000">IITG Hospital Notice Board</h1>
+	
+
+</div>
+<div id="fixedfooter"><h5 align="center">© 2015 IITG Hospital. For queries contact admin@iitg.ernet.in</h1>
+ </div>
+
+
+
+
+{% block content %}
+{% endblock %}
+    <script src="{% static 'bootstrap/admin/admin/js/bootstrap.min.js' %}"></script>
+  </body>
+</html>

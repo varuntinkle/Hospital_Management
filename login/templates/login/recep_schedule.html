@@ -19,13 +19,41 @@
                                 <div class="col-lg-6">
 
                                     <h3>AMBULANCE SCHEDULES FOR THE WEEK</h3> 
-                                    <ol>
-                                    {% for num in object_schedule %}
 
-                                    <li>{{ num }}</li>
+                                    <style>
+                                        table, th, td {
+                                            border: 1px solid black;
+                                            border-collapse: collapse;
+                                        }
+                                        th, td {
+                                            padding: 5px;
+                                        }
+                                        </style>                                       
 
-                                    {% endfor %}
-                                    </ol>
+                                        <body>
+
+                                        <table style="width:100%">
+                                              <tr>
+                                                <th>DAY</th>
+                                                <th>TIME</th>       
+                                                <th>NO OF STUDENTS</th>
+                                                <th>GOING</th>
+                                              </tr>
+                                            
+                                              {% for sch in object_schedule %}
+                                              <tr>
+                                                    <td>{{ sch.Day }}</td>
+                                                    <td>{{sch.Time}}</td>
+                                                    <td>{{sch.Count}}</td>  
+                                                    <td>                                {% ifequal sch.Availability True %}
+                                                    YES
+                                                    {%else%}
+                                                    NO
+                                                    {%endifequal%}</td>
+                                               </tr>
+                                                {% endfor %}
+                                        
+                                        </table>
 
                                     <h3>UPDATE AMBULANCE SCHEDULE</h3>
                                       <form method="post" action="recep_submit">
