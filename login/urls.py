@@ -16,6 +16,7 @@ urlpatterns = [
 	url(r'^login/adduser$',views.call_adduser),
 	url(r'^login/notice_submit$',views.notice_submit),
 	url(r'^login/user_added$',views.user_added),
+	url(r'^login/viewdoctors$',views.admin_viewdoctor),
 
 
 	#url(r'^login/recep_homepage$',views.recep_homepage),
