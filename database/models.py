@@ -103,6 +103,8 @@ class Patient(models.Model):
 	patient_history = models.TextField(blank=True)
 	patient_test = models.TextField(blank=True)
 	outsider = models.BooleanField(default= False)
+	def __str__(self):
+		return self.username
 
 	def __str__(self):
 		return self.reg_no

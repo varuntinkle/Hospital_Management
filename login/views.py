@@ -236,3 +236,19 @@ def call_stats(request):
             return render_to_response('system/graphindex.html', context)
         else:
             return render_to_response('login/permission_error.html')
+
+
+def admin_viewdoctor(request):
+    Objects = Doctor.objects.all()
+    c1=0
+    context_dict={}
+    for x in Objects:
+         x1=[]
+         x1.append(x.name)
+         x1.append(x.speciality)
+         x1.append(x.qualification)
+         x1.append(x.patients_visited)
+         x1.append(x.schedule)
+         context_dict[str(c1)]=x1
+         c1+=1
+    return render(request,'login/admin_viewdoctors.html',context_dict)

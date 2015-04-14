@@ -17,6 +17,7 @@ urlpatterns = [
 	url(r'^login/notice_submit$',views.notice_submit),
 	url(r'^login/user_added$',views.user_added),
 	url(r'^login/stats$',views.call_stats),
+	url(r'^login/viewdoctors$',views.admin_viewdoctor),
 
 
 	#url(r'^login/recep_homepage$',views.recep_homepage),
