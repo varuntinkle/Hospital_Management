@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+
+    
+<link href="/static/css/jqcloud.css" rel="stylesheet" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+ <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+
+
+ <script src="/static/js/jquery.js"></script>
+  <script src="/static/js/jqcloud-1.0.4.js"></script>
+<script type="text/javascript">
+        var word_list = [
+            {text: "A", weight: 1}
+            {% for word, weight in data.items %}
+                ,{text: "{{word}}", weight: {{weight}}}
+            {% endfor %}
+            ];
+        $(function() {
+           $("#wordcloud").jQCloud(word_list);
+        });
+    </script>
+</head>
+<body>
+    <div id="wordcloud"  style="width: 550px; height: 350px;"></div>
+</body>
+</html>

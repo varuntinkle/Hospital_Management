@@ -3,7 +3,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-from database.models import Registration, Patient, AmbulanceSchedule, AmbulanceBooking, Post, Doctor
+from database.models import Reception, Registration, Patient, AmbulanceSchedule, AmbulanceBooking, Post, Doctor
 import django.contrib.auth.hashers
 from django.shortcuts import render
 import datetime
@@ -73,18 +73,28 @@ def call_appoint(request):
     context = RequestContext(request)
     if 'index' not  in request.session:
         return HttpResponseRedirect("/")
-    else:
-        return render_to_response('login/appointment.html', context)
+    else:    
+        Object_Searched = Registration.objects.filter(username = request.session["index"])
+        Object_Searched = Object_Searched[0]
+        if Object_Searched.category==2:
+            return render_to_response('login/appointment.html', context)
+        else:
+            return render_to_response('login/permission_error.html')
 
 
 def book_amb(request):
     context = RequestContext(request)
     if 'index' not  in request.session:
         return HttpResponseRedirect("/")
-    else:
-        Object_Searched = AmbulanceSchedule.objects.all()
-        context_dict = {'object_amb': Object_Searched}
-        return render(request,'login/ambulance.html', context_dict)
+    else:    
+        Object_Searched = Registration.objects.filter(username = request.session["index"])
+        Object_Searched = Object_Searched[0]
+        if Object_Searched.category==2:
+            Object_Searched = AmbulanceSchedule.objects.all()
+            context_dict = {'object_amb': Object_Searched}
+            return render(request,'login/ambulance.html', context_dict)
+        else:
+            return render_to_response('login/permission_error.html')
                
 def set_amb_sch(request):
     if request.method=="POST":
@@ -117,10 +127,15 @@ def call_recep_schedule(request):
     context = RequestContext(request)
     if 'index' not  in request.session:
         return HttpResponseRedirect("/")
-    else:
-        Access_Schedule = AmbulanceSchedule.objects.all().order_by('-Day').reverse()
-        context_dict = {'object_schedule': Access_Schedule}
-        return render(request,'login/recep_schedule.html', context_dict)
+    else:    
+        Object_Searched = Registration.objects.filter(username = request.session["index"])
+        Object_Searched = Object_Searched[0]
+        if Object_Searched.category==3:
+            Access_Schedule = AmbulanceSchedule.objects.all().order_by('-Day').reverse()
+            context_dict = {'object_schedule': Access_Schedule}
+            return render(request,'login/recep_schedule.html', context_dict)
+        else:
+            return render_to_response('login/permission_error.html')
 
 def end_recep_schedule(request):
     if request.method == 'POST':
@@ -158,19 +173,28 @@ def new_notice(request):
     context = RequestContext(request)
     if 'index' not  in request.session:
         return HttpResponseRedirect("/")
-    else:
-        Access_Post = Post.objects.all()
-        context_dict = {'object_schedule': Access_Post}
-        return render(request,'login/new_notice.html', context_dict)
-
+    else:    
+        Object_Searched = Registration.objects.filter(username = request.session["index"])
+        Object_Searched = Object_Searched[0]
+        if Object_Searched.category==3:
+            Access_Post = Post.objects.all()
+            context_dict = {'object_schedule': Access_Post}
+            return render(request,'login/new_notice.html', context_dict)
+        else:
+            return render_to_response('login/permission_error.html')
+    
 def call_adduser(request):
     context = RequestContext(request)
     if 'index' not  in request.session:
         return HttpResponseRedirect("/")
-    else:
-        Access_Post = Post.objects.all()
-        context_dict = {'object_schedule': Access_Post}
-        return render(request,'login/admin_adduser.html', context_dict)
+    else:    
+        Object_Searched = Registration.objects.filter(username = request.session["index"])
+        Object_Searched = Object_Searched[0]
+        if Object_Searched.category==4:
+            context_dict = {}
+            return render(request,'login/admin_adduser.html', context_dict)
+        else:
+            return render_to_response('login/permission_error.html')   
 
 def notice_submit(request):
     if request.method == 'POST':
@@ -194,6 +218,21 @@ def user_added(request):
             new_doc = Doctor(name=name,speciality="NA",qualification="NA",patients_visited="NA",schedule="NA")
             new_doc.save()
         elif(category=='2'):
-            new_patient = Patient(username=username,password=password,patient_history="NA",patient_test="NA")
+            new_patient = Patient(username=username,reg_no="X",name=name,age=0,height="",weight=0,patient_history="NA",patient_test="NA")
             new_patient.save()
+        elif(category=='3'):
+            new_recep=Reception(username=username)
+            new_recep.save()
         return HttpResponseRedirect("/")
+
+def call_stats(request):
+    context = RequestContext(request)
+    if 'index' not  in request.session:
+        return HttpResponseRedirect("/")
+    else:    
+        Object_Searched = Registration.objects.filter(username = request.session["index"])
+        Object_Searched = Object_Searched[0]
+        if Object_Searched.category==4:
+            return render_to_response('system/graphindex.html', context)
+        else:
+            return render_to_response('login/permission_error.html')
