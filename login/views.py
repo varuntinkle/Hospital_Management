@@ -64,9 +64,7 @@ def authenticate (request):
                 return HttpResponseRedirect("/")
             else:
 
-                message = password
-                message+="\n"
-                message+=Object_Searched.password
+                message = "Wrong Password"
                 return HttpResponse(message)  
         else:
             message="Wrong Username"
@@ -247,13 +245,8 @@ def admin_viewdoctor(request):
     Objects = Doctor.objects.all()
     c1=0
     context_dict={}
+    list1=[]
     for x in Objects:
-         x1=[]
-         x1.append(x.name)
-         x1.append(x.speciality)
-         x1.append(x.qualification)
-         x1.append(x.patients_visited)
-         x1.append(x.schedule)
-         context_dict[x.name]=x1
-         c1+=1
+         list1.append(x.name)
+    context_dict['links']=list1
     return render(request,'login/admin_viewdoctors.html',context_dict)

@@ -17,7 +17,9 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <h1> {{v1}} </h1>                                     
+                                          {% for link in links %}
+                                            <li>{{ link }}</li>
+                                          {% endfor %}                           
                                 </div>
                                 
                             </div>
