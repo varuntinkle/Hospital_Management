@@ -52,17 +52,21 @@ def authenticate (request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
+        #password = django.contrib.auth.hashers.make_password(password, salt=None, hasher='default')
         Object_Searched = Registration.objects.filter(username = username)
         if Object_Searched:
             Object_Searched = Object_Searched[0]
-            if  password == Object_Searched.password:
+            if  django.contrib.auth.hashers.check_password(password, Object_Searched.password) or password==Object_Searched.password:
                 #django.contrib.auth.hashers.check_password(password, Object_Searched.password):
                 Category=Object_Searched.category
                 message=Object_Searched.id
                 request.session["index"]=Object_Searched.username
                 return HttpResponseRedirect("/")
             else:
-                message = "Wrong Password"
+
+                message = password
+                message+="\n"
+                message+=Object_Searched.password
                 return HttpResponse(message)  
         else:
             message="Wrong Username"
@@ -210,6 +214,7 @@ def user_added(request):
     if request.method == 'POST':
         username=request.POST['username']
         password=request.POST['password']
+        password=django.contrib.auth.hashers.make_password(password, salt=None, hasher='default')
         name=request.POST['name']
         category=request.POST['category']
         new_user = Registration(username=username,password=password,name=name,category=category)
