@@ -1,0 +1,36 @@
+
+<div class="diseasesearch">
+		<form action="/system/graphdisease" method="post">
+      <h1>Disease Graph</h1>
+            {% csrf_token %}
+        <p><input id="textbox" type="text" name="diseaseinput" value=""></p>
+        <p><input id="Generate Graph" type="text" name="startdate_input" value=""><input id="Generate Graph" type="text" name="enddate_input" value=""></p>
+        <p class="submit"><input type="submit" name="commit" value="Generate Graph"></p>
+
+    </form> 
+    </div> 
+<form action="/system/diseasewordcloud" method="post"> 
+        {% csrf_token %}
+     <p class="submit"><input type="submit" name="commit" value="Generate WordCloud"></p>
+     </form>  
+    
+<div class="medicinesearch">
+		<form action="/system/graphmedicine" method="post">
+      <h1>Medicine Graph</h1>
+           {% csrf_token %}
+        <p><input id="textbox" type="text" name="medicineinput" value=""></p>
+        <p class="submit"><input type="submit" name="commit" value="Generate Graph"></p>
+    </form>  
+    </div>
+
+<div class="graphfollowup">
+        <form action="/system/graphfollowup" method="post">
+      <h1>Graph Follow Up</h1>
+           {% csrf_token %}
+    
+        
+        <p class="submit"><input type="submit" name="commit" value="Follow Up"></p>
+    </form>  
+    </div>
+
+    
