@@ -210,7 +210,7 @@ def admin_viewdoctor(request):
          x1.append(x.qualification)
          x1.append(x.patients_visited)
          x1.append(x.schedule)
-         context_dict[str(c1)]=x1
+         context_dict[x.name]=x1
          c1+=1
     return render(request,'login/admin_viewdoctors.html',context_dict)
     
