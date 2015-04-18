@@ -185,7 +185,7 @@ def new_notice(request):
         else:
             return render_to_response('login/permission_error.html')
     
-def call_adduser(request):
+'''def call_adduser(request):
     context = RequestContext(request)
     if 'index' not  in request.session:
         return HttpResponseRedirect("/")
@@ -195,6 +195,49 @@ def call_adduser(request):
         if Object_Searched.category==4:
             context_dict = {}
             return render(request,'login/admin_adduser.html', context_dict)
+        else:
+            return render_to_response('login/permission_error.html')
+
+'''
+
+def call_adddoctor(request):
+    context = RequestContext(request)
+    if 'index' not  in request.session:
+        return HttpResponseRedirect("/")
+    else:    
+        Object_Searched = Registration.objects.filter(username = request.session["index"])
+        Object_Searched = Object_Searched[0]
+        if Object_Searched.category==4:
+            context_dict = {}
+            return render(request,'login/admin_adddoctor.html', context_dict)
+        else:
+            return render_to_response('login/permission_error.html')   
+
+
+def call_addreception(request):
+    context = RequestContext(request)
+    if 'index' not  in request.session:
+        return HttpResponseRedirect("/")
+    else:    
+        Object_Searched = Registration.objects.filter(username = request.session["index"])
+        Object_Searched = Object_Searched[0]
+        if Object_Searched.category==4:
+            context_dict = {}
+            return render(request,'login/admin_addreception.html', context_dict)
+        else:
+            return render_to_response('login/permission_error.html')   
+
+
+def call_addadmin(request):
+    context = RequestContext(request)
+    if 'index' not  in request.session:
+        return HttpResponseRedirect("/")
+    else:    
+        Object_Searched = Registration.objects.filter(username = request.session["index"])
+        Object_Searched = Object_Searched[0]
+        if Object_Searched.category==4:
+            context_dict = {}
+            return render(request,'login/admin_addadmin.html', context_dict)
         else:
             return render_to_response('login/permission_error.html')   
 
@@ -208,6 +251,7 @@ def notice_submit(request):
         new_notice.save()
         return HttpResponseRedirect("/")
     #return HttpResponseRedirect("/")
+
 def user_added(request):
     if request.method == 'POST':
         username=request.POST['username']
@@ -227,6 +271,47 @@ def user_added(request):
             new_recep=Reception(username=username)
             new_recep.save()
         return HttpResponseRedirect("/")
+
+
+def doctor_added(request):
+    if request.method == 'POST':
+        username=request.POST['username']
+        password=request.POST['password']
+        speciality=request.POST['speciality']
+        qualification=request.POST['qualification']
+        password=django.contrib.auth.hashers.make_password(password, salt=None, hasher='default')
+        name=request.POST['name']
+        category=1
+        new_user = Registration(username=username,password=password,name=name,category=category)
+        new_user.save()
+        new_doc = Doctor(name=name,speciality=speciality,qualification=qualification,patients_visited="NA",schedule="NA")
+        new_doc.save()
+        return HttpResponseRedirect("/")
+
+def admin_added(request):
+    if request.method == 'POST':
+        username=request.POST['username']
+        password=request.POST['password']
+        password=django.contrib.auth.hashers.make_password(password, salt=None, hasher='default')
+        name=request.POST['name']
+        category=4
+        new_user = Registration(username=username,password=password,name=name,category=category)
+        new_user.save()
+        return HttpResponseRedirect("/")
+
+
+def reception_added(request):
+    if request.method == 'POST':
+        username=request.POST['username']
+        password=request.POST['password']
+        password=django.contrib.auth.hashers.make_password(password, salt=None, hasher='default')
+        name=request.POST['name']
+        category=3
+        new_user = Registration(username=username,password=password,name=name,category=category)
+        new_user.save()
+        return HttpResponseRedirect("/")
+
+
 
 def call_stats(request):
     context = RequestContext(request)

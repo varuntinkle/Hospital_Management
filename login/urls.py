@@ -13,9 +13,15 @@ urlpatterns = [
 
 	url(r'^noticeboard/',include('blog.urls')),
 	url(r'^login/new_notice$',views.new_notice),
-	url(r'^login/adduser$',views.call_adduser),
+	#url(r'^login/adduser$',views.call_adduser),
+	url(r'^login/adddoctor$',views.call_adddoctor),
+	url(r'^login/addreception$',views.call_addreception),
+	url(r'^login/addadmin$',views.call_addadmin),
 	url(r'^login/notice_submit$',views.notice_submit),
 	url(r'^login/user_added$',views.user_added),
+	url(r'^login/doctor_added$',views.doctor_added),
+	url(r'^login/admin_added$',views.admin_added),
+	url(r'^login/reception_added$',views.reception_added),
 	url(r'^login/stats$',views.call_stats),
 	url(r'^login/viewdoctors$',views.admin_viewdoctor),
 
