@@ -24,6 +24,8 @@ urlpatterns = [
 	url(r'^login/reception_added$',views.reception_added),
 	url(r'^login/stats$',views.call_stats),
 	url(r'^login/viewdoctors$',views.admin_viewdoctor),
+	url(r'^login/viewpatient$',views.admin_viewpatient),
+
 
 
 	#url(r'^login/recep_homepage$',views.recep_homepage),

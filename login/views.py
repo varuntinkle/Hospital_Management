@@ -327,11 +327,28 @@ def call_stats(request):
 
 
 def admin_viewdoctor(request):
-    Objects = Doctor.objects.all()
-    c1=0
-    context_dict={}
-    list1=[]
-    for x in Objects:
-         list1.append(x.name)
-    context_dict['links']=list1
-    return render(request,'login/admin_viewdoctors.html',context_dict)
+#    Objects = Doctor.objects.all()
+#    c1=0
+#    context_dict={}
+#    list1=[]
+#    for x in Objects:
+#        list1.append(x.name)
+#   list1.append(x.speciality)
+#   list1.append(x.qualification)
+#   list1.append(x.schedule)
+#    context_dict['links']=list1
+    return render_to_response('login/admin_viewdoctors.html', {'obj': Doctor.objects.all()})
+
+
+def admin_viewpatient(request):
+#    Objects = Doctor.objects.all()
+#    c1=0
+#    context_dict={}
+#    list1=[]
+#    for x in Objects:
+#        list1.append(x.name)
+#   list1.append(x.speciality)
+#   list1.append(x.qualification)
+#   list1.append(x.schedule)
+#    context_dict['links']=list1
+    return render_to_response('login/admin_viewpatients.html', {'objs': Patient.objects.all()})
