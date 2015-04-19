@@ -21,7 +21,7 @@
                                         {% csrf_token %}
                                         <div class="form-group">
                                             <label>What is your problem?</label>
-                                            <input class="form-control" type="text" name="problem">
+                                            <input class="form-control" type="text" name="problem" required>
                                             <p class="help-block">Max. 140 characters</p>
                                         </div>
                                         <div class="form-group">
@@ -35,12 +35,12 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Fix Date</label>
-                                            <input class="form-control" type="date" name="date">
+                                            <input class="form-control" type="date" name="date" required>
                                             <p class="help-block"></p>
                                         </div>
                                         <div class="form-group">
                                             <label>Fix Time</label>
-                                            <input class="form-control" type="time" name="time">
+                                            <input class="form-control" type="time" name="time" required>
                                             <p class="help-block"></p>
                                         </div>
                                         

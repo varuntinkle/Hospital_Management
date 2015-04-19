@@ -27,8 +27,9 @@ def index(request):
         Category = Object_Searched.category
         
         if(Category==1):
+            object_doc = Doctor.objects.get(username = username)
             object_notice = Post.objects.all().order_by('-date')[:5]
-            context_dict = {'object_reg': Object_Searched, 'object_notice':object_notice}
+            context_dict = {'object_doc':object_doc,'object_reg': Object_Searched, 'object_notice':object_notice}
             return render(request,'login/doctor_homepage.html', context_dict)
         elif(Category==2):
             object_pat = Patient.objects.filter(username = username)
@@ -117,29 +118,28 @@ def edit_profile(request):
         else:
             return render_to_response('login/permission_error.html')
 
-def load_faq(request):
+def edit_profile_doc(request):
     context = RequestContext(request)
     if 'index' not  in request.session:
         return HttpResponseRedirect("/")
     else:    
         Object_Searched = Registration.objects.filter(username = request.session["index"])
         Object_Searched = Object_Searched[0]
-        if Object_Searched.category==2:
-            return render(request,'login/faq.html', {})
+        if Object_Searched.category==1:
+            object_doc = Doctor.objects.get(username = request.session["index"])
+            return render(request,'login/doctor_profile.html', {'object_doc':object_doc})
         else:
             return render_to_response('login/permission_error.html')
 
+def load_faq(request):
+    context = RequestContext(request)
+    return render(request,'login/faq.html', {})
+    
+
 def med_forms(request):
     context = RequestContext(request)
-    if 'index' not  in request.session:
-        return HttpResponseRedirect("/")
-    else:    
-        Object_Searched = Registration.objects.filter(username = request.session["index"])
-        Object_Searched = Object_Searched[0]
-        if Object_Searched.category==2:
-            return render(request,'login/med_forms.html', {})
-        else:
-            return render_to_response('login/permission_error.html')
+    return render(request,'login/med_forms.html', {})
+        
                
 def set_amb_sch(request):
     if request.method=="POST":
@@ -186,7 +186,25 @@ def pat_prof_sub(request):
         Object_Searched = Object_Searched[0]
         Object_Searched.name=name
     return HttpResponseRedirect("/")        
-    
+
+def doc_prof_sub(request):
+    if request.method=="POST":
+        name=request.POST['name']
+        speciality=request.POST['speciality']
+        qualification=request.POST['qualification']
+        schedule=request.POST['schedule']
+        new_doc=Doctor.objects.get(username = request.session["index"])
+        new_doc.name=name
+        new_doc.speciality=speciality
+        new_doc.qualification=qualification
+        new_doc.schedule=schedule
+        new_doc.save()
+        Object_Searched = Registration.objects.filter(username = request.session["index"])
+        Object_Searched = Object_Searched[0]
+        Object_Searched.name=name
+    return HttpResponseRedirect("/")
+
+
 def call_recep_schedule(request):
     context = RequestContext(request)
     if 'index' not  in request.session:
@@ -382,10 +400,11 @@ def call_stats(request):
     context = RequestContext(request)
     if 'index' not  in request.session:
         return HttpResponseRedirect("/")
-    else:    
+    else:  
+        request.session["fav_color"] = "blue"  
         Object_Searched = Registration.objects.filter(username = request.session["index"])
         Object_Searched = Object_Searched[0]
-        if Object_Searched.category==4:
+        if Object_Searched.category==1 or Object_Searched.category==4:
             return render_to_response('system/graphindex.html', context)
         else:
             return render_to_response('login/permission_error.html')
