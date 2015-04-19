@@ -5,9 +5,13 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from database.models import Prescription, Reception, Registration, Patient, AmbulanceSchedule, AmbulanceBooking, Post, Doctor
 import django.contrib.auth.hashers
+#from login.forms import DoctorForm
 from django.shortcuts import render
 import datetime
 from datetime import datetime
+from database.models import Doctor
+from login.forms import DocumentForm
+
 # Create your views here.
 
 def index(request):
@@ -479,3 +483,26 @@ def admin_viewpatient(request):
 #    context_dict['links']=list1
     return render_to_response('login/admin_viewpatients.html', {'objs': Patient.objects.all()})
 
+def create_doctor(request):
+    # Handle file upload
+    if request.method == 'POST':
+        form = DocumentForm(request.POST, request.FILES)
+        #return HttpResponse("Hi")
+        name = request.POST['name']
+        speciality=request.POST['speciality']
+        qualification=request.POST['qualification']
+        newdoc = Doctor(name=name,speciality=speciality,qualification=qualification,
+            image = request.FILES['docfile'])
+        newdoc.save()
+    form = DocumentForm()
+    return render_to_response(
+        'login/createdoctor.html',
+        {'form': form},context_instance=RequestContext(request)
+    )
+
+
+
+
+
+
+    

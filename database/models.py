@@ -90,6 +90,7 @@ class Doctor(models.Model):
 	qualification = models.CharField(max_length = 100)
 	patients_visited=models.TextField()
 	schedule = models.TextField()
+	image = models.FileField(upload_to="./", blank=True)
 	def __unicode__(self):
 		return self.name
 
@@ -135,6 +136,8 @@ class Post(models.Model):
 
 class Reception(models.Model):
 	username = models.CharField(max_length = 255)
+
+
 
 	
 
