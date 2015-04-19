@@ -216,7 +216,7 @@ def user_added(request):
         new_user = Registration(username=username,password=password,name=name,category=category)
         new_user.save()
         if(category=='1'):
-            new_doc = Doctor(name=name,speciality="NA",qualification="NA",patients_visited="NA",schedule="NA")
+            new_doc = Doctor(username=username,name=name,speciality="NA",qualification="NA",patients_visited="NA",schedule="NA")
             new_doc.save()
         elif(category=='2'):
             new_patient = Patient(username=username,reg_no="X",name=name,age=0,height="",weight=0,patient_history="NA",patient_test="NA")
@@ -270,12 +270,38 @@ def call_doctor_schedule(request):
 
 def end_doctor_schedule(request):
     if request.method == 'POST':
-        name = request.POST['doctor_name']
+        username = request.POST['doctor_name']
         sch = request.POST['sch_details']
-        doctor_search = Doctor.objects.filter(name = name)
+        doctor_search = Doctor.objects.filter(username = username)
         if doctor_search:
                 doctor_search = doctor_search[0]
                 doctor_search.schedule = sch
                 doctor_search.save()
 
     return HttpResponseRedirect("/")
+
+def call_addpatient(request):
+    context = RequestContext(request)
+    if 'index' not  in request.session:
+        return HttpResponseRedirect("/")
+    else:    
+        Object_Searched = Registration.objects.filter(username = request.session["index"])
+        Object_Searched = Object_Searched[0]
+        if Object_Searched.category==3:
+            context_dict = {}
+            return render(request,'login/recep_addpatient.html', context_dict)
+        else:
+            return render_to_response('login/permission_error.html') 
+
+def end_addpatient(request):
+    if request.method == 'POST':
+        username=request.POST['username']
+        password=request.POST['password']
+        name=request.POST['name']
+        category='2'
+        reg=request.POST['reg']
+        new_user = Registration(username=username,password=password,name=name,category=category)
+        new_user.save()
+        new_patient = Patient(username=username,reg_no="reg",name=name,age=0,height="",weight=0,patient_history="NA",patient_test="NA")
+        new_patient.save()
+        return HttpResponseRedirect("/")

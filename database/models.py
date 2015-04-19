@@ -84,6 +84,7 @@ class Registration(models.Model):
 		return self.username+"*"+self.password+"*"+self.name
 
 class Doctor(models.Model):
+	username = models.CharField(max_length=30)
 	name = models.CharField(max_length = 50)
 	speciality = models.CharField(max_length = 100)
 	qualification = models.CharField(max_length = 100)
@@ -102,7 +103,6 @@ class Patient(models.Model):
 	weight = models.IntegerField(blank = True)
 	patient_history = models.TextField(blank=True)
 	patient_test = models.TextField(blank=True)
-	outsider = models.BooleanField(default= False)
 	def __str__(self):
 		return self.username
 
