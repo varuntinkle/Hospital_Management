@@ -39,6 +39,10 @@ urlpatterns = [
 	url(r'^login/viewdoctors$',views.admin_viewdoctor),
 	url(r'^login/viewpatient$',views.admin_viewpatient),
 	url(r'^login/createdoctor$',views.create_doctor),
+	('',
+               (r'^media/(?P<path>.*)$', 'django.views.static.serve',
+                 {'document_root': settings.MEDIA_ROOT}),
+              ),
 
 
 	#url(r'^login/recep_homepage$',views.recep_homepage),
