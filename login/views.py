@@ -162,12 +162,13 @@ def end_recep_schedule(request):
                 new_schedule = AmbulanceSchedule(Day=day,Time=time,Availability=available,Count=0)
                 new_schedule.save()
             return HttpResponseRedirect("/")
+        
         elif 'reset' in request.POST:
             reset_day = request.POST['reset_day']
             AmbulanceSchedule.objects.filter(Day = reset_day).delete()
             AmbulanceBooking.objects.filter(Day = reset_day).delete()
             return HttpResponseRedirect("/")
-    #return HttpResponseRedirect("/")
+    return HttpResponseRedirect("/")
 
 def new_notice(request):
     context = RequestContext(request)
@@ -252,3 +253,29 @@ def admin_viewdoctor(request):
          context_dict[str(c1)]=x1
          c1+=1
     return render(request,'login/admin_viewdoctors.html',context_dict)
+
+def call_doctor_schedule(request):
+    context = RequestContext(request)
+    if 'index' not  in request.session:
+        return HttpResponseRedirect("/")
+    else:    
+        Object_Searched = Registration.objects.filter(username = request.session["index"])
+        Object_Searched = Object_Searched[0]
+        if Object_Searched.category==3:
+            Access_Doctor = Doctor.objects.all().order_by('-name').reverse()
+            context_dict = {'object_doctor': Access_Doctor}
+            return render(request,'login/doctor_schedule.html', context_dict)
+        else:
+            return render_to_response('login/permission_error.html')
+
+def end_doctor_schedule(request):
+    if request.method == 'POST':
+        name = request.POST['doctor_name']
+        sch = request.POST['sch_details']
+        doctor_search = Doctor.objects.filter(name = name)
+        if doctor_search:
+                doctor_search = doctor_search[0]
+                doctor_search.schedule = sch
+                doctor_search.save()
+
+    return HttpResponseRedirect("/")
