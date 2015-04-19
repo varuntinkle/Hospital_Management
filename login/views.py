@@ -264,17 +264,19 @@ def new_notice(request):
 '''
 
 def call_adddoctor(request):
-    context = RequestContext(request)
-    if 'index' not  in request.session:
-        return HttpResponseRedirect("/")
-    else:    
-        Object_Searched = Registration.objects.filter(username = request.session["index"])
-        Object_Searched = Object_Searched[0]
-        if Object_Searched.category==4:
-            context_dict = {}
-            return render(request,'login/admin_adddoctor.html', context_dict)
-        else:
-            return render_to_response('login/permission_error.html')   
+    '''if request.method == 'POST':
+        form = DocumentForm(request.POST, request.FILES)
+        #return HttpResponse("Hi")
+        name = request.POST['name']
+        speciality=request.POST['speciality']
+        qualification=request.POST['qualification']
+        newdoc = Doctor(name=name,speciality=speciality,qualification=qualification,
+            image = request.FILES['docfile'])
+        newdoc.save() '''
+    form = DocumentForm() 
+    return render_to_response(
+        'login/createdoctor.html',
+        {'form': form},context_instance=RequestContext(request) )
 
 
 def call_addreception(request):
@@ -337,20 +339,19 @@ def user_added(request):
 
 
 def doctor_added(request):
-   if request.method == 'POST':
-        form = DocumentForm(request.POST, request.FILES)
-        #return HttpResponse("Hi")
-        name = request.POST['name']
+    if request.method == 'POST':
+        username=request.POST['username']
+        password=request.POST['password']
         speciality=request.POST['speciality']
         qualification=request.POST['qualification']
-        newdoc = Doctor(name=name,speciality=speciality,qualification=qualification,
-            image = request.FILES['docfile'])
-        newdoc.save()
-   form = DocumentForm()
-   return render_to_response(
-        'login/createdoctor.html',
-        {'form': form},context_instance=RequestContext(request)
-    )
+        password=django.contrib.auth.hashers.make_password(password, salt=None, hasher='default')
+        name=request.POST['name']
+        category=1
+        new_user = Registration(username=username,password=password,name=name,category=category)
+        new_user.save()
+        new_doc = Doctor(name=name,speciality=speciality,qualification=qualification,patients_visited="NA",schedule="NA")
+        new_doc.save()
+        return HttpResponseRedirect("/")
 
 def admin_added(request):
     if request.method == 'POST':
@@ -458,6 +459,8 @@ def end_addpatient(request):
         new_patient.save()
         return HttpResponseRedirect("/")
 
+
+def admin_viewdoctor(request):
 #    Objects = Doctor.objects.all()
 #    c1=0
 #    context_dict={}
@@ -488,19 +491,33 @@ def create_doctor(request):
     # Handle file upload
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
-        #return HttpResponse("Hi")
-        name = request.POST['name']
-        speciality=request.POST['speciality']
+        #if form.is_valid():
+        username=request.POST['username']
+        password=request.POST['password']
+        name=request.POST['name']
         qualification=request.POST['qualification']
-        newdoc = Doctor(name=name,speciality=speciality,qualification=qualification,
+        speciality=request.POST['speciality']
+        newdoc = Doctor(username=username,name=name,
+            qualification = qualification,speciality=speciality, 
             image = request.FILES['docfile'])
         newdoc.save()
-    form = DocumentForm()
+        new_user=Registration(username=username,password=password,
+            name=name,category=1)
+        new_user.save()
+            # Redirect to the document list after POST
+        #return HttpResponseRedirect(reverse('myapp.views.list'))
+    form = DocumentForm() # A empty, unbound form
+    # Load documents for the list page
+    #documents = Document.objects.all()
+    # Render list page with the documents and the form
     return render_to_response(
         'login/createdoctor.html',
-        {'form': form},context_instance=RequestContext(request)
-    )
+        {'form': form},
+        context_instance=RequestContext(request)
+    )   
 
+
+    
 
 
 
