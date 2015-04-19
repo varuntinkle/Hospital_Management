@@ -11,7 +11,7 @@ class CRequest(models.Model):
 	problem= models.CharField(max_length = 140)
 	request_date = models.DateTimeField()
 	appoint_date = models.DateTimeField()
-	appoint_no = models.IntegerField(unique = True)
+	appoint_no = models.IntegerField()
 	doctor = models.ForeignKey('Doctor')
 	done = models.BooleanField(default = False)
 	outsider = models.BooleanField(default= False)

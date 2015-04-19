@@ -41,7 +41,7 @@ function notEmpty(elem, helperMsg){
                                         </div>
                                         <div class="form-group">
                                             <label>Availability of Ambulance</label>
-                                            <select name="DayTime" size="1">
+                                            <select class="form-control" name="DayTime" size="1">
                                             {% for val in object_amb %}
                                             {% if val.Count < 6 and val.Availability != 0 %}
                                             <option value="{{ val.Day }},{{ val.Time }}">{{ val.Day }}, {{ val.Time }}</option>
@@ -59,8 +59,8 @@ function notEmpty(elem, helperMsg){
                                         <button
                                         type="submit" class="btn btn-default" 
                                         >
-                                            Submit Button</button>
-                                        <button type="reset" class="btn btn-default">Reset Button</button>
+                                            Submit</button>
+                                        <button type="reset" class="btn btn-default">Reset</button>
                                     </form>
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->

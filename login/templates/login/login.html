@@ -1,16 +1,327 @@
-<div class="login">
-      <h1>Login to Web App</h1>
-      <form method="post" action="login/authenticate">
-        {% csrf_token %}
-        <p><input type="text" name="username" value="" placeholder="Username or Email"></p>
-        <p><input type="password" name="password" value="" placeholder="Password"></p>
-        <p class="remember_me">
-          <label>
-            <input type="checkbox" name="remember_me" id="remember_me">
-            Remember me on this computer
-          </label>
-        </p>
-        <p class="submit"><input type="submit" name="commit" value="Login"></p>
-      </form>
-</div>
-<a href="noticeboard" target="_blank">NOTICE BOARD</a>
+{%load staticfiles%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>IIT Guwahati</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/static/css/grayscale.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">
+                    <i class="fa fa-play-circle"></i>  <span class="light">Home</span> 
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#about">Login</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#download">Info</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Intro Header -->
+    <header class="intro">
+        <div class="intro-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <h3 class="brand-heading">IITG HOSPITAL</h3>
+                        <a href="#about" class="btn btn-circle page-scroll">
+                            <i class="fa fa-angle-double-down animated"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <style type="text/css">
+body {
+background-color:#000;
+color: #5a5656;
+font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+font-size: 16px;
+line-height: 1.5em;
+}
+a { text-decoration: none; }
+h1 { font-size: 1em; }
+h1, p {
+margin-bottom: 10px;
+}
+strong {
+font-weight: bold;
+}
+.uppercase { text-transform: uppercase; }
+
+/* ---------- LOGIN ---------- */
+#login {
+margin: 10px auto;
+width: 300px;
+}
+form fieldset input[type="text"], input[type="password"] {
+background-color: #e5e5e5;
+border: none;
+border-radius: 3px;
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+color: #5a5656;
+font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+font-size: 14px;
+height: 50px;
+outline: none;
+padding: 0px 10px;
+width: 280px;
+-webkit-appearance:none;
+}
+form fieldset input[type="submit"] {
+background-color: #008dde;
+border: none;
+border-radius: 3px;
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+color: #f4f4f4;
+cursor: pointer;
+font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+height: 50px;
+text-transform: uppercase;
+width: 300px;
+-webkit-appearance:none;
+}
+form fieldset a {
+color: #5a5656;
+font-size: 10px;
+}
+form fieldset a:hover { text-decoration: underline; }
+
+
+</style>
+<div id="login">
+<h1><strong>Welcome.</strong> Please login.</h1>
+<form method="post" action="login/authenticate">
+<fieldset>
+  {% csrf_token %}
+<p><input type="text" name="username" required value="Username" placeholder="username"></p>
+<p><input type="password" name="password" required value="Password" placeholder="password"></p>
+<p><input type="submit" name = "commit" value="Login"></p>
+</fieldset>
+<p style="color:red">
+    {% if messages %}
+    {% for mes in messages %}
+    {{ mes }}
+    {% endfor %}
+    {% endif %}
+</p>
+</form>
+
+</div> <!-- end login -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="content-section text-center">
+        <div class="download-section">
+            <div class="container">
+                <div class="col-md-4">
+                    <a id="forms" style="cursor:pointer;" class="btn btn-primary btn-lg">Medical Forms</a>
+                </div>
+                <div class="col-md-4">
+                    <a id="geninfo"  style="cursor:pointer;" class="btn btn-primary btn-lg">General Info</a>
+                </div>
+                <div class="col-md-4">
+                    <a id="notice"  style="cursor:pointer;" class="btn btn-primary btn-lg" href="">Notice Board</a>
+                </div>
+            </div>
+            <br><br><br>
+            <div class="container">
+            <div class="col-lg-8 col-lg-offset-2" id="forms1"> 				
+   				
+
+
+   							<h4 class="brand-heading">Medical Forms</h4>
+                            <table class="table">
+                            <thead></thead>
+                                <tr>
+                                    <td>Reimbursement Form For OPD Treatment by Institute Doctor</td>
+                                    <td>FORM 1</td><td><a href="http://shilloi.iitg.ernet.in/~medical/Reimbursement%20Form%20For%20OPD%20Treatment%20by%20Institute%20Doctor.pdf">pdf</a></td>
+                                    <td><a href="http://shilloi.iitg.ernet.in/~medical/Medical%20Claim%20Form%20for%20Institute%20Doctors.docx">doc</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Reimbursement Form For OPD Treatment by Outside Doctor</td>
+                                    <td>FORM 2</td>
+                                    <td><a href="http://shilloi.iitg.ernet.in/~medical/Reimbursement%20Form%20For%20OPD%20Treatment%20by%20Outside%20Doctor.pdf">pdf</a></td>
+                                    <td><a href="http://shilloi.iitg.ernet.in/~medical/Reimbursement%20Form%20For%20OPD%20Treatment%20by%20Outside%20Doctor.doc">doc</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Reimbursement Form For Indoor Treatment</td>
+                                    <td>FORM 3</td><td><a href="http://shilloi.iitg.ernet.in/~medical/Reimbursement%20Form%20For%20Indoor%20(Hospitalised)%20Treatment.pdf">pdf</a></td>
+                                    <td><a href="http://shilloi.iitg.ernet.in/~medical/Reimbursement%20Form%20For%20Indoor%20(Hospitalised)%20Treatment.doc">doc</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Medical Leave Form</td>
+                                    <td>FORM 4</td>
+                                    <td><a href="http://shilloi.iitg.ernet.in/~medical/Medical%20Leave%20Form.pdf">pdf</a></td>
+                                    <td><a href="http://shilloi.iitg.ernet.in/~medical/Medical%20Leave%20Form.docx">doc</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Medical certificate of Fitness to Return to Duty</td>
+                                    <td>FORM 5</td>
+                                    <td><a href="http://shilloi.iitg.ernet.in/~medical/Medical%20certificate%20of%20Fitness%20to%20Return%20to%20Duty.pdf">pdf</a></td>
+                                    <td><a href="http://shilloi.iitg.ernet.in/~medical/Medical%20certificate%20of%20Fitness%20to%20Return%20to%20Duty.doc">doc</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Annexure-A</td>
+                                    <td>FORM 6</td>
+                                    <td><a href="http://shilloi.iitg.ernet.in/~medical/Annexure-A.pdf">pdf</a></td>
+                                    <td><a href="http://shilloi.iitg.ernet.in/~medical/Declaration_Employee.doc">doc</a></td>
+                                </tr>
+                            </table>
+   							
+                </div>
+                
+                <div class="col-lg-8 col-lg-offset-2" id="geninfo1"> 				
+   				
+
+
+   							<h3 class="brand-heading">General Info</h3>
+                            <table class="table">
+                            <thead></thead>
+                                <tr>
+                                    <td>OPD Timings</td>
+                                    <td><a href="http://shilloi.iitg.ernet.in/~medical/OPD%20timings.pdf">pdf</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Emergency Timings</td>
+                                    <td><a href="http://shilloi.iitg.ernet.in/~medical/emergency%20duty.jpg">pdf</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Medical Rules</td>
+                                    <td><a href="http://shilloi.iitg.ernet.in/~medical/Medical%20Rules.pdf">pdf</a></td>
+                                </tr>
+                                <tr>
+                                    <td>FAQ on Medical Insurance Scheme</td>
+                                    <td><a href="http://shilloi.iitg.ernet.in/~medical/FAQ_GMIS.pdf">pdf</a></td>
+                                </tr>
+                            </table>
+   							
+                </div>
+           
+            
+           
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>Address</h2>
+               <p>IIT Guwahati Hospital<br>IIT Guwahati<br>Guwahati<br>Assam<br>Assam, India<br>Pin Code: 781039</p>
+              
+               
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <div id="map"></div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container text-center">
+            <p>&copy; 2015 Medical Section, Indian Institute of Technology Guwahati</p>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="/static/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/static/js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="/static/js/jquery.easing.min.js"></script>
+
+    <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="/static/js/grayscale.js"></script>
+    
+    <script type="text/javascript">
+	$(document).ready(function()
+	{
+		$("#forms1").hide();
+		$("#geninfo1").hide();
+	});
+        
+    $('#forms').click(function () {
+        $("#forms1").show();
+        $("#geninfo1").hide();
+    });
+        
+    $('#geninfo').click(function () {
+        $("#forms1").hide();
+        $("#geninfo1").show();
+    });
+
+	</script>
+
+</body>
+
+</html>

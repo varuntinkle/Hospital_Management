@@ -337,19 +337,20 @@ def user_added(request):
 
 
 def doctor_added(request):
-    if request.method == 'POST':
-        username=request.POST['username']
-        password=request.POST['password']
+   if request.method == 'POST':
+        form = DocumentForm(request.POST, request.FILES)
+        #return HttpResponse("Hi")
+        name = request.POST['name']
         speciality=request.POST['speciality']
         qualification=request.POST['qualification']
-        password=django.contrib.auth.hashers.make_password(password, salt=None, hasher='default')
-        name=request.POST['name']
-        category=1
-        new_user = Registration(username=username,password=password,name=name,category=category)
-        new_user.save()
-        new_doc = Doctor(name=name,speciality=speciality,qualification=qualification,patients_visited="NA",schedule="NA")
-        new_doc.save()
-        return HttpResponseRedirect("/")
+        newdoc = Doctor(name=name,speciality=speciality,qualification=qualification,
+            image = request.FILES['docfile'])
+        newdoc.save()
+   form = DocumentForm()
+   return render_to_response(
+        'login/createdoctor.html',
+        {'form': form},context_instance=RequestContext(request)
+    )
 
 def admin_added(request):
     if request.method == 'POST':
@@ -505,4 +506,3 @@ def create_doctor(request):
 
 
 
-    

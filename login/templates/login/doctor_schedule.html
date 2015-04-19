@@ -23,19 +23,20 @@
                                         {% csrf_token %}
                                         <!--<p><input type="text" name="Day" value="" placeholder="Enter Day"></p>-->
 
-                                        <select name="doctor_name" size="1">
+                                        <select name="doctor_name" class="form-control" size="1">
                                             
                                             {% for doc in object_doctor %}
                                               
-                                              <option value={{doc.username}}>{{doc.name}}</option>
+                                              <option value="{{doc.username}}">{{doc.name}}</option>
 
                                                 {% endfor %}
 
                                        </select>
-
-                                       <textarea name="sch_details" rows="3" cols="50" placeholder="Enter the details of schedule of the selected doctor here"></textarea>
-
-                                       <p class="submit"><input type="submit" name="update" value="Update"></p>
+                                        <br><br>
+                                       <textarea name="sch_details" class="form-control" rows="3" cols="50" placeholder="Enter the details of schedule of the selected doctor here"></textarea>
+                                       <br><br>
+                                       <button class="btn btn-default" type="submit" name="update" value="Update">Update</button>
+                                
                                       </form>
                                      
                                 </div>
