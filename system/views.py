@@ -9,7 +9,7 @@ from collections import OrderedDict
 
 
 def graphindex(request):
-   request.session["fav_color"] = "blue"
+   #request.session["fav_color"] = "blue"
    context = RequestContext(request)
    return render_to_response('system/graphindex.html', context)
 
@@ -107,7 +107,7 @@ def graphdisease_timelimit(request):
 	return render(request,'system/graphdisease.html',{"data":c,"avg":avg,"total":total,"disease":diseasename, "data2":words_sorted_by_value,"data3":words})
 def choosefunctionmed(request):
 	try:
-		k = request.session["fav_color"]
+		#k = request.session["fav_color"]
 		startdate = request.POST['startdatemed_input']
 		enddate = request.POST['enddatemed_input']
 		#request.session["fav_color"] = "blue"
@@ -124,7 +124,7 @@ def choosefunctionmed(request):
 
 def choosefunction(request):
 	try:
-		k = request.session["fav_color"]
+		#k = request.session["fav_color"]
 		startdate = request.POST['startdate_followup_input']
 		enddate = request.POST['enddate_followup_input']
 		try:
@@ -156,7 +156,7 @@ def graphfollowup_timelimit(request):
 
 def graphfollowup(request):
 	try:
-		k=request.session["fav_color"]
+		#k=request.session["fav_color"]
 		d = prescription_analysis()
 		print (d)
 		words = prescription_analysis_word()
@@ -171,7 +171,7 @@ def graphfollowup(request):
 
 def choosefunction_followup(request):
 	try:
-		k = request.session["fav_color"]
+		#k = request.session["fav_color"]
 		startdate = request.POST['startdate_followup_input']
 		enddate = request.POST['enddate_followup_input']
 		try:

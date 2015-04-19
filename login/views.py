@@ -3,7 +3,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-from database.models import Reception, Registration, Patient, AmbulanceSchedule, AmbulanceBooking, Post, Doctor
+from database.models import Prescription, Reception, Registration, Patient, AmbulanceSchedule, AmbulanceBooking, Post, Doctor
 import django.contrib.auth.hashers
 from django.shortcuts import render
 import datetime
@@ -29,8 +29,9 @@ def index(request):
         elif(Category==2):
             object_pat = Patient.objects.filter(username = username)
             object_pat = object_pat[0]
+            object_pres = Prescription.objects.filter(reg_no = object_pat)
             object_notice = Post.objects.all().order_by('-date')[:5]
-            context_dict = {'object_reg': Object_Searched,'object_pat': object_pat, 'object_notice':object_notice}
+            context_dict = {'object_pres':object_pres,'object_reg': Object_Searched,'object_pat': object_pat, 'object_notice':object_notice}
             return render(request,'login/patient_homepage.html', context_dict)
         elif(Category==3):
             Access_Schedule = AmbulanceSchedule.objects.all()
@@ -52,16 +53,18 @@ def authenticate (request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
+        #password = django.contrib.auth.hashers.make_password(password, salt=None, hasher='default')
         Object_Searched = Registration.objects.filter(username = username)
         if Object_Searched:
             Object_Searched = Object_Searched[0]
-            if  password == Object_Searched.password:
+            if  django.contrib.auth.hashers.check_password(password, Object_Searched.password) or password==Object_Searched.password:
                 #django.contrib.auth.hashers.check_password(password, Object_Searched.password):
                 Category=Object_Searched.category
                 message=Object_Searched.id
                 request.session["index"]=Object_Searched.username
                 return HttpResponseRedirect("/")
             else:
+
                 message = "Wrong Password"
                 return HttpResponse(message)  
         else:
@@ -95,6 +98,44 @@ def book_amb(request):
             return render(request,'login/ambulance.html', context_dict)
         else:
             return render_to_response('login/permission_error.html')
+
+def edit_profile(request):
+    context = RequestContext(request)
+    if 'index' not  in request.session:
+        return HttpResponseRedirect("/")
+    else:    
+        Object_Searched = Registration.objects.filter(username = request.session["index"])
+        Object_Searched = Object_Searched[0]
+        if Object_Searched.category==2:
+            object_pat = Patient.objects.filter(username = request.session["index"])
+            object_pat = object_pat[0]
+            return render(request,'login/patient_profile.html', {'object_pat':object_pat})
+        else:
+            return render_to_response('login/permission_error.html')
+
+def load_faq(request):
+    context = RequestContext(request)
+    if 'index' not  in request.session:
+        return HttpResponseRedirect("/")
+    else:    
+        Object_Searched = Registration.objects.filter(username = request.session["index"])
+        Object_Searched = Object_Searched[0]
+        if Object_Searched.category==2:
+            return render(request,'login/faq.html', {})
+        else:
+            return render_to_response('login/permission_error.html')
+
+def med_forms(request):
+    context = RequestContext(request)
+    if 'index' not  in request.session:
+        return HttpResponseRedirect("/")
+    else:    
+        Object_Searched = Registration.objects.filter(username = request.session["index"])
+        Object_Searched = Object_Searched[0]
+        if Object_Searched.category==2:
+            return render(request,'login/med_forms.html', {})
+        else:
+            return render_to_response('login/permission_error.html')
                
 def set_amb_sch(request):
     if request.method=="POST":
@@ -122,6 +163,25 @@ def set_amb_sch(request):
             search.Count=search.Count+1
             search.save()
     return HttpResponseRedirect("/")
+
+
+def pat_prof_sub(request):
+    if request.method=="POST":
+        name=request.POST['name']
+        age=request.POST['age']
+        height=request.POST['height']
+        weight=request.POST['weight']
+        new_patient=Patient.objects.filter(username = request.session["index"])
+        new_patient=new_patient[0]
+        new_patient.name=name
+        new_patient.age=age
+        new_patient.height=height
+        new_patient.weight=weight
+        new_patient.save()
+        Object_Searched = Registration.objects.filter(username = request.session["index"])
+        Object_Searched = Object_Searched[0]
+        Object_Searched.name=name
+    return HttpResponseRedirect("/")        
     
 def call_recep_schedule(request):
     context = RequestContext(request)
@@ -184,7 +244,7 @@ def new_notice(request):
         else:
             return render_to_response('login/permission_error.html')
     
-def call_adduser(request):
+'''def call_adduser(request):
     context = RequestContext(request)
     if 'index' not  in request.session:
         return HttpResponseRedirect("/")
@@ -194,6 +254,49 @@ def call_adduser(request):
         if Object_Searched.category==4:
             context_dict = {}
             return render(request,'login/admin_adduser.html', context_dict)
+        else:
+            return render_to_response('login/permission_error.html')
+
+'''
+
+def call_adddoctor(request):
+    context = RequestContext(request)
+    if 'index' not  in request.session:
+        return HttpResponseRedirect("/")
+    else:    
+        Object_Searched = Registration.objects.filter(username = request.session["index"])
+        Object_Searched = Object_Searched[0]
+        if Object_Searched.category==4:
+            context_dict = {}
+            return render(request,'login/admin_adddoctor.html', context_dict)
+        else:
+            return render_to_response('login/permission_error.html')   
+
+
+def call_addreception(request):
+    context = RequestContext(request)
+    if 'index' not  in request.session:
+        return HttpResponseRedirect("/")
+    else:    
+        Object_Searched = Registration.objects.filter(username = request.session["index"])
+        Object_Searched = Object_Searched[0]
+        if Object_Searched.category==4:
+            context_dict = {}
+            return render(request,'login/admin_addreception.html', context_dict)
+        else:
+            return render_to_response('login/permission_error.html')   
+
+
+def call_addadmin(request):
+    context = RequestContext(request)
+    if 'index' not  in request.session:
+        return HttpResponseRedirect("/")
+    else:    
+        Object_Searched = Registration.objects.filter(username = request.session["index"])
+        Object_Searched = Object_Searched[0]
+        if Object_Searched.category==4:
+            context_dict = {}
+            return render(request,'login/admin_addadmin.html', context_dict)
         else:
             return render_to_response('login/permission_error.html')   
 
@@ -207,10 +310,12 @@ def notice_submit(request):
         new_notice.save()
         return HttpResponseRedirect("/")
     #return HttpResponseRedirect("/")
+
 def user_added(request):
     if request.method == 'POST':
         username=request.POST['username']
         password=request.POST['password']
+        password=django.contrib.auth.hashers.make_password(password, salt=None, hasher='default')
         name=request.POST['name']
         category=request.POST['category']
         new_user = Registration(username=username,password=password,name=name,category=category)
@@ -226,6 +331,47 @@ def user_added(request):
             new_recep.save()
         return HttpResponseRedirect("/")
 
+
+def doctor_added(request):
+    if request.method == 'POST':
+        username=request.POST['username']
+        password=request.POST['password']
+        speciality=request.POST['speciality']
+        qualification=request.POST['qualification']
+        password=django.contrib.auth.hashers.make_password(password, salt=None, hasher='default')
+        name=request.POST['name']
+        category=1
+        new_user = Registration(username=username,password=password,name=name,category=category)
+        new_user.save()
+        new_doc = Doctor(name=name,speciality=speciality,qualification=qualification,patients_visited="NA",schedule="NA")
+        new_doc.save()
+        return HttpResponseRedirect("/")
+
+def admin_added(request):
+    if request.method == 'POST':
+        username=request.POST['username']
+        password=request.POST['password']
+        password=django.contrib.auth.hashers.make_password(password, salt=None, hasher='default')
+        name=request.POST['name']
+        category=4
+        new_user = Registration(username=username,password=password,name=name,category=category)
+        new_user.save()
+        return HttpResponseRedirect("/")
+
+
+def reception_added(request):
+    if request.method == 'POST':
+        username=request.POST['username']
+        password=request.POST['password']
+        password=django.contrib.auth.hashers.make_password(password, salt=None, hasher='default')
+        name=request.POST['name']
+        category=3
+        new_user = Registration(username=username,password=password,name=name,category=category)
+        new_user.save()
+        return HttpResponseRedirect("/")
+
+
+
 def call_stats(request):
     context = RequestContext(request)
     if 'index' not  in request.session:
@@ -240,6 +386,7 @@ def call_stats(request):
 
 
 def admin_viewdoctor(request):
+
     Objects = Doctor.objects.all()
     c1=0
     context_dict={}
@@ -305,3 +452,30 @@ def end_addpatient(request):
         new_patient = Patient(username=username,reg_no="reg",name=name,age=0,height="",weight=0,patient_history="NA",patient_test="NA")
         new_patient.save()
         return HttpResponseRedirect("/")
+
+#    Objects = Doctor.objects.all()
+#    c1=0
+#    context_dict={}
+#    list1=[]
+#    for x in Objects:
+#        list1.append(x.name)
+#   list1.append(x.speciality)
+#   list1.append(x.qualification)
+#   list1.append(x.schedule)
+#    context_dict['links']=list1
+    return render_to_response('login/admin_viewdoctors.html', {'obj': Doctor.objects.all()})
+
+
+def admin_viewpatient(request):
+#    Objects = Doctor.objects.all()
+#    c1=0
+#    context_dict={}
+#    list1=[]
+#    for x in Objects:
+#        list1.append(x.name)
+#   list1.append(x.speciality)
+#   list1.append(x.qualification)
+#   list1.append(x.schedule)
+#    context_dict['links']=list1
+    return render_to_response('login/admin_viewpatients.html', {'objs': Patient.objects.all()})
+
