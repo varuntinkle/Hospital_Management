@@ -77,7 +77,10 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a class="active" href="/"><i class="fa fa-dashboard fa-fw"></i> Profile</a>
+                            <a class="active" href="/"><i class="fa fa-dashboard fa-fw"></i> Home</a>
+                        </li>
+                         <li>
+                            <a href="/login/edit_profile"><i class="fa fa-edit fa-fw"></i>Edit Profile</a>
                         </li>
                         <li>
                             <a href="/login/appointment"><i class="fa fa-table fa-fw"></i>Appointment form</a>
@@ -87,10 +90,10 @@
                         </li>
                 
                         <li>
-                            <a href="/static/guidelines.html"><i class="fa fa-edit fa-fw"></i>First Aid Guidelines</a>
+                            <a href="/login/faq" target="_blank"><i class="fa fa-edit fa-fw"></i>FAQ</a>
                         </li>
                          <li>
-                            <a href="/static/resources.html"><i class="fa fa-edit fa-fw"></i>Resources</a>
+                            <a href="/login/med_forms" target="_blank"><i class="fa fa-edit fa-fw"></i>Medical Forms</a>
                         </li>
                        
                     </ul>
@@ -119,17 +122,14 @@
                         <div class="col-lg-8">
                         <div class="panel-body">
                             <ul>
-                                <li> Name:  {{ object_reg.name }}</li>
-                                <li> Address:</li>
-                                <li> Phone No:</li>
+                                <li> Name:  {{ object_pat.name }}</li>
+                                <li> Age: {{ object_pat.age }}</li>
+                                <li> Height: {{ object_pat.height }}</li>
+                                <li> Weight: {{ object_pat.weight }}</li>
                             </ul>
                         </div>
                         </div>
                         <div class="col-lg-4">
-                   
-                             <div class="panel-body">
-                                    <p>Photo comes here.</p>
-                                </div>
                
                           </div>
                         </div>
@@ -145,17 +145,38 @@
                         </div>
                     
                     <div class="panel-body">
-                            <p>{{ object_pat.patient_history }}
-                    </div>
-                    </div>
+                        <style>
+                                        table, th, td {
+                                            border: 1px solid black;
+                                            border-collapse: collapse;
+                                        }
+                                        th, td {
+                                            padding: 5px;
+                                        }
+                                        </style>                                       
 
-                    <div class="panel panel-default">
-                        <div class = "panel-heading">
-                            Medical Test
-                        </div>
-                    
-                    <div class="panel-body">
-                            {{ object_pat.patient_test }}
+                                        <body>
+
+                                        <table style="width:100%">
+                                              <tr>
+                                                <th>DOCTOR</th>
+                                                <th>DiSEASE</th>       
+                                                <th>MEDICINE</th>
+                                                <th>SYMPTOMS</th>
+                                                <th>PRESCRIPTION TIME</th>
+                                              </tr>
+                                            
+                                              {% for obj in object_pres %}
+                                              <tr>
+                                                    <td>{{ obj.doctor }}</td>
+                                                    <td>{{ obj.disease }}</td>
+                                                    <td>{{ obj.medicine }}</td>  
+                                                    <td>{{ obj.symptoms }}</td>
+                                                    <td>{{ obj.prescription_time }}</td>
+                                               </tr>
+                                                {% endfor %}
+                                        
+                                        </table>
                     </div>
                     </div>
                 </div>

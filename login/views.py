@@ -3,7 +3,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-from database.models import Reception, Registration, Patient, AmbulanceSchedule, AmbulanceBooking, Post, Doctor
+from database.models import Prescription, Reception, Registration, Patient, AmbulanceSchedule, AmbulanceBooking, Post, Doctor
 import django.contrib.auth.hashers
 from django.shortcuts import render
 import datetime
@@ -29,8 +29,9 @@ def index(request):
         elif(Category==2):
             object_pat = Patient.objects.filter(username = username)
             object_pat = object_pat[0]
+            object_pres = Prescription.objects.filter(reg_no = object_pat)
             object_notice = Post.objects.all().order_by('-date')[:5]
-            context_dict = {'object_reg': Object_Searched,'object_pat': object_pat, 'object_notice':object_notice}
+            context_dict = {'object_pres':object_pres,'object_reg': Object_Searched,'object_pat': object_pat, 'object_notice':object_notice}
             return render(request,'login/patient_homepage.html', context_dict)
         elif(Category==3):
             Access_Schedule = AmbulanceSchedule.objects.all()
@@ -95,6 +96,44 @@ def book_amb(request):
             return render(request,'login/ambulance.html', context_dict)
         else:
             return render_to_response('login/permission_error.html')
+
+def edit_profile(request):
+    context = RequestContext(request)
+    if 'index' not  in request.session:
+        return HttpResponseRedirect("/")
+    else:    
+        Object_Searched = Registration.objects.filter(username = request.session["index"])
+        Object_Searched = Object_Searched[0]
+        if Object_Searched.category==2:
+            object_pat = Patient.objects.filter(username = request.session["index"])
+            object_pat = object_pat[0]
+            return render(request,'login/patient_profile.html', {'object_pat':object_pat})
+        else:
+            return render_to_response('login/permission_error.html')
+
+def load_faq(request):
+    context = RequestContext(request)
+    if 'index' not  in request.session:
+        return HttpResponseRedirect("/")
+    else:    
+        Object_Searched = Registration.objects.filter(username = request.session["index"])
+        Object_Searched = Object_Searched[0]
+        if Object_Searched.category==2:
+            return render(request,'login/faq.html', {})
+        else:
+            return render_to_response('login/permission_error.html')
+
+def med_forms(request):
+    context = RequestContext(request)
+    if 'index' not  in request.session:
+        return HttpResponseRedirect("/")
+    else:    
+        Object_Searched = Registration.objects.filter(username = request.session["index"])
+        Object_Searched = Object_Searched[0]
+        if Object_Searched.category==2:
+            return render(request,'login/med_forms.html', {})
+        else:
+            return render_to_response('login/permission_error.html')
                
 def set_amb_sch(request):
     if request.method=="POST":
@@ -122,6 +161,25 @@ def set_amb_sch(request):
             search.Count=search.Count+1
             search.save()
     return HttpResponseRedirect("/")
+
+
+def pat_prof_sub(request):
+    if request.method=="POST":
+        name=request.POST['name']
+        age=request.POST['age']
+        height=request.POST['height']
+        weight=request.POST['weight']
+        new_patient=Patient.objects.filter(username = request.session["index"])
+        new_patient=new_patient[0]
+        new_patient.name=name
+        new_patient.age=age
+        new_patient.height=height
+        new_patient.weight=weight
+        new_patient.save()
+        Object_Searched = Registration.objects.filter(username = request.session["index"])
+        Object_Searched = Object_Searched[0]
+        Object_Searched.name=name
+    return HttpResponseRedirect("/")        
     
 def call_recep_schedule(request):
     context = RequestContext(request)
