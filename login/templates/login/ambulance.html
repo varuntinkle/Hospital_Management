@@ -2,6 +2,17 @@
 
 {% block page-wrapper %}
 
+<script type='text/javascript'>
+function notEmpty(elem, helperMsg){
+    if(elem.value.length == 0){
+        alert(helperMsg);
+        elem.focus();
+        return false;
+    }
+    return true;
+}
+</script>
+
 <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
@@ -21,12 +32,12 @@
                                     {% csrf_token %}
                                         <div class="form-group">
                                             <label>From</label>
-                                            <input class="form-control" name="source">
+                                            <input class="form-control" name="source" id="rq1" required>
                                             <p class="help-block">Enter the place from where u have to be picked</p>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group" >
                                                 <label for="disabledSelect">To</label>
-                                                <input class="form-control" name="destination">
+                                                <input class="form-control" name="destination" required>
                                         </div>
                                         <div class="form-group">
                                             <label>Availability of Ambulance</label>
@@ -39,13 +50,16 @@
                                             </select>
                                         </div>
                                         
-                                        <div class="form-group">
+                                        <div class="form-group" required>
                                             <label>State your problem</label>
-                                            <textarea class="form-control" rows="3" name="purpose"></textarea>
+                                            <textarea class="form-control" rows="3" name="purpose"required></textarea>
                                         </div>
                                         
                                         
-                                        <button type="submit" class="btn btn-default">Submit Button</button>
+                                        <button
+                                        type="submit" class="btn btn-default" 
+                                        >
+                                            Submit Button</button>
                                         <button type="reset" class="btn btn-default">Reset Button</button>
                                     </form>
                                 </div>
