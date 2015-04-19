@@ -30,7 +30,8 @@ def index(request):
             object_doc = Doctor.objects.get(username = username)
             object_notice = Post.objects.all().order_by('-date')[:5]
             context_dict = {'object_doc':object_doc,'object_reg': Object_Searched, 'object_notice':object_notice}
-            return render(request,'login/doctor_homepage.html', context_dict)
+            return render_to_response('login/doctor_homepage.html', 
+                context_dict,context_instance=RequestContext(request) )
         elif(Category==2):
             object_pat = Patient.objects.filter(username = username)
             object_pat = object_pat[0]
@@ -38,7 +39,7 @@ def index(request):
             object_notice = Post.objects.all().order_by('-date')[:5]
             context_dict = {'object_pres':object_pres,'object_reg': Object_Searched,'object_pat': object_pat, 'object_notice':object_notice}
             return render_to_response('login/patient_homepage.html', 
-                context_dict,context_instance=RequestContext(request, context) )
+                context_dict,context_instance=RequestContext(request) )
         elif(Category==3):
             Access_Schedule = AmbulanceSchedule.objects.all()
             object_notice = Post.objects.all().order_by('-date')[:5]
