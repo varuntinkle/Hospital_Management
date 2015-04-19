@@ -37,7 +37,8 @@ def index(request):
             object_pres = Prescription.objects.filter(reg_no = object_pat)
             object_notice = Post.objects.all().order_by('-date')[:5]
             context_dict = {'object_pres':object_pres,'object_reg': Object_Searched,'object_pat': object_pat, 'object_notice':object_notice}
-            return render(request,'login/patient_homepage.html', context_dict)
+            return render_to_response('login/patient_homepage.html', 
+                context_dict,context_instance=RequestContext(request, context) )
         elif(Category==3):
             Access_Schedule = AmbulanceSchedule.objects.all()
             object_notice = Post.objects.all().order_by('-date')[:5]
