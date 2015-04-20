@@ -5,7 +5,7 @@
  */
 
 body {
-    background-color: #f8f8f8;
+    background-color: #F0F8FF;
 }
 
 #wrapper {
@@ -15,7 +15,7 @@ body {
 #page-wrapper {
     padding: 0 15px;
     min-height: 568px;
-    background-color: #fff;
+    background-color: #F0F8FF;
 }
 
 @media(min-width:768px) {
@@ -99,7 +99,7 @@ body {
 }
 
 .sidebar ul li a.active {
-    background-color: #eee;
+    background-color:#F0F8FF;
 }
 
 .sidebar .arrow {
