@@ -17,6 +17,7 @@ urlpatterns = [
 	url(r'^login/pat_prof_sub$',views.pat_prof_sub),
 	url(r'^noticeboard/',include('blog.urls')),
 	url(r'^login/new_notice$',views.new_notice),
+	url(r'^login/fix_appoint$',views.fix_appoint),
 	#url(r'^login/adduser$',views.call_adduser),
 	url(r'^login/add_patient$',views.call_addpatient),
 	url(r'^login/patient_added$',views.end_addpatient),

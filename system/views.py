@@ -6,10 +6,11 @@ from django.http import HttpResponse
 from system.analysis import disease, medicine,medicine_timelimit,medicineword_timelimit, diseaseword,medicineword, disease_timelimit,diseaseword_timelimit, prescription_analysis, prescription_analysis_word ,prescription_analysis_timelimit, prescription_analysis_word_timelimit
 import operator, datetime
 from collections import OrderedDict
+#import numpy
 
 
 def graphindex(request):
-   #request.session["fav_color"] = "blue"
+   request.session["fav_color"] = "blue"
    context = RequestContext(request)
    return render_to_response('system/graphindex.html', context)
 
@@ -19,13 +20,15 @@ def graphdisease(request ):
 	#	return render(request, 'unsuccessfulHack.html', {"error_msg": "Please specify a course"})
 	diseasename = request.POST['diseaseinput']
 	a=disease(diseasename)
+	#standard_deviation = stdev(a)
+	#print (standard_deviation)
 	total =0
 	for i in a:
 		total = total + i
 	avg = total/12
 	#str1 = "fever"
 	words = diseaseword()
-	words_sorted_by_value = dict(sorted(words.iteritems(), key=operator.itemgetter(1), reverse=True)[:5])
+	words_sorted_by_value = dict(sorted(words.items(), key=operator.itemgetter(1), reverse=True)[:5])
 	#words_sorted_by_value = OrderedDict(sorted(words.items(), key=lambda x: x[1], reverse=True))
 	#b=dataAnalytics.getOverall(courseName)
 	#print a, "b", b
@@ -41,13 +44,14 @@ def graphmedicine(request ):
 	#	return render(request, 'unsuccessfulHack.html', {"error_msg": "Please specify a course"})
 	medicinename = request.POST['medicineinput']
 	a=medicine(medicinename)
+	#standard_deviation = stdev(a)
 	total =0
 	for i in a:
 		total = total + i
 	avg = total/12
 	
 	words = medicineword()
-	words_sorted_by_value = dict(sorted(words.iteritems(), key=operator.itemgetter(1), reverse=True)[:5])
+	words_sorted_by_value = dict(sorted(words.items(), key=operator.itemgetter(1), reverse=True)[:5])
 	
 	#b=dataAnalytics.getOverall(courseName)
 	#print a, "b", b
@@ -68,7 +72,7 @@ def graphmedicine_timelimit(request):
 	avg = total/12
 	
 	words = medicineword_timelimit(startdate, enddate)
-	words_sorted_by_value = dict(sorted(words.iteritems(), key=operator.itemgetter(1), reverse=True)[:5])
+	words_sorted_by_value = dict(sorted(words.items(), key=operator.itemgetter(1), reverse=True)[:5])
 	
    # varName=request.GET.get('diseasename', '')
 	#if varName == '':
@@ -95,19 +99,20 @@ def graphdisease_timelimit(request):
 	diseasename = request.POST['diseaseinput']
 	c=disease_timelimit(diseasename,startdate,enddate)
 	total =0
+	standard_deviation = stdev(c) 
 	for i in c:
 		total = total + i
 	avg = total/12
 	
 	words = diseaseword_timelimit(startdate, enddate)
-	words_sorted_by_value = dict(sorted(words.iteritems(), key=operator.itemgetter(1), reverse=True)[:5])
+	words_sorted_by_value = dict(sorted(words.items(), key=operator.itemgetter(1), reverse=True)[:5])
 	
 
 	print (c)
 	return render(request,'system/graphdisease.html',{"data":c,"avg":avg,"total":total,"disease":diseasename, "data2":words_sorted_by_value,"data3":words})
 def choosefunctionmed(request):
 	try:
-		#k = request.session["fav_color"]
+		k = request.session["fav_color"]
 		startdate = request.POST['startdatemed_input']
 		enddate = request.POST['enddatemed_input']
 		#request.session["fav_color"] = "blue"
@@ -124,9 +129,10 @@ def choosefunctionmed(request):
 
 def choosefunction(request):
 	try:
-		#k = request.session["fav_color"]
-		startdate = request.POST['startdate_followup_input']
-		enddate = request.POST['enddate_followup_input']
+		k = request.session["fav_color"]
+		startdate = request.POST['startdate_input']
+		enddate = request.POST['enddate_input']
+		diseasename = request.POST['diseaseinput']
 		try:
 			datetime.datetime.strptime(startdate, '%Y-%m-%d')
 			datetime.datetime.strptime(enddate, '%Y-%m-%d')
@@ -156,12 +162,12 @@ def graphfollowup_timelimit(request):
 
 def graphfollowup(request):
 	try:
-		#k=request.session["fav_color"]
+		k=request.session["fav_color"]
 		d = prescription_analysis()
 		print (d)
 		words = prescription_analysis_word()
 		words_sorted_by_value = dict(sorted(words.items(), key=operator.itemgetter(1), reverse=True)[:5])
-		return render(request, 'graphfollowup.html', {"data": d,"data2": words_sorted_by_value,"data3":words})
+		return render(request, 'system/graphfollowup.html', {"data": d,"data2": words_sorted_by_value,"data3":words})
 		#return render(request, 'graphfollowup.html',{"data":d})
 	except KeyError:
 		return render(request, 'system/visit_graphindex.html')
@@ -171,7 +177,7 @@ def graphfollowup(request):
 
 def choosefunction_followup(request):
 	try:
-		#k = request.session["fav_color"]
+		k = request.session["fav_color"]
 		startdate = request.POST['startdate_followup_input']
 		enddate = request.POST['enddate_followup_input']
 		try:
