@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from system.analysis import disease, medicine,medicine_timelimit,medicineword_timelimit, diseaseword,medicineword, disease_timelimit,diseaseword_timelimit, prescription_analysis, prescription_analysis_word ,prescription_analysis_timelimit, prescription_analysis_word_timelimit
 import operator, datetime
 from collections import OrderedDict
-#import numpy
+#import statistics
 
 
 def graphindex(request):
@@ -20,13 +20,19 @@ def graphdisease(request ):
 	#	return render(request, 'unsuccessfulHack.html', {"error_msg": "Please specify a course"})
 	diseasename = request.POST['diseaseinput']
 	a=disease(diseasename)
-	#standard_deviation = stdev(a)
+	#standard_deviation = statistics.stdev(a)
 	#print (standard_deviation)
 	total =0
 	for i in a:
 		total = total + i
 	avg = total/12
 	#str1 = "fever"
+	sq_total = 0
+	for i in a:
+		sq_total = (i - avg)**2 + sq_total
+
+	standard_deviation = (sq_total / len(a)) ** 0.5
+
 	words = diseaseword()
 	words_sorted_by_value = dict(sorted(words.items(), key=operator.itemgetter(1), reverse=True)[:5])
 	#words_sorted_by_value = OrderedDict(sorted(words.items(), key=lambda x: x[1], reverse=True))
@@ -35,7 +41,7 @@ def graphdisease(request ):
 	#print "hello"
 	#print a
 	#assert(False)
-	return render(request, 'system/graphdisease.html', {"data": a,"avg":avg,"total":total,"data2": words_sorted_by_value,"data3":words,"disease": diseasename})
+	return render(request, 'system/graphdisease.html', {"data": a,"avg":round(avg,3),"total":total,"std_dev" : round(standard_deviation,3),"data2": words_sorted_by_value,"data3":words,"disease": diseasename})
 
 
 def graphmedicine(request ):
@@ -44,12 +50,16 @@ def graphmedicine(request ):
 	#	return render(request, 'unsuccessfulHack.html', {"error_msg": "Please specify a course"})
 	medicinename = request.POST['medicineinput']
 	a=medicine(medicinename)
-	#standard_deviation = stdev(a)
+	#standard_deviation = statistics.stdev(a)
 	total =0
 	for i in a:
 		total = total + i
 	avg = total/12
-	
+	sq_total = 0 
+	for i in a:
+		sq_total = (i - avg)**2 + sq_total
+
+	standard_deviation = (sq_total / len(a)) ** 0.5
 	words = medicineword()
 	words_sorted_by_value = dict(sorted(words.items(), key=operator.itemgetter(1), reverse=True)[:5])
 	
@@ -58,7 +68,7 @@ def graphmedicine(request ):
 	#print "hello"
 	print (a)
 	#assert(False)
-	return render(request, 'system/graphmedicine.html', {"data": a,"avg":avg,"total":total,"data2": words_sorted_by_value,"data3": words,"medicine": medicinename})
+	return render(request, 'system/graphmedicine.html', {"data": a,"avg":round(avg,3),"total":total,"std_dev": round(standard_deviation,3), "data2": words_sorted_by_value,"data3": words,"medicine": medicinename})
 
 def graphmedicine_timelimit(request):
 
@@ -71,6 +81,13 @@ def graphmedicine_timelimit(request):
 		total = total + i
 	avg = total/12
 	
+	sq_total = 0
+
+	for i in a:
+		sq_total = (i - avg)**2 + sq_total
+
+	standard_deviation = (sq_total / len(a)) ** 0.5
+
 	words = medicineword_timelimit(startdate, enddate)
 	words_sorted_by_value = dict(sorted(words.items(), key=operator.itemgetter(1), reverse=True)[:5])
 	
@@ -85,7 +102,7 @@ def graphmedicine_timelimit(request):
 	#print "hello"
 	
 	#assert(False)
-	return render(request, 'system/graphmedicine.html', {"data": c,"avg":avg,"total":total,"medicine": medicinename,"data2":words_sorted_by_value,"data3":words})
+	return render(request, 'system/graphmedicine.html', {"data": c,"avg":round(avg,3),"total":total,"std_dev" : round(standard_deviation,3),"medicine": medicinename,"data2":words_sorted_by_value,"data3":words})
 
 def diseasewordcloud(request):
 
@@ -104,12 +121,19 @@ def graphdisease_timelimit(request):
 		total = total + i
 	avg = total/12
 	
+	sq_total = 0
+	
+	for i in a:
+		sq_total = (i - avg)**2 + sq_total
+
+	standard_deviation = (sq_total / len(a)) ** 0.5
+
 	words = diseaseword_timelimit(startdate, enddate)
 	words_sorted_by_value = dict(sorted(words.items(), key=operator.itemgetter(1), reverse=True)[:5])
 	
 
 	print (c)
-	return render(request,'system/graphdisease.html',{"data":c,"avg":avg,"total":total,"disease":diseasename, "data2":words_sorted_by_value,"data3":words})
+	return render(request,'system/graphdisease.html',{"data":c,"avg":round(avg,3),"total":total,"disease":diseasename,"std_dev" : round(standard_deviation,3), "data2":words_sorted_by_value,"data3":words})
 def choosefunctionmed(request):
 	try:
 		k = request.session["fav_color"]
