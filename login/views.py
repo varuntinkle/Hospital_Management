@@ -1,5 +1,5 @@
 #from django.shortcuts import render
-from django.template import RequestContext
+from django.template.context import RequestContext
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
@@ -31,13 +31,14 @@ def index(request):
             object_notice = Post.objects.all().order_by('-date')[:5]
             context_dict = {'object_doc':object_doc,'object_reg': Object_Searched, 'object_notice':object_notice}
             return render_to_response('login/doctor_homepage.html', 
-                context_dict,context_instance=RequestContext(request) )
+                context_instance=RequestContext(request,context_dict) )
         elif(Category==2):
             object_pat = Patient.objects.filter(username = username)
             object_pat = object_pat[0]
             object_pres = Prescription.objects.filter(reg_no = object_pat)
             object_notice = Post.objects.all().order_by('-date')[:5]
             context_dict = {'object_pres':object_pres,'object_reg': Object_Searched,'object_pat': object_pat, 'object_notice':object_notice}
+            return direct_to_template(request, 'Question/latest.html', context_dict)
             return render_to_response('login/patient_homepage.html', 
                 context_dict,context_instance=RequestContext(request) )
         elif(Category==3):

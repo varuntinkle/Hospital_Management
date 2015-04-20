@@ -103,8 +103,12 @@
                                 <li> Speciality: {{ object_doc.speciality }}</li>
                                 <li> Qualification: {{ object_doc.qualification }}</li>
                                 <li> Schedule: {{ object_doc.schedule }}</li>
+                                <!--<li> {{object_doc.image}} </li> -->
+ 
                             </ul>
-                            <li> {{ MEDIA_URL }} </li> 
+
+                        <img border="2" src="/media/{{object_doc.image.name}}" alt="venture picture here" />
+                            
                         </div>
                         </div>
                         <div class="col-lg-4">
