@@ -31,6 +31,10 @@ def index(request):
             object_pat = object_pat[0]
             object_pres = Prescription.objects.filter(reg_no = object_pat)
             object_notice = Post.objects.all().order_by('-date')[:5]
+            for pres in object_pres:
+                temp = pres.medicine.replace('u\'',' ').replace('[',' ').replace(']',' ').replace('\'',' ')
+                pres.medicine = temp
+                pres.save()
             context_dict = {'object_pres':object_pres,'object_reg': Object_Searched,'object_pat': object_pat, 'object_notice':object_notice}
             return render(request,'login/patient_homepage.html', context_dict)
         elif(Category==3):
