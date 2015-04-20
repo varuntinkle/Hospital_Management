@@ -75,7 +75,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <h1 class="brand-heading">IITG HOSPITAL</h1>
+                        <h3 class="brand-heading">IITG HOSPITAL</h3>
                         <a href="#about" class="btn btn-circle page-scroll">
                             <i class="fa fa-angle-double-down animated"></i>
                         </a>
@@ -154,11 +154,17 @@ form fieldset a:hover { text-decoration: underline; }
 <form method="post" action="login/authenticate">
 <fieldset>
   {% csrf_token %}
-<p><input type="text" name="username" required></p>
-<p><input type="password" name="password" required></p>
-<p><a href="#">Forgot Password?</a></p>
+<p><input type="text" name="username" required value="Username" placeholder="username"></p>
+<p><input type="password" name="password" required value="Password" placeholder="password"></p>
 <p><input type="submit" name = "commit" value="Login"></p>
 </fieldset>
+<p style="color:red">
+    {% if messages %}
+    {% for mes in messages %}
+    {{ mes }}
+    {% endfor %}
+    {% endif %}
+</p>
 </form>
 
 </div> <!-- end login -->
@@ -274,7 +280,7 @@ form fieldset a:hover { text-decoration: underline; }
     <!-- Footer -->
     <footer>
         <div class="container text-center">
-            <p>&copy; 2013 Medical Section, Indian Institute of Technology Guwahati</p>
+            <p>&copy; 2015 Medical Section, Indian Institute of Technology Guwahati</p>
         </div>
     </footer>
 

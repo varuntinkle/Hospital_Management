@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect
 from database.models import CRequest, Prescription, Reception, Registration, Patient, AmbulanceSchedule, AmbulanceBooking, Post, Doctor
 import django.contrib.auth.hashers
 from django.shortcuts import render
+from django.contrib import messages
 import datetime
 import time
 #from datetime import datetime
@@ -16,7 +17,7 @@ def index(request):
     # The context contains information such as the client's machine details, for example.
     context = RequestContext(request)
     if 'index' not  in request.session:
-            return render_to_response('login/login.html', context)
+            return render(request,'login/login.html', {})
     else:
         username =request.session["index"]
         Object_Searched = Registration.objects.filter(username = username)
@@ -32,6 +33,10 @@ def index(request):
             object_pat = object_pat[0]
             object_pres = Prescription.objects.filter(reg_no = object_pat)
             object_notice = Post.objects.all().order_by('-date')[:5]
+            for pres in object_pres:
+                temp = pres.medicine.replace('u\'',' ').replace('[',' ').replace(']',' ').replace('\'',' ')
+                pres.medicine = temp
+                pres.save()
             context_dict = {'object_pres':object_pres,'object_reg': Object_Searched,'object_pat': object_pat, 'object_notice':object_notice}
             return render(request,'login/patient_homepage.html', context_dict)
         elif(Category==3):
@@ -67,10 +72,12 @@ def authenticate (request):
             else:
 
                 message = "Wrong Password"
-                return HttpResponse(message)  
+                messages.error(request, message)
+                return HttpResponseRedirect("/#about")  
         else:
             message="Wrong Username"
-            return HttpResponse(message)
+            messages.error(request, message)
+            return HttpResponseRedirect("/#about")
 
 
 def call_appoint(request):
