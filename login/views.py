@@ -222,12 +222,13 @@ def end_recep_schedule(request):
                 new_schedule = AmbulanceSchedule(Day=day,Time=time,Availability=available,Count=0)
                 new_schedule.save()
             return HttpResponseRedirect("/")
+        
         elif 'reset' in request.POST:
             reset_day = request.POST['reset_day']
             AmbulanceSchedule.objects.filter(Day = reset_day).delete()
             AmbulanceBooking.objects.filter(Day = reset_day).delete()
             return HttpResponseRedirect("/")
-    #return HttpResponseRedirect("/")
+    return HttpResponseRedirect("/")
 
 def new_notice(request):
     context = RequestContext(request)
@@ -320,7 +321,7 @@ def user_added(request):
         new_user = Registration(username=username,password=password,name=name,category=category)
         new_user.save()
         if(category=='1'):
-            new_doc = Doctor(name=name,speciality="NA",qualification="NA",patients_visited="NA",schedule="NA")
+            new_doc = Doctor(username=username,name=name,speciality="NA",qualification="NA",patients_visited="NA",schedule="NA")
             new_doc.save()
         elif(category=='2'):
             new_patient = Patient(username=username,reg_no="X",name=name,age=0,height="",weight=0,patient_history="NA",patient_test="NA")
@@ -385,6 +386,73 @@ def call_stats(request):
 
 
 def admin_viewdoctor(request):
+
+    Objects = Doctor.objects.all()
+    c1=0
+    context_dict={}
+    for x in Objects:
+         x1=[]
+         x1.append(x.name)
+         x1.append(x.speciality)
+         x1.append(x.qualification)
+         x1.append(x.patients_visited)
+         x1.append(x.schedule)
+         context_dict[str(c1)]=x1
+         c1+=1
+    return render(request,'login/admin_viewdoctors.html',context_dict)
+
+def call_doctor_schedule(request):
+    context = RequestContext(request)
+    if 'index' not  in request.session:
+        return HttpResponseRedirect("/")
+    else:    
+        Object_Searched = Registration.objects.filter(username = request.session["index"])
+        Object_Searched = Object_Searched[0]
+        if Object_Searched.category==3:
+            Access_Doctor = Doctor.objects.all().order_by('-name').reverse()
+            context_dict = {'object_doctor': Access_Doctor}
+            return render(request,'login/doctor_schedule.html', context_dict)
+        else:
+            return render_to_response('login/permission_error.html')
+
+def end_doctor_schedule(request):
+    if request.method == 'POST':
+        username = request.POST['doctor_name']
+        sch = request.POST['sch_details']
+        doctor_search = Doctor.objects.filter(username = username)
+        if doctor_search:
+                doctor_search = doctor_search[0]
+                doctor_search.schedule = sch
+                doctor_search.save()
+
+    return HttpResponseRedirect("/")
+
+def call_addpatient(request):
+    context = RequestContext(request)
+    if 'index' not  in request.session:
+        return HttpResponseRedirect("/")
+    else:    
+        Object_Searched = Registration.objects.filter(username = request.session["index"])
+        Object_Searched = Object_Searched[0]
+        if Object_Searched.category==3:
+            context_dict = {}
+            return render(request,'login/recep_addpatient.html', context_dict)
+        else:
+            return render_to_response('login/permission_error.html') 
+
+def end_addpatient(request):
+    if request.method == 'POST':
+        username=request.POST['username']
+        password=request.POST['password']
+        name=request.POST['name']
+        category='2'
+        reg=request.POST['reg']
+        new_user = Registration(username=username,password=password,name=name,category=category)
+        new_user.save()
+        new_patient = Patient(username=username,reg_no="reg",name=name,age=0,height="",weight=0,patient_history="NA",patient_test="NA")
+        new_patient.save()
+        return HttpResponseRedirect("/")
+
 #    Objects = Doctor.objects.all()
 #    c1=0
 #    context_dict={}
@@ -410,3 +478,4 @@ def admin_viewpatient(request):
 #   list1.append(x.schedule)
 #    context_dict['links']=list1
     return render_to_response('login/admin_viewpatients.html', {'objs': Patient.objects.all()})
+
