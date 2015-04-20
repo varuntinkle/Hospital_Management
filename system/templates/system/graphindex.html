@@ -1,4 +1,4 @@
- {% extends "login/admin_homepage.html" %}
+{% extends "login/admin_homepage.html" %}
 
 {% block page-wrapper %}
 
@@ -19,17 +19,17 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                        <form action="/system/graphdisease" method="post">
+                        <form action="/system/graphdisease" method="post" target="_blank">
                             <div class="form-group">
                                             <label>Disease Name</label>
                             {% csrf_token %}
-                                            <input class="form-control" name ="diseaseinput" placeholder="Enter the disease name">
+                                            <input class="form-control" name ="diseaseinput" placeholder="Leave blank for complete data">
                                             <label>Start Date</label>
                                             <p><input id="Generate Graph" class="form-control" type="text" name="startdate_input" placeholder="YYYY-MM-DD" value=""></p>
                                             <label>End Date</label>
                                             <p><input id="Generate Graph" class="form-control" type="text" name="enddate_input" placeholder="YYYY-MM-DD" value=""></p>
                                             <button type="submit" class="btn btn-default">Generate Graph</button>
-                                            <button type="reset" class="btn btn-default">Reset Button</button>
+                                            <button type="reset" class="btn btn-default">Reset</button>
         
                              </div>
                         </form> 
@@ -46,17 +46,17 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                        <form action="/system/graphmedicine" method="post">
+                        <form action="/system/graphmedicine" method="post" target="_blank">
                             <div class="form-group">
                                             <label>Medicine Name</label>
                             {% csrf_token %}
-                                            <input class="form-control" name ="medicineinput" placeholder="Enter the Medicine name">
+                                            <input class="form-control" name ="medicineinput" placeholder="Leave blank for complete data">
                                             <label>Start Date</label>
                                             <p><input id="Generate Graph" class="form-control" type="text" name="startdatemed_input" placeholder="YYYY-MM-DD" value=""></p>
                                             <label>End Date</label>
                                             <p><input id="Generate Graph" class="form-control" type="text" name="enddatemed_input" placeholder="YYYY-MM-DD" value=""></p>
                                             <button type="submit" class="btn btn-default">Generate Graph</button>
-                                            <button type="reset" class="btn btn-default">Reset Button</button>
+                                            <button type="reset" class="btn btn-default">Reset</button>
         
                              </div>
                         </form> 
@@ -73,7 +73,7 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                        <form action="/system/graphfollowup" method="post">
+                        <form action="/system/graphfollowup" method="post" target="_blank">
                             <div class="form-group">
                                             <label>Start Date</label>
                             {% csrf_token %}
@@ -81,7 +81,7 @@
                                             <label>End Date</label>
                                             <p><input id="Generate Graph" class="form-control" type="text" name="enddate_followup_input" placeholder="YYYY-MM-DD" value=""></p>
                                             <button type="submit" class="btn btn-default">Generate Follow Up Graph</button>
-                                            <button type="reset" class="btn btn-default">Reset Button</button>
+                                            <button type="reset" class="btn btn-default">Reset</button>
         
                              </div>
                         </form> 
