@@ -22,20 +22,26 @@
                                       <form method="post" action="doctor_added">
                                         
                                             {% csrf_token %}
-                                            <p>User Name: <input type="text" name="username" placeholder="Enter Username"><br> </p>
+                                            <label>User Name:</label> 
+                                            <input type="text" class="form-control" name="username" placeholder="Enter Username"><br> 
 
-                                            <p>Password: <input type="password" name="password" placeholder="Enter Password"><br> </p>
+                                            <label>Password:</label> 
+                                            <input type="text" class="form-control" name="password" placeholder="Enter Password"><br> 
+                                            
+                                            <label>Name:</label> 
+                                            <input type="text" class="form-control" name="name" placeholder="Enter Name"><br>
 
-                                            <p>Name: <input type="text" name="name" placeholder="Enter Name"><br> </p>
+                                            <label>Speciality:</label> 
+                                            <input type="text" class="form-control" name="speciality" placeholder="Enter Speciality"><br> 
 
-                                             <p>Speciality: <input type="text" name="speciality" placeholder="Enter Speciality"><br> </p>
+                                            <label>Qualification:</label> 
+                                            <input type="text" class="form-control" name="username" placeholder="Enter Qualification"><br> 
 
-                                              <p>Qualification <input type="text" name="qualification" placeholder="Enter Qualification"><br> </p>
+                                              
                                             
                                             <br><br>
                                             
-                                            <p class="submit"><input type="submit" name="commit" value="Submit"></p>
-                                      </form>
+                                           <button class="btn btn-default" type="submit" name="commit" value="Submit">
 
                                       <br>
                                       
