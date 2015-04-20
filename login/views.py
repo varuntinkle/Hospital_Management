@@ -172,6 +172,7 @@ def set_amb_sch(request):
             search=search[0]
             search.Count=search.Count+1
             search.save()
+    messages.success(request, "Success ! You are done !")
     return HttpResponseRedirect("/")
 
 def fix_appoint(request):
@@ -205,6 +206,7 @@ def pat_prof_sub(request):
         Object_Searched = Registration.objects.filter(username = request.session["index"])
         Object_Searched = Object_Searched[0]
         Object_Searched.name=name
+    messages.success(request, "Success ! You are done !")
     return HttpResponseRedirect("/")        
 
 def doc_prof_sub(request):
@@ -222,6 +224,7 @@ def doc_prof_sub(request):
         Object_Searched = Registration.objects.filter(username = request.session["index"])
         Object_Searched = Object_Searched[0]
         Object_Searched.name=name
+    messages.success(request, "Success ! You are done !")
     return HttpResponseRedirect("/")
 
 
@@ -270,6 +273,7 @@ def end_recep_schedule(request):
             AmbulanceSchedule.objects.filter(Day = reset_day).delete()
             AmbulanceBooking.objects.filter(Day = reset_day).delete()
             return HttpResponseRedirect("/")
+    messages.success(request, "Success ! You are done !")
     return HttpResponseRedirect("/")
 
 def new_notice(request):
@@ -350,6 +354,7 @@ def notice_submit(request):
 
         new_notice = Post(title=title,body=body,date=date)
         new_notice.save()
+        messages.success(request, "Success ! You are done !")
         return HttpResponseRedirect("/")
     #return HttpResponseRedirect("/")
 
@@ -371,6 +376,7 @@ def user_added(request):
         elif(category=='3'):
             new_recep=Reception(username=username)
             new_recep.save()
+        messages.success(request, "Success ! You are done !")
         return HttpResponseRedirect("/")
 
 
@@ -387,6 +393,7 @@ def doctor_added(request):
         new_user.save()
         new_doc = Doctor(name=name,speciality=speciality,qualification=qualification,patients_visited="NA",schedule="NA")
         new_doc.save()
+        messages.success(request, "Success ! You are done !")
         return HttpResponseRedirect("/")
 
 def admin_added(request):
@@ -398,6 +405,7 @@ def admin_added(request):
         category=4
         new_user = Registration(username=username,password=password,name=name,category=category)
         new_user.save()
+        messages.success(request, "Success ! You are done !")
         return HttpResponseRedirect("/")
 
 
@@ -410,6 +418,7 @@ def reception_added(request):
         category=3
         new_user = Registration(username=username,password=password,name=name,category=category)
         new_user.save()
+        messages.success(request, "Success ! You are done !")
         return HttpResponseRedirect("/")
 
 
@@ -467,7 +476,7 @@ def end_doctor_schedule(request):
                 doctor_search = doctor_search[0]
                 doctor_search.schedule = sch
                 doctor_search.save()
-
+    messages.success(request, "Success ! You are done !")
     return HttpResponseRedirect("/")
 
 def call_addpatient(request):
@@ -494,6 +503,7 @@ def end_addpatient(request):
         new_user.save()
         new_patient = Patient(username=username,reg_no="reg",name=name,age=0,height="",weight=0,patient_history="NA",patient_test="NA")
         new_patient.save()
+        messages.success(request, "Success ! You are done !")
         return HttpResponseRedirect("/")
 
 #    Objects = Doctor.objects.all()
