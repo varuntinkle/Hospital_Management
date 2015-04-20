@@ -20,19 +20,11 @@
 
                                     <h3>AMBULANCE SCHEDULES FOR THE WEEK</h3> 
 
-                                    <style>
-                                        table, th, td {
-                                            border: 1px solid black;
-                                            border-collapse: collapse;
-                                        }
-                                        th, td {
-                                            padding: 5px;
-                                        }
-                                        </style>                                       
+                                                              
 
                                         <body>
 
-                                        <table style="width:100%">
+                                        <table class="table">
                                               <tr>
                                                 <th>DAY</th>
                                                 <th>TIME</th>       
@@ -60,7 +52,7 @@
                                         {% csrf_token %}
                                         <!--<p><input type="text" name="Day" value="" placeholder="Enter Day"></p>-->
 
-                                        <select name="Day" size="1">
+                                        <select name="Day" aria-controls="dataTables-example" class="form-control input-sm" size="1">
                                             <option value="Monday">Monday</option>
                                             <option value="Tuesday">Tuesday</option>
                                             <option value="Wednesday">Wednesday</option>
@@ -70,22 +62,25 @@
                                             <option value="Sunday">Sunday</option>
                                           </select>
                                         <br><br>
-                                        <p><input type="number" min="0" max="23" name="Time_h" value="" placeholder="Hour of Departure"> (24 hrs system)</p>
 
-                                        <p><input type="number" min="0" max="59" name="Time_m" value="" placeholder="Min of Departure"></p>
+                                         <input type="number" class="form-control" min="0" max="23" name="Time_h" placeholder="Hour of Departure"><br>
+
+                                        <input type="number" class="form-control" min="0" max="59" name="Time_m" placeholder="Min of Departure"><br>
+
+                                    
                                          
                                         <input type="radio" name="availability" value="1" checked>Available
                                         <input type="radio" name="availability" value="0">Not Available
                                         
-                                        <p class="submit"><input type="submit" name="commit" value="Submit"></p>
-                                      </form>
+                                        <button class="btn btn-default" type="submit" name="commit" value="Submit">Submit</button>
+                                        </form>
 
                                       <br>
                                       <h3>RESET AMBULANCE SCHEDULE</h3>
                                       <form method="post" action="recep_submit">
                                          {% csrf_token %}
                                    
-                                          <select name="reset_day" size="1">
+                                          <select name="reset_day" aria-controls="dataTables-example" class="form-control input-sm" size="1">
                                             <option value="Monday">Monday</option>
                                             <option value="Tuesday">Tuesday</option>
                                             <option value="Wednesday">Wednesday</option>
@@ -95,7 +90,9 @@
                                             <option value="Sunday">Sunday</option>
                                           </select>
                                           <br><br>
-                                          <p class="submit"><input type="submit" name="reset" value="Reset"></p>
+
+                                          <button class="btn btn-default" type="submit" name="reset" value="Reset">Reset</button>
+                                    
                                           <p> *click reset to Reset the ambulance schedules for the selected day </p>
                                           <br>
                                       </form>

@@ -24,13 +24,13 @@
                                             {% csrf_token %}
                                       
 
-                                            <p><input type="text" name="title" placeholder="Title of Notice"><br> </p>
+                                            <p><input type="text" class="form-control" name="title" placeholder="Title of Notice"><br> </p>
                                             
-                                            <textarea name="body" rows="4" cols="50" placeholder="Enter notice here"></textarea>
+                                            <textarea name="body" rows="4" cols="50" class="form-control" placeholder="Enter notice here"></textarea>
                                             
                                             <br><br>
                                             
-                                            <p class="submit"><input type="submit" name="commit" value="Update Notice"></p>
+                                            <button class="btn btn-default" type="submit" name="commit" value="Submit">Submit</button>
                                       </form>
 
                                       <br>
