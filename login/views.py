@@ -25,8 +25,10 @@ def index(request):
         Category = Object_Searched.category
         
         if(Category==1):
+            doctor=Doctor.objects.get(username = username)
             object_notice = Post.objects.all().order_by('-date')[:5]
-            context_dict = {'object_reg': Object_Searched, 'object_notice':object_notice}
+            prescriptions = Prescription.objects.filter(doctor = doctor)
+            context_dict = {'object_reg': Object_Searched, 'object_notice':object_notice,'object_pres': prescriptions}
             return render(request,'login/doctor_homepage.html', context_dict)
         elif(Category==2):
             object_pat = Patient.objects.filter(username = username)
@@ -131,7 +133,15 @@ def load_faq(request):
 def med_forms(request):
     context = RequestContext(request)
     return render(request,'login/med_forms.html', {})
-        
+
+def doc_pres(request):
+    context = RequestContext(request)
+    username = request.session["index"]
+    doctor=Doctor.objects.get(username = username)
+    object_notice = Post.objects.all().order_by('-date')[:5]
+    prescriptions = Prescription.objects.filter(doctor = doctor)
+    context_dict = {'object_notice':object_notice,'object_pres': prescriptions}
+    return render(request,'login/doctor_pres_his.html', context_dict)
                
 def set_amb_sch(request):
     if request.method=="POST":

@@ -36,7 +36,7 @@ urlpatterns = [
 	url(r'^login/med_forms$',views.med_forms),
 	url(r'^login/viewdoctors$',views.admin_viewdoctor),
 	url(r'^login/viewpatient$',views.admin_viewpatient),
-
+	url(r'^login/doc_pres$',views.doc_pres),
 
 
 	#url(r'^login/recep_homepage$',views.recep_homepage),
