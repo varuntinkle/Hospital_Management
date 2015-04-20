@@ -529,53 +529,55 @@ def admin_viewpatient(request):
 
 def create_doctor(request):
     # Handle file upload
+    alert=""
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
-        #if form.is_valid():
-        username=request.POST['username']
-        password=request.POST['password']
-        name=request.POST['name']
-        qualification=request.POST['qualification']
-        speciality=request.POST['speciality']
-        newdoc = Doctor(username=username,name=name,
-            qualification = qualification,speciality=speciality, 
-            image = request.FILES['docfile'])
-        newdoc.save()
-        new_user=Registration(username=username,password=password,
-            name=name,category=1)
-        new_user.save()
-            # Redirect to the document list after POST
-        #return HttpResponseRedirect(reverse('myapp.views.list'))
+        if form.is_valid():
+            username=request.POST['username']
+            password=request.POST['password']
+            name=request.POST['name']
+            qualification=request.POST['qualification']
+            speciality=request.POST['speciality']
+            newdoc = Doctor(username=username,name=name,
+                qualification = qualification,speciality=speciality, 
+                image = request.FILES['docfile'])
+            newdoc.save()
+            new_user=Registration(username=username,password=password,
+                name=name,category=1)
+            new_user.save()
+        else:
+            alert="Enter the details completely"
     form = DocumentForm() # A empty, unbound form
     # Load documents for the list page
     #documents = Document.objects.all()
     # Render list page with the documents and the form
     return render_to_response(
         'login/createdoctor.html',
-        {'form': form},
+        {'form': form,'alert':alert},
         context_instance=RequestContext(request)
     )
 
 
 def create_reception(request):
     # Handle file upload
+    alert=""
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
-        #if form.is_valid():
-        username=request.POST['username']
-        password=request.POST['password']
-        name = request.POST['name']
-        #name=request.POST['name']
-        #qualification=request.POST['qualification']
-        #speciality=request.POST['speciality']
-        new_recep = Reception(username=username,name=name,
-            image = request.FILES['docfile'])
-        new_recep.save()
-        new_user=Registration(username=username,password=password,
-            name=name,category=3)
-        new_user.save()
-            # Redirect to the document list after POST
-        #return HttpResponseRedirect(reverse('myapp.views.list'))
+        if form.is_valid():
+            username=request.POST['username']
+            password=request.POST['password']
+            name = request.POST['name']
+            #name=request.POST['name']
+            #qualification=request.POST['qualification']
+            #speciality=request.POST['speciality']
+            new_recep = Reception(username=username,name=name,
+                image = request.FILES['docfile'])
+            new_recep.save()
+            new_user=Registration(username=username,password=password,
+                name=name,category=3)
+            new_user.save()
+        else:
+             alert="Enter the details completely"
     form = Document2Form() # A empty, unbound form
     # Load documents for the list page
     #documents = Document.objects.all()
