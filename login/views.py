@@ -441,8 +441,10 @@ def call_stats(request):
         request.session["fav_color"] = "blue"  
         Object_Searched = Registration.objects.filter(username = request.session["index"])
         Object_Searched = Object_Searched[0]
-        if Object_Searched.category==1 or Object_Searched.category==4:
+        if Object_Searched.category==4:
             return render_to_response('system/graphindex.html', context)
+        elif Object_Searched.category==1:
+            return render_to_response('system/graphindex_doc.html', context)
         else:
             return render_to_response('login/permission_error.html')
 
