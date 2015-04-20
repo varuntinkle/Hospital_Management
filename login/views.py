@@ -125,27 +125,13 @@ def edit_profile(request):
 
 def load_faq(request):
     context = RequestContext(request)
-    if 'index' not  in request.session:
-        return HttpResponseRedirect("/")
-    else:    
-        Object_Searched = Registration.objects.filter(username = request.session["index"])
-        Object_Searched = Object_Searched[0]
-        if Object_Searched.category==2:
-            return render(request,'login/faq.html', {})
-        else:
-            return render_to_response('login/permission_error.html')
+    return render(request,'login/faq.html', {})
+    
 
 def med_forms(request):
     context = RequestContext(request)
-    if 'index' not  in request.session:
-        return HttpResponseRedirect("/")
-    else:    
-        Object_Searched = Registration.objects.filter(username = request.session["index"])
-        Object_Searched = Object_Searched[0]
-        if Object_Searched.category==2:
-            return render(request,'login/med_forms.html', {})
-        else:
-            return render_to_response('login/permission_error.html')
+    return render(request,'login/med_forms.html', {})
+        
                
 def set_amb_sch(request):
     if request.method=="POST":
