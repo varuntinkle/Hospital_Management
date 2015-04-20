@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect
 from database.models import CRequest, Prescription, Reception, Registration, Patient, AmbulanceSchedule, AmbulanceBooking, Post, Doctor
 import django.contrib.auth.hashers
 from django.shortcuts import render
+from django.contrib import messages
 import datetime
 import time
 #from datetime import datetime
@@ -16,7 +17,7 @@ def index(request):
     # The context contains information such as the client's machine details, for example.
     context = RequestContext(request)
     if 'index' not  in request.session:
-            return render_to_response('login/login.html', context)
+            return render(request,'login/login.html', {})
     else:
         username =request.session["index"]
         Object_Searched = Registration.objects.filter(username = username)
@@ -71,10 +72,12 @@ def authenticate (request):
             else:
 
                 message = "Wrong Password"
-                return HttpResponse(message)  
+                messages.error(request, message)
+                return HttpResponseRedirect("/#about")  
         else:
             message="Wrong Username"
-            return HttpResponse(message)
+            messages.error(request, message)
+            return HttpResponseRedirect("/#about")
 
 
 def call_appoint(request):
@@ -122,27 +125,13 @@ def edit_profile(request):
 
 def load_faq(request):
     context = RequestContext(request)
-    if 'index' not  in request.session:
-        return HttpResponseRedirect("/")
-    else:    
-        Object_Searched = Registration.objects.filter(username = request.session["index"])
-        Object_Searched = Object_Searched[0]
-        if Object_Searched.category==2:
-            return render(request,'login/faq.html', {})
-        else:
-            return render_to_response('login/permission_error.html')
+    return render(request,'login/faq.html', {})
+    
 
 def med_forms(request):
     context = RequestContext(request)
-    if 'index' not  in request.session:
-        return HttpResponseRedirect("/")
-    else:    
-        Object_Searched = Registration.objects.filter(username = request.session["index"])
-        Object_Searched = Object_Searched[0]
-        if Object_Searched.category==2:
-            return render(request,'login/med_forms.html', {})
-        else:
-            return render_to_response('login/permission_error.html')
+    return render(request,'login/med_forms.html', {})
+        
                
 def set_amb_sch(request):
     if request.method=="POST":
@@ -397,10 +386,11 @@ def call_stats(request):
     context = RequestContext(request)
     if 'index' not  in request.session:
         return HttpResponseRedirect("/")
-    else:    
+    else:  
+        request.session["fav_color"] = "blue"  
         Object_Searched = Registration.objects.filter(username = request.session["index"])
         Object_Searched = Object_Searched[0]
-        if Object_Searched.category==4:
+        if Object_Searched.category==1 or Object_Searched.category==4:
             return render_to_response('system/graphindex.html', context)
         else:
             return render_to_response('login/permission_error.html')

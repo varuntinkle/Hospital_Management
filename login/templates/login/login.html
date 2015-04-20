@@ -154,11 +154,17 @@ form fieldset a:hover { text-decoration: underline; }
 <form method="post" action="login/authenticate">
 <fieldset>
   {% csrf_token %}
-<p><input type="text" name="username" required value="Username" onBlur="if(this.value=='')this.value='Username'" onFocus="if(this.value=='Username')this.value='' "></p>
-<p><input type="password" name="password" required value="Password" onBlur="if(this.value=='')this.value='Password'" onFocus="if(this.value=='Password')this.value='' "></p>
-
+<p><input type="text" name="username" required placeholder="Username"></p>
+<p><input type="password" name="password" required placeholder="Password"></p>
 <p><input type="submit" name = "commit" value="Login"></p>
 </fieldset>
+<p style="color:red">
+    {% if messages %}
+    {% for mes in messages %}
+    {{ mes }}
+    {% endfor %}
+    {% endif %}
+</p>
 </form>
 
 </div> <!-- end login -->
@@ -177,7 +183,7 @@ form fieldset a:hover { text-decoration: underline; }
                     <a id="geninfo"  style="cursor:pointer;" class="btn btn-primary btn-lg">General Info</a>
                 </div>
                 <div class="col-md-4">
-                    <a id="notice"  style="cursor:pointer;" class="btn btn-primary btn-lg" href="">Notice Board</a>
+                    <a id="notice"  style="cursor:pointer;" class="btn btn-primary btn-lg" href="noticeboard" target="_blank" >Notice Board</a>
                 </div>
             </div>
             <br><br><br>
