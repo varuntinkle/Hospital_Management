@@ -67,7 +67,7 @@
                     <ul class="nav" id="side-menu">
                         <li>
                             <a class="active" href="/"><i class="fa fa-dashboard fa-fw"></i> Profile</a>
-
+                             <a class="active" href="/login/edit_profile_doc"><i class="fa fa-dashboard fa-fw"></i> Edit Profile</a>
                             <a class="active" href="/login/faq" target="_blank"><i class="fa fa-dashboard fa-fw"></i> FAQ</a>
 
                             <a class="active" href="/login/med_forms" target="_blank"><i class="fa fa-dashboard fa-fw"></i> Medical Forms</a>
@@ -99,9 +99,10 @@
                         <div class="col-lg-8">
                         <div class="panel-body">
                             <ul>
-                                <li> Name:  {{ object_reg.name }}</li>
-                                <li> Address:</li>
-                                <li> Phone No:</li>
+                                <li> Name:  {{ object_doc.name }}</li>
+                                <li> Speciality: {{ object_doc.speciality }}</li>
+                                <li> Qualification: {{ object_doc.qualification }}</li>
+                                <li> Schedule: {{ object_doc.schedule }}</li>
                             </ul>
                         </div>
                         </div>
