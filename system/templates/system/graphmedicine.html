@@ -60,29 +60,44 @@
     </script>
 
     <script type="text/javascript">
-        $(function () { 
+     $(function () {
     $('#container').highcharts({
-        chart: {
-            type: 'bar'
-        },
+        
         title: {
-            text: 'Medicine Graph'
+            text: 'Combination chart'
         },
         xAxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr',  'May','June', 'July', 'Aug', 'Sep',  'Oct', 'Nov', 'Dec'  ]
+            categories: ['Jan', 'Feb', 'Mar', 'Apr',  'May','June', 'July', 'Aug', 'Sep',  'Oct', 'Nov', 'Dec']
         },
-        yAxis: {
-            title: {
-                text: 'No. of Medicine Issued'
-            }
+        labels: {
+            items: [{
+                html: 'Medicine analysis',
+                style: {
+                    left: '50px',
+                    top: '18px',
+                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'black'
+                }
+            }]
         },
-        
+            
         series: [{
+            type: 'bar',
             name: '{{medicine}}',
             data:  [{% for i in data %}
                         {{i}},
                         {% endfor %}]
-        } ]
+        }, {
+            type: 'spline',
+            name: '{{medicine}}',
+            data: [{% for i in data %}
+                        {{i}},
+                        {% endfor %}],
+            marker: {
+                lineWidth: 3,
+                lineColor: Highcharts.getOptions().colors[3],
+                fillColor: 'white'
+            }
+        }]
     });
 });
     </script>
@@ -194,7 +209,7 @@
                         </div>
                     </div>
                     <div class="col-lg-12">
-                    <div class="panel panel-red">
+                    <div class="panel panel-green">
                         <div class="panel-heading" id="container2">
                             <b>Word Cloud</b>
                         </div>

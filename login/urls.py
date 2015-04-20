@@ -39,6 +39,8 @@ urlpatterns = [
 	url(r'^login/med_forms$',views.med_forms),
 	url(r'^login/viewdoctors$',views.admin_viewdoctor),
 	url(r'^login/viewpatient$',views.admin_viewpatient),
+	url(r'^login/doc_pres$',views.doc_pres),
+
 	url(r'^login/createdoctor$',views.create_doctor),
 	url(r'^login/createreception$',views.create_reception),
 

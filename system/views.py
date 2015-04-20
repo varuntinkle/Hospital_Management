@@ -152,21 +152,21 @@ def choosefunctionmed(request):
 		return render(request, 'system/visit_graphindex.html')
 
 def choosefunction(request):
+	#try:
+	k = request.session["fav_color"]
+	startdate = request.POST['startdate_input']
+	enddate = request.POST['enddate_input']
+	diseasename = request.POST['diseaseinput']
 	try:
-		k = request.session["fav_color"]
-		startdate = request.POST['startdate_input']
-		enddate = request.POST['enddate_input']
-		diseasename = request.POST['diseaseinput']
-		try:
-			datetime.datetime.strptime(startdate, '%Y-%m-%d')
-			datetime.datetime.strptime(enddate, '%Y-%m-%d')
-			return graphdisease_timelimit(request)
-			
-		except ValueError:	
-			#raise ValueError("Incorrect data format, should be YYYY-MM-DD")
-			return graphdisease(request)
-	except KeyError:
-		return render(request, 'system/visit_graphindex.html')
+		datetime.datetime.strptime(startdate, '%Y-%m-%d')
+		datetime.datetime.strptime(enddate, '%Y-%m-%d')
+		return graphdisease_timelimit(request)
+		
+	except ValueError:	
+		#raise ValueError("Incorrect data format, should be YYYY-MM-DD")
+		return graphdisease(request)
+	#except KeyError:
+		#return render(request, 'system/visit_graphindex.html')
 
 
 def graphfollowup_timelimit(request):
