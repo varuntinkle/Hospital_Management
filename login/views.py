@@ -3,11 +3,12 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-from database.models import Prescription, Reception, Registration, Patient, AmbulanceSchedule, AmbulanceBooking, Post, Doctor
+from database.models import CRequest, Prescription, Reception, Registration, Patient, AmbulanceSchedule, AmbulanceBooking, Post, Doctor
 import django.contrib.auth.hashers
 from django.shortcuts import render
 import datetime
-from datetime import datetime
+import time
+#from datetime import datetime
 # Create your views here.
 
 def index(request):
@@ -84,7 +85,9 @@ def call_appoint(request):
         Object_Searched = Registration.objects.filter(username = request.session["index"])
         Object_Searched = Object_Searched[0]
         if Object_Searched.category==2:
-            return render_to_response('login/appointment.html', context)
+            object_doc = Doctor.objects.all()
+            context_dict = {'object_doc': object_doc}
+            return render(request,'login/appointment.html',context_dict)
         else:
             return render_to_response('login/permission_error.html')
 
@@ -168,6 +171,20 @@ def set_amb_sch(request):
             search.save()
     return HttpResponseRedirect("/")
 
+def fix_appoint(request):
+    if request.method=="POST":
+        problem=request.POST['problem']
+
+        doctor=Doctor.objects.get(name=request.POST['doctor_list'])
+        time=request.POST['time'].split()
+        time=time[0]+":00"
+        datetimedd=request.POST['date']+" "+time
+        Object_Searched = Patient.objects.get(username = request.session["index"])
+        list=CRequest.objects.all()
+        appoint_no=1
+        new_object=CRequest(name=Object_Searched.name,reg_no=Object_Searched,problem=problem,request_date=datetime.datetime.now(),appoint_date=datetimedd,appoint_no=appoint_no,doctor=doctor,status=0)
+        new_object.save()
+    return HttpResponseRedirect("/")
 
 def pat_prof_sub(request):
     if request.method=="POST":
