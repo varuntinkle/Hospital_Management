@@ -34,12 +34,14 @@ urlpatterns = [
 	url(r'^login/user_added$',views.user_added),
 	url(r'^login/doctor_added$',views.create_doctor),
 	url(r'^login/admin_added$',views.admin_added),
-	url(r'^login/reception_added$',views.reception_added),
+	url(r'^login/reception_added$',views.create_reception),
 	url(r'^login/stats$',views.call_stats),
 	url(r'^login/med_forms$',views.med_forms),
 	url(r'^login/viewdoctors$',views.admin_viewdoctor),
 	url(r'^login/viewpatient$',views.admin_viewpatient),
 	url(r'^login/createdoctor$',views.create_doctor),
+	url(r'^login/createreception$',views.create_reception),
+
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
         'document_root': settings.MEDIA_ROOT, }),
 

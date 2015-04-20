@@ -104,6 +104,7 @@ class Patient(models.Model):
 	weight = models.IntegerField(blank = True)
 	patient_history = models.TextField(blank=True)
 	patient_test = models.TextField(blank=True)
+	image = models.FileField(upload_to="./", blank=True)
 	def __str__(self):
 		return self.username
 
@@ -136,6 +137,8 @@ class Post(models.Model):
 
 class Reception(models.Model):
 	username = models.CharField(max_length = 255)
+	name =models.CharField(max_length = 255, blank=True)
+	image = models.FileField(upload_to="./", blank=True)
 
 
 
