@@ -154,8 +154,8 @@ form fieldset a:hover { text-decoration: underline; }
 <form method="post" action="login/authenticate">
 <fieldset>
   {% csrf_token %}
-<p><input type="text" name="username" required value="Username" placeholder="username"></p>
-<p><input type="password" name="password" required value="Password" placeholder="password"></p>
+<p><input type="text" name="username" required placeholder="username"></p>
+<p><input type="password" name="password" required placeholder="password"></p>
 <p><input type="submit" name = "commit" value="Login"></p>
 </fieldset>
 <p style="color:red">
