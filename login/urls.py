@@ -1,5 +1,6 @@
 from django.conf.urls import include, url
-
+from django.conf import settings
+#import Hospital_Management.settings import settings
 from . import views
 
 urlpatterns = [
@@ -19,7 +20,7 @@ urlpatterns = [
 	url(r'^login/doc_prof_sub$',views.doc_prof_sub),
 	url(r'^noticeboard/',include('blog.urls')),
 	url(r'^login/new_notice$',views.new_notice),
-	url(r'^login/fix_appoint$',views.fix_appoint),
+	#url(r'^login/fix_appoint$',views.fix_appoint),
 	#url(r'^login/adduser$',views.call_adduser),
 	url(r'^login/add_patient$',views.call_addpatient),
 	url(r'^login/patient_added$',views.end_addpatient),
@@ -31,14 +32,16 @@ urlpatterns = [
 
 	url(r'^login/notice_submit$',views.notice_submit),
 	url(r'^login/user_added$',views.user_added),
-	url(r'^login/doctor_added$',views.doctor_added),
+	url(r'^login/doctor_added$',views.create_doctor),
 	url(r'^login/admin_added$',views.admin_added),
 	url(r'^login/reception_added$',views.reception_added),
 	url(r'^login/stats$',views.call_stats),
 	url(r'^login/med_forms$',views.med_forms),
 	url(r'^login/viewdoctors$',views.admin_viewdoctor),
 	url(r'^login/viewpatient$',views.admin_viewpatient),
-
+	url(r'^login/createdoctor$',views.create_doctor),
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
+        'document_root': settings.MEDIA_ROOT, }),
 
 
 	#url(r'^login/recep_homepage$',views.recep_homepage),
