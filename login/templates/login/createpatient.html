@@ -5,7 +5,7 @@
 <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">NEW RECEPTIONIST</h1>
+                    <h1 class="page-header">NEW USER</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -16,23 +16,13 @@
                         
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-lg-4">
-                                </div>
-                                <div class="col-lg-4">
-
-                                    <h3>Enter Receptionist Details : </h3>
-                                      <form method="post" action="reception_added">
-                                        
+                                <div class="col-lg-6">
+                                    <h3>    {{alert}}                </h3>
+                                    <h3>Enter Patient Details : </h3>
+                                      <form method="post" action="/login/createpatient" enctype="multipart/form-data">
                                             {% csrf_token %}
-                                            <label>User Name:</label> 
-                                            <input type="text" class="form-control" name="username" placeholder="Enter Username" required><br> 
-
-                                            <label>Password:</label> <input type="password" class="form-control" name="password" placeholder="Enter Password" required><br> 
-
-                                            <label>Name:</label> <input type="text" class="form-control" name="name" placeholder="Enter Name" required><br> 
-
-                                            
-                                            <button class="btn btn-default" type="submit" name="commit" value="Submit" required>Submit</button>
+                                            {{form}}
+                                            <p class="submit"><input type="submit" value="Upload"></p>
                                       </form>
 
                                       <br>
