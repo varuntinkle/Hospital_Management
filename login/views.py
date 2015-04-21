@@ -39,9 +39,9 @@ def index(request):
             object_pres = Prescription.objects.filter(reg_no = object_pat)
             object_notice = Post.objects.all().order_by('-date')[:5]
             context_dict = {'object_pres':object_pres,'object_reg': Object_Searched,'object_pat': object_pat, 'object_notice':object_notice}
-            return direct_to_template(request, 'Question/latest.html', context_dict)
+            #return direct_to_template(request, 'Question/latest.html', context_dict)
             return render_to_response('login/patient_homepage.html', 
-                context_dict,context_instance=RequestContext(request) )
+                context_dict,context_instance=RequestContext(request,context_dict) )
         elif(Category==3):
             Access_Schedule = AmbulanceSchedule.objects.all()
             object_notice = Post.objects.all().order_by('-date')[:5]
@@ -416,8 +416,10 @@ def call_stats(request):
         request.session["fav_color"] = "blue"  
         Object_Searched = Registration.objects.filter(username = request.session["index"])
         Object_Searched = Object_Searched[0]
-        if Object_Searched.category==1 or Object_Searched.category==4:
+        if Object_Searched.category==4:
             return render_to_response('system/graphindex.html', context)
+        elif Object_Searched.category==1:
+            return render_to_response('system/graphindex_doc.html', context)
         else:
             return render_to_response('login/permission_error.html')
 
