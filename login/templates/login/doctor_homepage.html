@@ -82,7 +82,15 @@
 
                             <a class="active" href="/login/doc_pres"><i class="fa fa-dashboard fa-fw"></i> View Patient and Prescriptions History</a>
 
-                        </li>             
+                        </li>
+                         <li> {% if messages %}
+                        <ul class="messages" style="list-style-type:none">
+                            {% for message in messages %}
+                            <li{% if message.success %} class="{{ message.success }}"{% endif %}><h4 style="color:green">{{ message }}</h4></li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        </li>               
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
@@ -117,7 +125,7 @@
  
                             </ul>
 
-                        <img border="2" src="/media/{{object_doc.image.name}}" alt="venture picture here" />
+                       
                             
                         </div>
                         </div>
@@ -125,6 +133,7 @@
                    
                              <div class="panel-body">
                                     <p>Photo comes here.</p>
+                                     <img border="2" src="/media/{{object_doc.image.name}}" alt="venture picture here" />
                                 </div>
                
                           </div>

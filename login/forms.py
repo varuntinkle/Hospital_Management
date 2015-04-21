@@ -18,6 +18,18 @@ class DocumentForm(forms.Form):
     )
 
 
+class Document2Form(forms.Form):
+    #username = forms.CharField(label="username")
+    username = forms.CharField(label="username")
+    password = forms.CharField(label="password")
+    name = forms.CharField(label="name")
+    docfile = forms.FileField(
+        label='Select an Image',
+        help_text='max 1 megabytes'
+    )
+
+
+
 '''class DoctorForm(forms.Form):
     username = forms.CharField(label="username")
     password = forms.CharField(label="password")
