@@ -354,7 +354,7 @@ def notice_submit(request):
     if request.method == 'POST':
         title=request.POST['title']
         body=request.POST['body']
-        date=datetime.now()
+        date=datetime.datetime.now()
 
         new_notice = Post(title=title,body=body,date=date)
         new_notice.save()
