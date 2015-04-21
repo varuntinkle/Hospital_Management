@@ -23,7 +23,7 @@ urlpatterns = [
 	#url(r'^login/fix_appoint$',views.fix_appoint),
 	#url(r'^login/adduser$',views.call_adduser),
 	url(r'^login/add_patient$',views.call_addpatient),
-	url(r'^login/patient_added$',views.end_addpatient),
+	url(r'^login/patient_added$',views.create_patient),
 
 	#url(r'^login/adduser$',views.call_adduser),
 	url(r'^login/adddoctor$',views.call_adddoctor),
@@ -43,6 +43,8 @@ urlpatterns = [
 
 	url(r'^login/createdoctor$',views.create_doctor),
 	url(r'^login/createreception$',views.create_reception),
+	url(r'^login/createpatient$',views.create_patient),
+
 
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
         'document_root': settings.MEDIA_ROOT, }),
