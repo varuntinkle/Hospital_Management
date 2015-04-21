@@ -103,7 +103,14 @@
                         <li>
                             <a class="active" href="/login/med_forms" target="_blank"><i class="fa fa-dashboard fa-fw"></i>Medical Forms</a>
                         </li>             
-                                
+                         <li> {% if messages %}
+                        <ul class="messages" style="list-style-type:none">
+                            {% for message in messages %}
+                            <li{% if message.success %} class="{{ message.success }}"{% endif %}><h4 style="color:green">{{ message }}</h4></li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        </li>   
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

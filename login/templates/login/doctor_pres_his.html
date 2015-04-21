@@ -1,0 +1,66 @@
+{% extends "login/doctor_homepage.html" %}
+
+{% block page-wrapper %}
+
+<div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="page-header">PREVIOUS  PRESCRIPTIONS</h2>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <table class="table table-striped">
+                                              <tr>
+                                                <th>PATIENT NAME</th>
+                                                <th>DATE</th>
+                                                <th>SYMPTOMS</th>
+                                                <th>DISEASE</th>
+                                                <th>MEDICINE</th>
+                                              </tr>                                           
+                                              {% for pres in object_pres %}
+                                              <tr>
+                                                    <td>{{ pres.reg_no.name }}</td>
+                                                    <td>{{ pres.prescription_time.date }}</td>
+                                                    <td>{{ pres.symptoms }}</td>
+                                                    <td>{{ pres.disease }}</td>
+                                                    <td>{{ pres.medicine }}</td>  
+                                                    
+                                              </tr>
+                                                {% endfor %}
+                                        
+                                        </table>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                                <!--<div class="col-lg-6">
+                                    <form role="form">
+
+                                            
+                                            
+                                        
+                                    </form>
+                                    
+                                    <h3>You can also call at this number for help.</h3>
+                                    
+                                </div>-->
+                                <!-- /.col-lg-6 (nested) -->
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+
+{% endblock page-wrapper %}

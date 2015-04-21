@@ -18,6 +18,32 @@ class DocumentForm(forms.Form):
     )
 
 
+class Document2Form(forms.Form):
+    #username = forms.CharField(label="username")
+    username = forms.CharField(label="username")
+    password = forms.CharField(label="password")
+    name = forms.CharField(label="name")
+    docfile = forms.FileField(
+        label='Select an Image',
+        help_text='max 1 megabytes'
+    )
+
+
+class Document3Form(forms.Form):
+    #username = forms.CharField(label="username")
+    username = forms.CharField(label="username")
+    password = forms.CharField(label="password")
+    name = forms.CharField(label="name")
+    age = forms.IntegerField(label="age")
+    weight=forms.IntegerField(label="weight")
+    height = forms.CharField(label="height")
+    reg_no=forms.CharField(label="reg_no")
+    docfile = forms.FileField(
+        label='Select an Image',
+        help_text='max 1 megabytes'
+    )
+
+
 '''class DoctorForm(forms.Form):
     username = forms.CharField(label="username")
     password = forms.CharField(label="password")

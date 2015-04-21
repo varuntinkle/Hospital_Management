@@ -175,13 +175,14 @@ form fieldset a:hover { text-decoration: underline; }
 
 <p><input type="submit" name = "commit" value="Login"></p>
 </fieldset>
-<p style="color:red">
     {% if messages %}
-    {% for mes in messages %}
-    {{ mes }}
+<ul class="messages" style="list-style-type:none">
+    {% for message in messages %}
+    <li{% if message.error %} class="{{ message.error }}"{% endif %}><p style="color:red">{{ message }}</p></li>
     {% endfor %}
-    {% endif %}
-</p>
+</ul>
+{% endif %}
+
 </form>
 
 </div> <!-- end login -->

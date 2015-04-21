@@ -18,8 +18,8 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <h3>    {{alert}}                </h3>
-                                    <h3>Enter Doctor Details : </h3>
-                                      <form method="post" action="/login/createdoctor" enctype="multipart/form-data">
+                                    <h3>Enter Patient Details : </h3>
+                                      <form method="post" action="/login/createpatient" enctype="multipart/form-data">
                                             {% csrf_token %}
                                             {{form}}
                                             <p class="submit"><input type="submit" value="Upload"></p>

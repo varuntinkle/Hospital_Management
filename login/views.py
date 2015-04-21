@@ -1,17 +1,18 @@
 #from django.shortcuts import render
-from django.template import RequestContext
+from django.template.context import RequestContext
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from database.models import Prescription, Reception, Registration, Patient, AmbulanceSchedule, AmbulanceBooking, Post, Doctor
 import django.contrib.auth.hashers
 #from login.forms import DoctorForm
+from django.contrib import messages
 from django.shortcuts import render
 import datetime
-from datetime import datetime
 from database.models import Doctor
 from login.forms import DocumentForm
-
+#from django.views.generic.simple import direct_to_template
+from login.forms import DocumentForm,Document2Form,Document3Form
 # Create your views here.
 
 def index(request):
@@ -31,19 +32,28 @@ def index(request):
             object_notice = Post.objects.all().order_by('-date')[:5]
             context_dict = {'object_doc':object_doc,'object_reg': Object_Searched, 'object_notice':object_notice}
             return render_to_response('login/doctor_homepage.html', 
-                context_dict,context_instance=RequestContext(request) )
+                context_instance=RequestContext(request,context_dict) )
+
         elif(Category==2):
             object_pat = Patient.objects.filter(username = username)
+            object_doc = Patient.objects.get(username = username)
             object_pat = object_pat[0]
             object_pres = Prescription.objects.filter(reg_no = object_pat)
             object_notice = Post.objects.all().order_by('-date')[:5]
-            context_dict = {'object_pres':object_pres,'object_reg': Object_Searched,'object_pat': object_pat, 'object_notice':object_notice}
+            context_dict = {'object_doc':object_doc, 'object_pres':object_pres,
+            'object_reg': Object_Searched,'object_pat': object_pat, 
+            'object_notice':object_notice}
+            #return direct_to_template(request, 'Question/latest.html', context_dict)
             return render_to_response('login/patient_homepage.html', 
-                context_dict,context_instance=RequestContext(request) )
+                context_dict,context_instance=RequestContext(request,context_dict) )
         elif(Category==3):
+            object_doc = Reception.objects.get(username = username)
             Access_Schedule = AmbulanceSchedule.objects.all()
             object_notice = Post.objects.all().order_by('-date')[:5]
-            context_dict = {'object_reg': Object_Searched, 'object_schedule': Access_Schedule, 'object_notice':object_notice}
+            context_dict = {'object_doc':object_doc,'object_reg': Object_Searched, 
+            'object_schedule': Access_Schedule, 'object_notice':object_notice}
+            return render_to_response('login/recep_homepage.html', 
+                context_instance=RequestContext(request,context_dict) )
             return render(request,'login/recep_homepage.html', context_dict)
         elif(Category==4):
             object_notice = Post.objects.all().order_by('-date')[:5]
@@ -73,10 +83,12 @@ def authenticate (request):
             else:
 
                 message = "Wrong Password"
-                return HttpResponse(message)  
+                messages.error(request,message)
+                return HttpResponseRedirect("/#about")  
         else:
             message="Wrong Username"
-            return HttpResponse(message)
+            messages.error(request,message)
+            return HttpResponseRedirect("/#about")
 
 
 def call_appoint(request):
@@ -141,7 +153,15 @@ def load_faq(request):
 def med_forms(request):
     context = RequestContext(request)
     return render(request,'login/med_forms.html', {})
-        
+
+def doc_pres(request):
+    context = RequestContext(request)
+    username = request.session["index"]
+    doctor=Doctor.objects.get(username = username)
+    object_notice = Post.objects.all().order_by('-date')[:5]
+    prescriptions = Prescription.objects.filter(doctor = doctor)
+    context_dict = {'object_notice':object_notice,'object_pres': prescriptions}
+    return render(request,'login/doctor_pres_his.html', context_dict)
                
 def set_amb_sch(request):
     if request.method=="POST":
@@ -168,6 +188,7 @@ def set_amb_sch(request):
             search=search[0]
             search.Count=search.Count+1
             search.save()
+    messages.success(request, "Success ! You are done !")
     return HttpResponseRedirect("/")
 
 
@@ -187,6 +208,7 @@ def pat_prof_sub(request):
         Object_Searched = Registration.objects.filter(username = request.session["index"])
         Object_Searched = Object_Searched[0]
         Object_Searched.name=name
+    messages.success(request, "Success ! You are done !")
     return HttpResponseRedirect("/")        
 
 def doc_prof_sub(request):
@@ -204,6 +226,7 @@ def doc_prof_sub(request):
         Object_Searched = Registration.objects.filter(username = request.session["index"])
         Object_Searched = Object_Searched[0]
         Object_Searched.name=name
+    messages.success(request, "Success ! You are done !")
     return HttpResponseRedirect("/")
 
 
@@ -252,6 +275,7 @@ def end_recep_schedule(request):
             AmbulanceSchedule.objects.filter(Day = reset_day).delete()
             AmbulanceBooking.objects.filter(Day = reset_day).delete()
             return HttpResponseRedirect("/")
+    messages.success(request, "Success ! You are done !")
     return HttpResponseRedirect("/")
 
 def new_notice(request):
@@ -300,7 +324,7 @@ def call_adddoctor(request):
 
 
 def call_addreception(request):
-    context = RequestContext(request)
+   ''' context = RequestContext(request)
     if 'index' not  in request.session:
         return HttpResponseRedirect("/")
     else:    
@@ -310,7 +334,12 @@ def call_addreception(request):
             context_dict = {}
             return render(request,'login/admin_addreception.html', context_dict)
         else:
-            return render_to_response('login/permission_error.html')   
+            return render_to_response('login/permission_error.html')   '''
+    
+   form = Document2Form() 
+   return render_to_response(
+        'login/createreception.html',
+        {'form': form},context_instance=RequestContext(request) )
 
 
 def call_addadmin(request):
@@ -330,10 +359,11 @@ def notice_submit(request):
     if request.method == 'POST':
         title=request.POST['title']
         body=request.POST['body']
-        date=datetime.now()
+        date=datetime.datetime.now()
 
         new_notice = Post(title=title,body=body,date=date)
         new_notice.save()
+        messages.success(request, "Success ! You are done !")
         return HttpResponseRedirect("/")
     #return HttpResponseRedirect("/")
 
@@ -355,6 +385,7 @@ def user_added(request):
         elif(category=='3'):
             new_recep=Reception(username=username)
             new_recep.save()
+        messages.success(request, "Success ! You are done !")
         return HttpResponseRedirect("/")
 
 
@@ -371,6 +402,7 @@ def doctor_added(request):
         new_user.save()
         new_doc = Doctor(name=name,speciality=speciality,qualification=qualification,patients_visited="NA",schedule="NA")
         new_doc.save()
+        messages.success(request, "Success ! You are done !")
         return HttpResponseRedirect("/")
 
 def admin_added(request):
@@ -382,6 +414,7 @@ def admin_added(request):
         category=4
         new_user = Registration(username=username,password=password,name=name,category=category)
         new_user.save()
+        messages.success(request, "Success ! You are done !")
         return HttpResponseRedirect("/")
 
 
@@ -394,6 +427,7 @@ def reception_added(request):
         category=3
         new_user = Registration(username=username,password=password,name=name,category=category)
         new_user.save()
+        messages.success(request, "Success ! You are done !")
         return HttpResponseRedirect("/")
 
 
@@ -406,8 +440,10 @@ def call_stats(request):
         request.session["fav_color"] = "blue"  
         Object_Searched = Registration.objects.filter(username = request.session["index"])
         Object_Searched = Object_Searched[0]
-        if Object_Searched.category==1 or Object_Searched.category==4:
+        if Object_Searched.category==4:
             return render_to_response('system/graphindex.html', context)
+        elif Object_Searched.category==1:
+            return render_to_response('system/graphindex_doc.html', context)
         else:
             return render_to_response('login/permission_error.html')
 
@@ -451,11 +487,11 @@ def end_doctor_schedule(request):
                 doctor_search = doctor_search[0]
                 doctor_search.schedule = sch
                 doctor_search.save()
-
+    messages.success(request, "Success ! You are done !")
     return HttpResponseRedirect("/")
 
 def call_addpatient(request):
-    context = RequestContext(request)
+    '''context = RequestContext(request)
     if 'index' not  in request.session:
         return HttpResponseRedirect("/")
     else:    
@@ -465,7 +501,11 @@ def call_addpatient(request):
             context_dict = {}
             return render(request,'login/recep_addpatient.html', context_dict)
         else:
-            return render_to_response('login/permission_error.html') 
+            return render_to_response('login/permission_error.html') '''
+    form = Document3Form() 
+    return render_to_response(
+        'login/createpatient.html',
+        {'form': form},context_instance=RequestContext(request) )
 
 def end_addpatient(request):
     if request.method == 'POST':
@@ -478,6 +518,7 @@ def end_addpatient(request):
         new_user.save()
         new_patient = Patient(username=username,reg_no="reg",name=name,age=0,height="",weight=0,patient_history="NA",patient_test="NA")
         new_patient.save()
+        messages.success(request, "Success ! You are done !")
         return HttpResponseRedirect("/")
 
 
@@ -510,36 +551,101 @@ def admin_viewpatient(request):
 
 def create_doctor(request):
     # Handle file upload
+    alert=""
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
-        #if form.is_valid():
-        username=request.POST['username']
-        password=request.POST['password']
-        name=request.POST['name']
-        qualification=request.POST['qualification']
-        speciality=request.POST['speciality']
-        newdoc = Doctor(username=username,name=name,
-            qualification = qualification,speciality=speciality, 
-            image = request.FILES['docfile'])
-        newdoc.save()
-        new_user=Registration(username=username,password=password,
-            name=name,category=1)
-        new_user.save()
-            # Redirect to the document list after POST
-        #return HttpResponseRedirect(reverse('myapp.views.list'))
+        if form.is_valid():
+            username=request.POST['username']
+            password=request.POST['password']
+            name=request.POST['name']
+            qualification=request.POST['qualification']
+            speciality=request.POST['speciality']
+            newdoc = Doctor(username=username,name=name,
+                qualification = qualification,speciality=speciality, 
+                image = request.FILES['docfile'])
+            newdoc.save()
+            new_user=Registration(username=username,password=password,
+                name=name,category=1)
+            new_user.save()
+        else:
+            alert="Enter the details completely"
     form = DocumentForm() # A empty, unbound form
     # Load documents for the list page
     #documents = Document.objects.all()
     # Render list page with the documents and the form
     return render_to_response(
         'login/createdoctor.html',
-        {'form': form},
+        {'form': form,'alert':alert},
+        context_instance=RequestContext(request)
+    )
+
+
+def create_reception(request):
+    # Handle file upload
+    alert=""
+    if request.method == 'POST':
+        form = Document2Form(request.POST, request.FILES)
+        if form.is_valid():
+            username=request.POST['username']
+            password=request.POST['password']
+            name = request.POST['name']
+            #name=request.POST['name']
+            #qualification=request.POST['qualification']
+            #speciality=request.POST['speciality']
+            new_recep = Reception(username=username,name=name,
+                image = request.FILES['docfile'])
+            new_recep.save()
+            new_user=Registration(username=username,password=password,
+                name=name,category=3)
+            new_user.save()
+        else:
+             alert="Enter the details completely"
+    form = Document2Form() # A empty, unbound form
+    # Load documents for the list page
+    #documents = Document.objects.all()
+    # Render list page with the documents and the form
+    return render_to_response(
+        'login/createreception.html',
+        {'form': form,'alert':alert},
         context_instance=RequestContext(request)
     )   
 
 
+
+
     
 
+def create_patient(request):
+    # Handle file upload
+    alert=""
+    if request.method == 'POST':
+        form = Document3Form(request.POST, request.FILES)
+        if form.is_valid():
+            username=request.POST['username']
+            password=request.POST['password']
+            name=request.POST['name']
+            age=request.POST['age']
+            height=request.POST['height']
+            reg_no=request.POST['reg_no']
+            weight=request.POST['weight']
+            new_patient = Patient(username=username,name=name,
+                age = age,weight=weight,height=height, reg_no=reg_no, 
+                image = request.FILES['docfile'])
+            new_patient.save()
+            new_user=Registration(username=username,password=password,
+                name=name,category=2)
+            new_user.save()
+        else:
+            alert="Enter the details completely"
+    form = Document3Form() # A empty, unbound form
+    # Load documents for the list page
+    #documents = Document.objects.all()
+    # Render list page with the documents and the form
+    return render_to_response(
+        'login/createpatient.html',
+        {'form': form,'alert':alert},
+        context_instance=RequestContext(request)
+    )
 
 
 
