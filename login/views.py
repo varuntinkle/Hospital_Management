@@ -82,11 +82,11 @@ def authenticate (request):
 
                 message = "Wrong Password"
                 messages.error(request,message)
-                return HttpResponse(message)  
+                return HttpResponseRedirect("/#about")  
         else:
             message="Wrong Username"
             messages.error(request,message)
-            return HttpResponse(message)
+            return HttpResponseRedirect("/#about")
 
 
 def call_appoint(request):
