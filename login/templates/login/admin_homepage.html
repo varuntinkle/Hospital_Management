@@ -23,6 +23,8 @@
     <!-- Custom CSS -->
     <link href="/static/css/sb-admin-2.css" rel="stylesheet">
 
+    <link href="/static/css/plugins/dataTables.bootstrap.css" rel="stylesheet">
+
     <!-- Morris Charts CSS -->
     <link href="/static/css/plugins/morris.css" rel="stylesheet">
 
@@ -186,6 +188,21 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="/static/js/sb-admin-2.js"></script>
+
+      <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script src="/static/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="/static/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="/static/js/plugins/dataTables/scrolling.js"></script>
+        <script src="/static/js/sb-admin-2.js"></script>
+    <script>
+   
+    
+    $(document).ready(function() {
+    $('#dataTables-example').dataTable( {
+        "sPaginationType": "scrolling"
+    } );
+} );
+    </script>
 
 </body>
 

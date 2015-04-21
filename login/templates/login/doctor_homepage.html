@@ -97,27 +97,26 @@
           <div class="row">
               <div class="col-lg-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i> Profile Details
-                            
+                        <div class="panel-heading"><h3>
+                            Profile Details
+                            </h3>
                         </div>
                         <div class="panel-body">
                         <div class="col-lg-8">
                         <div class="panel-body">
-                            <ul>
-                                <li> Name:  {{ object_doc.name }}</li>
-                                <li> Speciality: {{ object_doc.speciality }}</li>
-                                <li> Qualification: {{ object_doc.qualification }}</li>
-                                <li> Schedule: {{ object_doc.schedule }}</li>
+                            <ul style="list-style:none">
+                                <li><h4> Name:  {{ object_doc.name }}</h4></li>
+                                <li><h4> Speciality: {{ object_doc.speciality }}</h4></li>
+                                <li><h4> Qualification: {{ object_doc.qualification }}</h4></li>
+                                <li> <h4>Schedule: {{ object_doc.schedule }}</h4></li>
                             </ul>
                             <li> {{ MEDIA_URL }} </li> 
                         </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-4"><br>
+                            <img src="" height="130" width="110"></img>
                    
-                             <div class="panel-body">
-                                    <p>Photo comes here.</p>
-                                </div>
+                             
                
                           </div>
                         </div>
