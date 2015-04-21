@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
+from database.models import Prescription, Reception, Registration, Patient, AmbulanceSchedule, AmbulanceBooking, Post, Doctor
 from system.analysis import disease, medicine,medicine_timelimit,medicineword_timelimit, diseaseword,medicineword, disease_timelimit,diseaseword_timelimit, prescription_analysis, prescription_analysis_word ,prescription_analysis_timelimit, prescription_analysis_word_timelimit
 import operator, datetime
 from collections import OrderedDict
@@ -152,22 +154,21 @@ def choosefunctionmed(request):
 		return render(request, 'system/visit_graphindex.html')
 
 def choosefunction(request):
-	#try:
-	k = request.session["fav_color"]
-	startdate = request.POST['startdate_input']
-	enddate = request.POST['enddate_input']
-	diseasename = request.POST['diseaseinput']
 	try:
-		datetime.datetime.strptime(startdate, '%Y-%m-%d')
-		datetime.datetime.strptime(enddate, '%Y-%m-%d')
-		return graphdisease_timelimit(request)
-		
-	except ValueError:	
-		#raise ValueError("Incorrect data format, should be YYYY-MM-DD")
-		return graphdisease(request)
-	#except KeyError:
-		#return render(request, 'system/visit_graphindex.html')
-
+		k = request.session["fav_color"]
+		startdate = request.POST['startdate_input']
+		enddate = request.POST['enddate_input']
+		diseasename = request.POST['diseaseinput']
+		try:
+			datetime.datetime.strptime(startdate, '%Y-%m-%d')
+			datetime.datetime.strptime(enddate, '%Y-%m-%d')
+			return graphdisease_timelimit(request)
+			
+		except ValueError:	
+			#raise ValueError("Incorrect data format, should be YYYY-MM-DD")
+			return graphdisease(request)
+	except KeyError:
+		return render(request, 'system/visit_graphindex.html')
 
 def graphfollowup_timelimit(request):
 	startdate = request.POST['startdate_followup_input']
