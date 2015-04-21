@@ -21,7 +21,14 @@
                                     <h3>Enter Doctor Details : </h3>
                                       <form method="post" action="/login/createdoctor" enctype="multipart/form-data">
                                             {% csrf_token %}
-                                            {{form}}
+                                         <!--<label for="{{ form.username }}">Username</label>
+                                             <label for="{{ form.password }}">Password</label>
+                                             <label for="{{ form.speciality }}">Speciality</label>
+                                             <label for="{{ form.qualification }}">Qualification</label>
+                                            <input type="text" class="form-control" name="username" placeholder="Enter Username" required><br> --> 
+                                            {{form}} 
+                                            
+
                                             <p class="submit"><input type="submit" value="Add Doctor"></p>
                                       </form>
 
