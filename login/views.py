@@ -149,19 +149,28 @@ def load_faq(request):
     context = RequestContext(request)
     return render(request,'login/faq.html', {})
     
-
 def med_forms(request):
     context = RequestContext(request)
     return render(request,'login/med_forms.html', {})
 
 def doc_pres(request):
     context = RequestContext(request)
-    username = request.session["index"]
-    doctor=Doctor.objects.get(username = username)
-    object_notice = Post.objects.all().order_by('-date')[:5]
-    prescriptions = Prescription.objects.filter(doctor = doctor)
-    context_dict = {'object_notice':object_notice,'object_pres': prescriptions}
-    return render(request,'login/doctor_pres_his.html', context_dict)
+    if 'index' not  in request.session:
+        return HttpResponseRedirect("/")
+    else:    
+        Object_Searched = Registration.objects.filter(username = request.session["index"])
+        Object_Searched = Object_Searched[0]
+        if Object_Searched.category==1:
+            context = RequestContext(request)
+            username = request.session["index"]
+            doctor=Doctor.objects.get(username = username)
+            object_notice = Post.objects.all().order_by('-date')[:5]
+            prescriptions = Prescription.objects.filter(doctor = doctor)
+            context_dict = {'object_notice':object_notice,'object_pres': prescriptions}
+            return render(request,'login/doctor_pres_his.html', context_dict)
+        else:
+            return render_to_response('login/permission_error.html')
+    
                
 def set_amb_sch(request):
     if request.method=="POST":
@@ -317,29 +326,37 @@ def call_adddoctor(request):
         newdoc = Doctor(name=name,speciality=speciality,qualification=qualification,
             image = request.FILES['docfile'])
         newdoc.save() '''
-    form = DocumentForm() 
-    return render_to_response(
-        'login/createdoctor.html',
-        {'form': form},context_instance=RequestContext(request) )
-
-
-def call_addreception(request):
-   ''' context = RequestContext(request)
+    context = RequestContext(request)
     if 'index' not  in request.session:
         return HttpResponseRedirect("/")
-    else:    
+    else:
         Object_Searched = Registration.objects.filter(username = request.session["index"])
         Object_Searched = Object_Searched[0]
         if Object_Searched.category==4:
-            context_dict = {}
-            return render(request,'login/admin_addreception.html', context_dict)
+            form = DocumentForm() 
+            return render_to_response(
+            'login/createdoctor.html',
+            {'form': form},context_instance=RequestContext(request) )
         else:
-            return render_to_response('login/permission_error.html')   '''
+            return render_to_response('login/permission_error.html')
     
-   form = Document2Form() 
-   return render_to_response(
-        'login/createreception.html',
-        {'form': form},context_instance=RequestContext(request) )
+
+
+def call_addreception(request):
+    context = RequestContext(request)
+    if 'index' not  in request.session:
+        return HttpResponseRedirect("/")
+    else:
+        Object_Searched = Registration.objects.filter(username = request.session["index"])
+        Object_Searched = Object_Searched[0]
+        if Object_Searched.category==4:
+            form = Document2Form() 
+            return render_to_response(
+            'login/createreception.html',
+            {'form': form},context_instance=RequestContext(request) )
+        else:
+            return render_to_response('login/permission_error.html') 
+   
 
 
 def call_addadmin(request):
@@ -449,20 +466,30 @@ def call_stats(request):
 
 
 def admin_viewdoctor(request):
+    context = RequestContext(request)
+    if 'index' not  in request.session:
+        return HttpResponseRedirect("/")
+    else:    
+        Object_Searched = Registration.objects.filter(username = request.session["index"])
+        Object_Searched = Object_Searched[0]
+        if Object_Searched.category==4:
+            Objects = Doctor.objects.all()
+            c1=0
+            context_dict={}
+            for x in Objects:
+                x1=[]
+                x1.append(x.name)
+                x1.append(x.speciality)
+                x1.append(x.qualification)
+                x1.append(x.patients_visited)
+                x1.append(x.schedule)
+                context_dict[str(c1)]=x1
+                c1+=1
+            return render(request,'login/admin_viewdoctors.html',context_dict)
+        else:
+            return render_to_response('login/permission_error.html')   
 
-    Objects = Doctor.objects.all()
-    c1=0
-    context_dict={}
-    for x in Objects:
-         x1=[]
-         x1.append(x.name)
-         x1.append(x.speciality)
-         x1.append(x.qualification)
-         x1.append(x.patients_visited)
-         x1.append(x.schedule)
-         context_dict[str(c1)]=x1
-         c1+=1
-    return render(request,'login/admin_viewdoctors.html',context_dict)
+   
 
 def call_doctor_schedule(request):
     context = RequestContext(request)
@@ -491,21 +518,20 @@ def end_doctor_schedule(request):
     return HttpResponseRedirect("/")
 
 def call_addpatient(request):
-    '''context = RequestContext(request)
+    context = RequestContext(request)
     if 'index' not  in request.session:
         return HttpResponseRedirect("/")
     else:    
         Object_Searched = Registration.objects.filter(username = request.session["index"])
         Object_Searched = Object_Searched[0]
         if Object_Searched.category==3:
-            context_dict = {}
-            return render(request,'login/recep_addpatient.html', context_dict)
+            form = Document3Form() 
+            return render_to_response(
+            'login/createpatient.html',
+            {'form': form},context_instance=RequestContext(request) )
         else:
-            return render_to_response('login/permission_error.html') '''
-    form = Document3Form() 
-    return render_to_response(
-        'login/createpatient.html',
-        {'form': form},context_instance=RequestContext(request) )
+            return render_to_response('login/permission_error.html')
+    
 
 def end_addpatient(request):
     if request.method == 'POST':
@@ -533,7 +559,16 @@ def admin_viewdoctor(request):
 #   list1.append(x.qualification)
 #   list1.append(x.schedule)
 #    context_dict['links']=list1
-    return render_to_response('login/admin_viewdoctors.html', {'obj': Doctor.objects.all()})
+    context = RequestContext(request)
+    if 'index' not  in request.session:
+        return HttpResponseRedirect("/")
+    else:    
+        Object_Searched = Registration.objects.filter(username = request.session["index"])
+        Object_Searched = Object_Searched[0]
+        if Object_Searched.category==4:
+            return render_to_response('login/admin_viewdoctors.html', {'obj': Doctor.objects.all()})
+        else:
+            return render_to_response('login/permission_error.html')   
 
 
 def admin_viewpatient(request):
@@ -547,7 +582,17 @@ def admin_viewpatient(request):
 #   list1.append(x.qualification)
 #   list1.append(x.schedule)
 #    context_dict['links']=list1
-    return render_to_response('login/admin_viewpatients.html', {'objs': Patient.objects.all()})
+    context = RequestContext(request)
+    if 'index' not  in request.session:
+        return HttpResponseRedirect("/")
+    else:    
+        Object_Searched = Registration.objects.filter(username = request.session["index"])
+        Object_Searched = Object_Searched[0]
+        if Object_Searched.category==4:
+            return render_to_response('login/admin_viewpatients.html', {'objs': Patient.objects.all()})
+        else:
+            return render_to_response('login/permission_error.html') 
+
 
 def create_doctor(request):
     # Handle file upload
