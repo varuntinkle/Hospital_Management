@@ -91,7 +91,7 @@
             <div class="col-lg-8 col-lg-offset-2">
                 <style type="text/css">
 body {
-background-color:#000;
+background-color:#F0F8FF;
 color: #5a5656;
 font-family: 'Open Sans', Arial, Helvetica, sans-serif;
 font-size: 16px;
@@ -107,6 +107,21 @@ font-weight: bold;
 }
 .uppercase { text-transform: uppercase; }
 
+#button{
+    background-color: #66CDAA;
+border: none;
+border-radius: 3px;
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+color: #f4f4f4;
+cursor: pointer;
+font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+height: 40px;
+text-transform: uppercase;
+width: 100px;
+-webkit-appearance:none;
+}
+}
 /* ---------- LOGIN ---------- */
 #login {
 margin: 10px auto;
@@ -121,14 +136,14 @@ border-radius: 3px;
 color: #5a5656;
 font-family: 'Open Sans', Arial, Helvetica, sans-serif;
 font-size: 14px;
-height: 50px;
+height: 40px;
 outline: none;
 padding: 0px 10px;
 width: 280px;
 -webkit-appearance:none;
 }
 form fieldset input[type="submit"] {
-background-color: #008dde;
+background-color: #66CDAA;
 border: none;
 border-radius: 3px;
 -moz-border-radius: 3px;
@@ -136,9 +151,9 @@ border-radius: 3px;
 color: #f4f4f4;
 cursor: pointer;
 font-family: 'Open Sans', Arial, Helvetica, sans-serif;
-height: 50px;
+height: 40px;
 text-transform: uppercase;
-width: 300px;
+width: 100px;
 -webkit-appearance:none;
 }
 form fieldset a {
@@ -150,7 +165,7 @@ form fieldset a:hover { text-decoration: underline; }
 
 </style>
 <div id="login">
-<h1><strong>Welcome.</strong> Please login.</h1>
+<h1><strong>Welcome, </strong> Please login.</h1>
 <form method="post" action="login/authenticate">
 <fieldset>
   {% csrf_token %}

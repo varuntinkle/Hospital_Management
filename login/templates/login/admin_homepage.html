@@ -23,6 +23,8 @@
     <!-- Custom CSS -->
     <link href="/static/css/sb-admin-2.css" rel="stylesheet">
 
+    <link href="/static/css/plugins/dataTables.bootstrap.css" rel="stylesheet">
+
     <!-- Morris Charts CSS -->
     <link href="/static/css/plugins/morris.css" rel="stylesheet">
 
@@ -72,7 +74,7 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a class="active" href="/"><i class="fa fa-dashboard fa-fw"></i> Profile</a>
+                            <a class="active" href="/"><i class="fa fa-dashboard fa-fw"></i>Home</a>
                         </li>
                          <li>
                             <a class="active" href="/login/createdoctor"><i class="fa fa-dashboard fa-fw"></i>Add New Doctor</a>
@@ -135,16 +137,14 @@
                         <div class="col-lg-8">
                         <div class="panel-body">
                             <ul>
-                                <li> Name:  {{ object_reg.name }}</li>
-                                <li> Address:</li>
-                                <li> Phone No:</li>
+                                <h3>Name:  {{ object_reg.name }}</h3>
                             </ul>
                         </div>
                         </div>
                         <div class="col-lg-4">
                    
                              <div class="panel-body">
-                                    <p>Photo comes here.</p>
+                                    <p></p>
                                 </div>
                
                           </div>
@@ -193,6 +193,21 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="/static/js/sb-admin-2.js"></script>
+
+      <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script src="/static/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="/static/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="/static/js/plugins/dataTables/scrolling.js"></script>
+        <script src="/static/js/sb-admin-2.js"></script>
+    <script>
+   
+    
+    $(document).ready(function() {
+    $('#dataTables-example').dataTable( {
+        "sPaginationType": "scrolling"
+    } );
+} );
+    </script>
 
 </body>
 
