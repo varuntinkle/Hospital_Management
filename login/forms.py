@@ -16,7 +16,15 @@ class DocumentForm(forms.Form):
         label='Select an Image',
         help_text='max 1 megabytes'
     )
-
+    '''def __init__(self, *args, **kwargs):
+        super(ProductForm, self).__init__(*args, **kwargs)
+        self.fields['description'].widget = TextInput(attrs={
+            'id': 'myCustomId',
+            'class': 'form-control',
+            #'name': 'myCustomName',
+            #'placeholder': 'myCustomPlaceholder'
+            })
+    '''
 
 class Document2Form(forms.Form):
     #username = forms.CharField(label="username")
