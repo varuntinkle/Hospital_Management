@@ -60,31 +60,56 @@
     </script>
 
     <script type="text/javascript">
-        $(function () { 
+
+
+    $(function () {
     $('#container').highcharts({
-        chart: {
-            type: 'bar'
-        },
+        
         title: {
-            text: 'Follow Up Analysis'
+            text: 'Combination chart'
         },
         xAxis: {
-            categories: ['Poor','Average','Good','Very Good','Execellent' ]
+            categories: ['Poor','Average','Good','Very Good','Execellent']
         },
-        yAxis: {
+         yAxis: {
             title: {
                 text: 'No. of Prescription'
             }
         },
-        
+        labels: {
+            items: [{
+                html: 'Follow Up analysis',
+                style: {
+                    left: '50px',
+                    top: '18px',
+                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'black'
+                }
+            }]
+        },
+            
         series: [{
+            type: 'bar',
             name: 'Ratings',
             data:  [{% for i in data %}
                         {{i}},
                         {% endfor %}]
-        } ]
+        }, {
+            type: 'spline',
+            name: 'Ratings',
+            data: [{% for i in data %}
+                        {{i}},
+                        {% endfor %}],
+            marker: {
+                lineWidth: 3,
+                lineColor: Highcharts.getOptions().colors[3],
+                fillColor: 'white'
+            }
+        }]
     });
 });
+
+
+
     </script>
    <!-- <script type="text/javascript">
         $(function () { 
@@ -190,7 +215,7 @@
                         </div>
                     </div>-->
                     <div class="col-lg-12">
-                    <div class="panel panel-yellow">
+                    <div class="panel panel-green">
                         <div class="panel-heading" >
                             Word Cloud
                         </div>

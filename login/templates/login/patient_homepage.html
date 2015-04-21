@@ -44,33 +44,44 @@
 
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
+            <div class="navbar-header ">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                   <div> {% if messages %}
+                <!--<div> {% if messages %}
                         <ul class="messages" style="list-style-type:none">
                             {% for message in messages %}
                             <li{% if message.success %} class="{{ message.success }}"{% endif %}><h4 style="color:green">{{ message }}</h4></li>
                             {% endfor %}
                         </ul>
                         {% endif %}</div>
+             -->
+                    
+                        <div style="float:left" class="col-sm-1" margin><img height="50" width="50" src="/static/img/iitglogo.jpg"></div>
+                        <div style="float:right"><h4>Indian Institute of Technology Guwahati - Hospital</h4></div>
+                        
+         
+                <a class="navbar-brand" href="index.html"></a>
             </div>
             <!-- /.navbar-header -->
 
-            <ul class="nav navbar-top-links navbar-right">
-            <p><a href="/login/logout">LOG OUT</a></p>
+            <ul style="padding:5px" class="nav navbar-top-links navbar-right">
+            <a href="/login/logout"><button type="button" class="btn btn-primary">LOG OUT</button></a>
             </ul>
                 <!-- /.dropdown -->
                 
             <!-- /.navbar-top-links -->
-            
+
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            
+                            <!-- /input-group -->
+                        </li>
                         <li>
                             <a class="active" href="/"><i class="fa fa-dashboard fa-fw"></i> Home</a>
                         </li>
@@ -90,6 +101,13 @@
                          <li>
                             <a class="active" href="/login/med_forms" target="_blank"><i class="fa fa-edit fa-fw"></i>Medical Forms</a>
                         </li>
+                        <li> {% if messages %}
+                        <ul class="messages" style="list-style-type:none">
+                            {% for message in messages %}
+                            <li{% if message.success %} class="{{ message.success }}"{% endif %}><h4 style="color:green">{{ message }}</h4></li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}</li>
                        
                     </ul>
                 </div>
@@ -141,10 +159,19 @@
                         </div>
                     
                     <div class="panel-body">
-                       
+                        <style>
+                                        table, th, td {
+                                            border: 1px solid black;
+                                            border-collapse: collapse;
+                                        }
+                                        th, td {
+                                            padding: 5px;
+                                        }
+                                        </style>                                       
+
                                         <body>
 
-                                        <table class="table table-striped">
+                                        <table class="table table-bordered" style="width:100%">
                                               <tr>
                                                 <th>DOCTOR</th>
                                                 <th>DiSEASE</th>       

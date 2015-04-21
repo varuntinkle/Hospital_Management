@@ -59,33 +59,49 @@
         });
     </script>
 
-    <script type="text/javascript">
-        $(function () { 
+    <script>
+    $(function () {
     $('#container').highcharts({
-        chart: {
-            type: 'bar'
-        },
+        
         title: {
-            text: 'Disease Graph'
+            text: 'Combination chart'
         },
         xAxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr',  'May','June', 'July', 'Aug', 'Sep',  'Oct', 'Nov', 'Dec'  ]
+            categories: ['Jan', 'Feb', 'Mar', 'Apr',  'May','June', 'July', 'Aug', 'Sep',  'Oct', 'Nov', 'Dec']
         },
-        yAxis: {
-            title: {
-                text: 'No. of Patients'
-            }
+        labels: {
+            items: [{
+                html: 'Disease analysis',
+                style: {
+                    left: '50px',
+                    top: '18px',
+                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'black'
+                }
+            }]
         },
-        
+            
         series: [{
+            type: 'bar',
             name: '{{disease}}',
             data:  [{% for i in data %}
                         {{i}},
                         {% endfor %}]
-        } ]
+        }, {
+            type: 'spline',
+            name: '{{disease}}',
+            data: [{% for i in data %}
+                        {{i}},
+                        {% endfor %}],
+            marker: {
+                lineWidth: 3,
+                lineColor: Highcharts.getOptions().colors[3],
+                fillColor: 'white'
+            }
+        }]
     });
 });
-    </script>
+
+</script>
    <!-- <script type="text/javascript">
         $(function () { 
     $('#container2').highcharts({
@@ -192,7 +208,7 @@
                         </div>
                     </div>
                     <div class="col-lg-12">
-                    <div class="panel panel-yellow">
+                    <div class="panel panel-green">
                         <div class="panel-heading" >
                            <b> Word Cloud</b>
                         </div>

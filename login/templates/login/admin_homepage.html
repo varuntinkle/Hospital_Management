@@ -44,25 +44,25 @@
 
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
+             <div class="navbar-header ">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <div> {% if messages %}
-                        <ul class="messages" style="list-style-type:none">
-                            {% for message in messages %}
-                            <li{% if message.success %} class="{{ message.success }}"{% endif %}><h4 style="color:green">{{ message }}</h4></li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}</div>
+             
+                    
+                        <div style="float:left" class="col-sm-1" margin><img height="50" width="50" src="/static/img/iitglogo.jpg"></div>
+                        <div style="float:right"><h4>Indian Institute of Technology Guwahati - Hospital</h4></div>
+                        
+         
+                <a class="navbar-brand" href="index.html"></a>
             </div>
             <!-- /.navbar-header -->
 
-            <ul class="nav navbar-top-links navbar-right">
-            <a href="/login/logout">LOG OUT</a>
+            <ul style="padding:5px" class="nav navbar-top-links navbar-right">
+            <a href="/login/logout"><button type="button" class="btn btn-primary">LOG OUT</button></a>
             </ul>
                 <!-- /.dropdown -->
                 
@@ -75,7 +75,7 @@
                             <a class="active" href="/"><i class="fa fa-dashboard fa-fw"></i> Profile</a>
                         </li>
                          <li>
-                            <a class="active" href="/login/adddoctor"><i class="fa fa-dashboard fa-fw"></i>Add New Doctor</a>
+                            <a class="active" href="/login/createdoctor"><i class="fa fa-dashboard fa-fw"></i>Add New Doctor</a>
                         </li>
                          <li>
                             <a class="active" href="/login/addreception"><i class="fa fa-dashboard fa-fw"></i>Add New Receptionist</a>
@@ -101,7 +101,14 @@
                         <li>
                             <a class="active" href="/login/med_forms" target="_blank"><i class="fa fa-dashboard fa-fw"></i>Medical Forms</a>
                         </li>             
-                                
+                         <li> {% if messages %}
+                        <ul class="messages" style="list-style-type:none">
+                            {% for message in messages %}
+                            <li{% if message.success %} class="{{ message.success }}"{% endif %}><h4 style="color:green">{{ message }}</h4></li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        </li>   
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
