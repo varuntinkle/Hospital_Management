@@ -111,6 +111,7 @@ class Patient(models.Model):
 	def __str__(self):
 		return self.reg_no
 class AmbulanceBooking(models.Model):
+	username = models.CharField(max_length=50)
 	Source = models.CharField(max_length=50)
 	Destination = models.CharField(max_length=50)
 	DateBooked = models.DateTimeField('Date booked')

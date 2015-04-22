@@ -161,11 +161,11 @@ def medicine_timelimit(medicinename, startdate, enddate):
 	for i in Object_Searched:
 		#print
 		#print i.medicine.all()
-		for j in i.medicine.all():
+	
 
-			val = j.name.lower().find(medicinesearch.lower())
-			if val !=-1 and (start < i.prescription_time.date() < end):
-				month[i.prescription_time.month-1] = month[i.prescription_time.month-1] + 1
+		val = i.medicine.lower().find(medicinesearch.lower())
+		if val !=-1 :
+			month[i.prescription_time.month-1] = month[i.prescription_time.month-1] + 1
 	return month
 
 

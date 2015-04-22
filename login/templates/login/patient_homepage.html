@@ -153,6 +153,17 @@
                 
             </div>
             <div class="row">
+                
+
+                {% if bookings%}
+                    {% for book in bookings %}
+                        <p>Ambulance booked for Day:{{book.Day}} Time:{{book.Time}}</p>
+                        <br>
+                    {% endfor %}
+                {% else %}
+                        <p>No ambulance bookings or your booking has been cancelled !</p>
+                {% endif %}
+                
                 <div class = "col-lg-8">
                     <div class="panel panel-default">
                         <div class = "panel-heading">

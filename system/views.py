@@ -85,10 +85,10 @@ def graphmedicine_timelimit(request):
 	
 	sq_total = 0
 
-	for i in a:
+	for i in c:
 		sq_total = (i - avg)**2 + sq_total
 
-	standard_deviation = (sq_total / len(a)) ** 0.5
+	standard_deviation = (sq_total / len(c)) ** 0.5
 
 	words = medicineword_timelimit(startdate, enddate)
 	words_sorted_by_value = dict(sorted(words.items(), key=operator.itemgetter(1), reverse=True)[:5])
@@ -118,17 +118,17 @@ def graphdisease_timelimit(request):
 	diseasename = request.POST['diseaseinput']
 	c=disease_timelimit(diseasename,startdate,enddate)
 	total =0
-	standard_deviation = stdev(c) 
+	#standard_deviation = stdev(c) 
 	for i in c:
 		total = total + i
 	avg = total/12
 	
 	sq_total = 0
 	
-	for i in a:
+	for i in c:
 		sq_total = (i - avg)**2 + sq_total
 
-	standard_deviation = (sq_total / len(a)) ** 0.5
+	standard_deviation = (sq_total / len(c)) ** 0.5
 
 	words = diseaseword_timelimit(startdate, enddate)
 	words_sorted_by_value = dict(sorted(words.items(), key=operator.itemgetter(1), reverse=True)[:5])
