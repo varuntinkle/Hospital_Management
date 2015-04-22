@@ -1,0 +1,177 @@
+
+{% load staticfiles %}
+<html>
+
+<head>
+   <title>Complaint</title>
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint/css/admin.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint/css/bootstrap.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint/css/bootstrap.min.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint/css/bootstrap-theme.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint/css/bootstrap-theme.min.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint/css/buttons.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint/css/content.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint/css/nav.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint/css/styles.css' %}">
+   
+   
+   <script type="text/javascript" src="{% static 'complaint/js/jquery-11.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint/js/bootstrap.min.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint/js/jquery-1.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint/js/ui_002.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint/js/sliding_effect.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint/js/bootstrap.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint/js/ui.js' %}"></script>
+
+
+</head>
+<body>
+
+<div id="masthead">
+
+		<div id="header" class="clear-block">
+			<div class="header-right">
+				<div class="header-left">
+				
+								<div id="logo">
+											
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<img src="{% static 'complaint/ca.PNG' %}" alt="Home" width="90%" height="25%">
+						
+									</div> </td><!-- /logo --> 
+
+ <!-- /name-and-slogan --> 
+								</div> <!-- /header-left -->
+			</div> <!-- /header-right -->
+		</div> <!-- /header -->
+
+	</div>
+   <br/>
+   <br/>
+   <br/>
+   <br/>
+   
+		<div id="ui">
+
+			<div id="nav">
+			<p id="welcome">Welcome {{ latest_complaint.username }}</p>
+			<ul id="sliding-navigation">
+			<li class="sliding-element">
+			<h2>To do</h2>
+			</li>
+			<li class="sliding-element">
+			<a href="/rtc/complaint/">&nbsp;&nbsp;&nbsp;&nbsp;Home({{ cn }}) <span class="numbers"></span></a>
+			</li>
+			<li class="sliding-element">
+			<a href="/rtc/complaint/booking/">&nbsp;&nbsp;&nbsp;&nbsp;Book a Complaint</a>
+			</li>
+			<li class="sliding-element">
+			<a href="/rtc/complaint/cancel/">&nbsp;&nbsp;&nbsp;&nbsp;Cancel a Complaint</a>
+			</li>
+	<li class="sliding-element"><a href="/rtc/logout">&nbsp;&nbsp;&nbsp;&nbsp;Logout</a></li>
+	</ul>  
+</div>
+		
+			<div id="content"><h2>Your Complaints</h2>	
+</br></br>
+<table>
+{% if latest_complaint %}
+{%  for latest in latest_complaint %}
+<tr>
+<td width="90%">{{ latest.subject}}</td>
+
+<td> <a href="#" data-toggle="modal" 
+ data-target="#{{ latest.id }}"><button type="button" class="btn btn-primary">view</button></a>
+ </td>
+
+</tr>
+{% endfor %}
+	{% else %}
+			<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; No  complaints</p>
+	{% endif %}
+</table>	
+		</div>
+</div> 
+
+
+
+{% if latest_complaint %}
+{%  for latest in latest_complaint %}
+<div class="modal fade" id="{{ latest.id }}" tabindex="-1" 
+role="dialog" aria-labelledby="helpModalLabel"     aria-hidden="true">
+            <div class="modal-dialog">      
+        <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" 
+                        data-dismiss="modal">
+                            <span aria-hidden="true">&times;
+                            </span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel">
+                            Complaint</h4>
+                    </div>
+                       <div class="modal-body">
+
+<table>
+			<tr>
+				<td>
+					<b>category :<b>&nbsp;&nbsp;&nbsp;&nbsp;
+				</td> 
+				<td>
+					<i>{{ latest.category }}</i>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>subject :<b>&nbsp;&nbsp;&nbsp;&nbsp;
+				</td>
+				<td>
+					<i>{{ latest.subject}}</i>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>Description :</b>&nbsp;&nbsp;&nbsp;&nbsp;
+				</td>
+				<td>
+					<i><p> {{ latest.complaint }}</p></i>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>Status:</b>&nbsp;&nbsp;&nbsp;&nbsp; 
+				</td>
+				<td>
+					<i> {{ latest.process}}</i>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>Time:</b>&nbsp;&nbsp;&nbsp;&nbsp;
+				</td>
+				<td>
+					<i>{{ latest.complaint_date}}</i>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>Admin Remarks:</b>&nbsp;&nbsp;&nbsp;&nbsp;
+				</td>
+				<td>
+					<i>{{ latest.admintext}}</i>
+				</td>
+			</tr>
+
+</table>
+   </div>
+
+        <div class="modal-footer">
+       <button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endfor %}
+	{% endif %}
+</body>
+</html>
+

@@ -1,0 +1,100 @@
+#request-table{
+    width: 100%;
+}
+
+#request-table tr td{
+    width: 33%;
+    vertical-align: top;
+}
+
+#request-table tr td > div{
+    padding: 10px;
+}
+
+#request-table tr td > div > h1{
+    font-size: 20px;
+}
+
+#request-table tr td > div > i{
+    font-size: 60px;
+    padding: 20px;
+}
+
+#request-table tr td > div > div{
+    background-color: #eee;
+    padding: 2px 10px;
+    margin: 12px 5%;
+    border: 0px solid #ddd;
+    border-radius: 0px 20px 20px 0px;
+}
+
+#request-table tr td:nth-child(1) > div > div{
+    box-shadow: 0px 0px 5px #003399;
+}
+
+/*
+#request-table tr td:nth-child(1) > div > div:hover{
+    background: #003399;
+    color: white;
+}
+*/
+
+#request-table tr td:nth-child(2) > div > div{
+    box-shadow: 0px 0px 5px #B20000;
+}
+
+/*
+#request-table tr td:nth-child(2) > div > div:hover{
+    background: #B20000;
+    color: white;
+}
+*/
+
+#request-table tr td:nth-child(3) > div > div{
+    box-shadow: 0px 0px 5px #003D00;
+}
+
+/*
+#request-table tr td:nth-child(3) > div > div:hover{
+    background: #003D00;
+    color: white;
+}
+*/
+
+#request-table tr td > div > div > *{
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    font-family: calibri, verdana;
+    padding: 0px;
+    margin: 10px;
+}
+
+#request-table tr td > div > div > h1{
+    cursor: pointer;
+}
+
+#request-table tr td > div > div > h1 > span{
+    font-weight: normal;
+}
+
+#request-table tr td > div > div > h2{
+    margin-top: 15px;
+}
+
+#request-table tr td > div > div > h2 > span{
+    font-weight: normal;
+}
+
+#request-table tr td > div > div > h3{
+    
+}
+
+#request-table tr td > div > div > h3 > span{
+    font-weight: normal;
+}
+
+#request-table tr td > div > div > button{
+    margin: 5px 10px 15px 10px;
+    padding: 2px 5px;
+}

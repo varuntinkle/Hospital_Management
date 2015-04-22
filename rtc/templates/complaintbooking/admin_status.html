@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>booking | Complaint</title>
+	<style type="text/css">
+	#menu
+	{
+		padding-top: 70px;
+		padding-left: 20px;
+	}
+
+	#previous_complaints{
+		
+		padding-left: 400px;
+		padding-top: 100px;
+	}
+
+	</style>
+</head>
+<body>
+
+	{% if cn %}
+		<h1>u have  {{ cn }} unseen messages</h1>
+	{% else %}
+		<h1>u have no unseen messages</h1>
+	{% endif %}
+<div id="menu">
+		Welcome <br/>
+		<a href="/rtc/complaint/adminmain">Home</a><br/>
+		<a href="/rtc/complaint/category">category</a><br/>
+		<a href="/rtc/complaint/status">status</a><br/>
+		
+	</div>
+<div id="previous_complaints">
+	<P><h1>Complaints List of not seen</h1></P>
+	{% if complaint %}
+	{%  for latest in complaint %}
+	{% if latest.process == "not_seen" %}
+		<ul>
+			<li>id:{{latest.pk}}</li>
+			<li>category : {{ latest.category }}</li>
+			<li>subject : {{ latest.subject}}</li>
+			<li>Description : {{ latest.complaint|slice:":10" }}</li>
+			<li>Status : {{ latest.process}}</li>
+			<li>Time:{{ latest.complaint_date}}</li>
+		</ul>
+		<a href="/rtc/complaint/{{ latest.id }}/view">view</a>
+		{% endif %}	
+	{% endfor %}
+	{% else %}
+		<p> No recent complaints</p>
+	{% endif %}
+	</div>
+
+
+<div id="previous_complaints">
+	<P><h1>Complaints List of processing</h1></P>
+	{% if complaint %}
+	{%  for latest in complaint %}
+	{% if latest.process == "Processing" %}
+		<ul>
+			<li>id:{{latest.pk}}</li>
+			<li>category : {{ latest.category }}</li>
+			<li>subject : {{ latest.subject}}</li>
+			<li>Description : {{ latest.complaint|slice:":10" }}</li>
+			<li>Status : {{ latest.process}}</li>
+			<li>Time:{{ latest.complaint_date}}</li>
+		</ul>
+		<a href="/rtc/complaint/{{ latest.id }}/view">view</a>
+		{% endif %}	
+	{% endfor %}
+	{% else %}
+		<p> No recent complaints</p>
+	{% endif %}
+	</div>
+
+
+<div id="previous_complaints">
+	<P><h1>Complaints List of Completed</h1></P>
+	{% if complaint %}
+	{%  for latest in complaint %}
+	{% if latest.process == "Completed" %}
+		<ul>
+			<li>id:{{latest.pk}}</li>
+			<li>category : {{ latest.category }}</li>
+			<li>subject : {{ latest.subject}}</li>
+			<li>Description : {{ latest.complaint|slice:":10" }}</li>
+			<li>Status : {{ latest.process}}</li>
+			<li>Time:{{ latest.complaint_date}}</li>
+		</ul>
+		<a href="/rtc/complaint/{{ latest.id }}/view">view</a>
+		{% endif %}	
+	{% endfor %}
+	{% else %}
+		<p> No recent complaints</p>
+	{% endif %}
+	</div>
+
+</body>
+
+</html>

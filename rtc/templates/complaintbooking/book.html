@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+
+{% load staticfiles %}
+<html>
+
+<head>
+   <title>Complaint</title>
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint/css/admin.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint/css/bootstrap.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint/css/bootstrap.min.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint/css/bootstrap-theme.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint/css/bootstrap-theme.min.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint/css/buttons.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint/css/content.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint/css/nav.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint/css/styles.css' %}">
+   
+   
+   <script type="text/javascript" src="{% static 'complaint/js/jquery-11.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint/js/bootstrap.min.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint/js/jquery-1.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint/js/ui_002.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint/js/sliding_effect.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint/js/bootstrap.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint/js/ui.js' %}"></script>
+
+
+</head>
+<body>
+
+<div id="masthead">
+
+		<div id="header" class="clear-block">
+			<div class="header-right">
+				<div class="header-left">
+				
+								<div id="logo">
+											
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<img src="{%static 'complaint/ca.PNG' %}" alt="Home" width="93%" height="28%">
+						
+									</div> </td><!-- /logo --> 
+
+ <!-- /name-and-slogan --> 
+								</div> <!-- /header-left -->
+			</div> <!-- /header-right -->
+		</div> <!-- /header -->
+
+	</div>
+   <br/>
+   <br/>
+   <br/>
+   <br/>
+   
+		<div id="ui">
+
+			<div id="nav">
+			<p id="welcome">Welcome {{ latest_complaint.username }}</p>
+			<ul id="sliding-navigation">
+			<li class="sliding-element">
+			<h2>To do</h2>
+			</li>
+			<li class="sliding-element">
+			<a href="/rtc/complaint/">&nbsp;&nbsp;&nbsp;&nbsp;Home({{ cn }}) <span class="numbers"></span></a>
+			</li>
+			<li class="sliding-element">
+			<a href="/rtc/complaint/booking/">&nbsp;&nbsp;&nbsp;&nbsp;Book a Complaint</a>
+			</li>
+			<li class="sliding-element">
+			<a href="/rtc/complaint/cancel/">&nbsp;&nbsp;&nbsp;&nbsp;Cancel a Complaint</a>
+			</li>
+	<li class="sliding-element"><a href="/rtc/logout">&nbsp;&nbsp;&nbsp;&nbsp;Logout</a></li>
+	</ul>  
+</div>
+		
+<div id="content"><h2>Complaint Booking</h2>	
+<form class="form-horizontal" action="/rtc/complaint/booking/response/" method="POST">
+	{% csrf_token %}
+<fieldset>
+
+<!-- Form Name -->
+
+<table>
+<!-- Select Basic -->
+<tr>
+<td>
+<div class="control-group">
+
+<table>
+<tr>
+<td width="30%">
+<label class="control-label" for="selectbasic">Category</label>
+  </td><td>
+  <div class="controls">
+    <select id="selectbasic" name="category" class="input-large">
+      <option>staff</option>
+      <option>Doctor</option>
+	  <option>Hygene</option>
+	  <option>Ambulance</option>
+	  <option>Medicine</option>
+    </select>
+  </div>
+</td></tr></table>
+</div></td>
+</tr>
+<!-- Text input-->
+<tr>
+<td>
+<div class="control-group">
+<table >
+<tr >
+
+<td width="30%">  <label class="control-label" for="textinput">Subject*</label></td>
+  <div class="controls">
+   <td> <input id="textinput" name="subject" type="text"  class="input-xlarge" required>
+  </div></td>
+  </tr>
+  </table>
+</div></td>
+</tr>
+<!-- Textarea -->
+<tr>
+<td>
+<div class="control-group">
+<table>
+<tr>
+  <td width="30%"><label class="control-label" for="textarea">complaint*</label>
+  </td><td><div class="controls">                     
+    <textarea id="textarea" name="description"  rows="5" cols="60" required></textarea>
+  </div></td></tr></table>
+</div>
+</td>
+</tr>
+<!-- Button -->
+<tr>
+<td>
+<center>
+<div class="control-group">
+  
+  <div class="controls">
+    <button id="singlebutton" name="singlebutton" class="btn btn-primary">submit</button>
+  </div>
+</div>
+</center>
+</td>
+</tr>
+</table>
+</fieldset>
+</form>
+		</div>
+</div> 
+
+</body>
+</html>
+
+
+
+
+
+
+
+

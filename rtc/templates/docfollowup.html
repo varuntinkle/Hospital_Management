@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+
+
+<SCRIPT language="javascript">
+
+function checkAll(ele){
+    var checkboxes = document.getElementsByTagName('input');
+    if (ele.checked){
+        for (var i = 0; i < checkboxes.length; i++){
+            if (checkboxes[i].type == 'checkbox'){
+                     checkboxes[i].checked = true;
+                            }
+                            }
+                }
+    else{
+        for(var i = 0; i < checkboxes.length; i++){
+                        console.log(i)
+                        if (checkboxes[i].type == 'checkbox') {
+                                     checkboxes[i].checked = false;
+                                            }
+                                }
+    }
+}
+
+</SCRIPT>
+
+
+
+
+
+
+
+    <meta charset="utf-8">
+    <!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
+    <title>Follow Ups</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{% static 'res/css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
+    <style type="text/css">
+        body{ margin-top:50px;}
+.nav-tabs .glyphicon:not(.no-margin) { margin-right:10px; }
+.tab-pane .list-group-item:first-child {border-top-right-radius: 0px;border-top-left-radius: 0px;}
+.tab-pane .list-group-item:last-child {border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;}
+.tab-pane .list-group .checkbox { display: inline-block;margin: 0px; }
+.tab-pane .list-group input[type="checkbox"]{ margin-top: 2px; }
+.tab-pane .list-group .glyphicon { margin-right:5px; }
+.tab-pane .list-group .glyphicon:hover { color:#FFBC00; }
+a.list-group-item.read { color: #222;background-color: #F3F3F3; }
+hr { margin-top: 5px;margin-bottom: 10px; }
+.nav-pills>li>a {padding: 5px 10px;}
+
+.ad { padding: 5px;background: #F5F5F5;color: #222;font-size: 80%;border: 1px solid #E5E5E5; }
+.ad a.title {color: #15C;text-decoration: none;font-weight: bold;font-size: 110%;}
+.ad a.url {color: #093;text-decoration: none;}
+    </style>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="{% static 'res/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+
+
+
+<nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Doctor-RTC</a>
+                </div>
+                
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{user}}<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="/rtc/logout">Log Out</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+
+
+
+
+
+
+
+
+
+<div class="container">
+    <hr />
+<div class="row">
+        
+<div class="col-sm-9 col-md-10">
+<!-- Nav tabs -->
+    <ul class="nav nav-tabs">
+        <li class="active"><label>&nbsp &nbsp<input type="checkbox" onchange="checkAll(this)" name="chk[]" /> Toggle All</label>
+        <div style="float:left">
+        <form action="../delete/" method = "post">
+        {% csrf_token %}
+	<input type="submit" class="submit" value="delete"></input><br>
+	
+	</div>
+        <a href="" data-toggle="tab">Follow Ups</a></li>
+    </ul>
+<!-- Tab panes -->
+
+{% for creq in FollowUp %}
+	{% if creq.Doctor_delete == False and creq.title != "FollowUp Not Filled" %}
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="home">
+            <div class="list-group">
+            	<div class="list-group-item">
+            	<input type="checkbox" name = "checks[]" value="{{creq.prescription.id}}" />
+                <a href="../f1_detail/{{creq.prescription.id}}">
+                        <span class="name" style="min-width: 120px;display: inline-block;">{{creq.patient.name}}</span> 
+                        <span class="">Problem: {{creq.title}}</span>
+                        <span class="text-muted" style="font-size: 11px;">- {{creq.prescription}}</span>
+                </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% endfor %}
+</form>
+
+</div>
+</div>
+</body>
+</html

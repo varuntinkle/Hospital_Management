@@ -1,0 +1,195 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Register a new Patient</title>
+      
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'res/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/admin.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/bootstrap.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/bootstrap.min.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/bootstrap-theme.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/bootstrap-theme.min.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/buttons.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/content.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/nav.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/styles.css' %}">
+   
+   
+   <script type="text/javascript" src="{% static 'complaint1/js/jquery-11.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint1/js/bootstrap.min.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint1/js/jquery-1.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint1/js/ui_002.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint1/js/sliding_effect.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint1/js/bootstrap.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint1/js/ui.js' %}"></script>
+    <!-- Custom styles for this template -->
+    <!--<link href="res/bootstrap/css/signin.css" rel="stylesheet">-->
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="{% static 'static/res/bootstrap/js/ie-emulation-modes-warning.js' %}" ></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src=https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+<div id="masthead">
+
+    <div id="header" class="clear-block">
+      <div class="header-right">
+        <div class="header-left">
+        
+                <div id="logo">
+                      
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <img src="{%static 'complaint1/ca.png' /%}" alt="Home" width="93%" height="28%">
+            
+                  </div> </td><!-- /logo --> 
+
+ <!-- /name-and-slogan --> 
+                </div> <!-- /header-left -->
+      </div> <!-- /header-right -->
+    </div> <!-- /header -->
+
+  </div>
+   <br/>
+   <br/>
+   <br/>
+   <br/>
+   
+    <div id="ui">
+
+     <div id="nav">
+      <p id="welcome">Welcome {{ latest_rem.username }}</p>
+      <ul id="sliding-navigation">
+      <li class="sliding-element">
+      <h2>To do</h2>
+      </li>
+      <li class="sliding-element">
+      <a href="/rtc/main">&nbsp;&nbsp;&nbsp;&nbsp;Home({{ cn }}) <span class="numbers"></span></a>
+      </li>
+      <li class="sliding-element">
+      <a href="/rtc/in_rim">&nbsp;&nbsp;&nbsp;&nbsp;<left>Reimbursement Form For OPD &nbsp;&nbsp;&nbsp;&nbsp;Treatment by Institute Doctor</left> </a>
+      </li>
+      <li class="sliding-element">
+      <a href="https://shilloi.iitg.ernet.in/~medical/Reimbursement%20Form%20For%20OPD%20Treatment%20by%20Outside%20Doctor.pdf" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;<left>Reimbursement Form For OPD &nbsp;&nbsp;&nbsp;&nbsp;Treatment by Outside Doctor</left></a>
+      </li>
+      <li class="sliding-element">
+      <a href="/rtc/ins_scheme">&nbsp;&nbsp;&nbsp;&nbsp;<left>Reimbursement Using Insurance &nbsp;&nbsp;&nbsp;&nbsp;Scheme</left></a>
+      </li>
+      <li class="sliding-element">
+      <a href="https://shilloi.iitg.ernet.in/~medical/FAQ_GMIS.pdf" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;FAQ's</a>
+      </li>
+  <li class="sliding-element"><a href="/rtc/logout">&nbsp;&nbsp;&nbsp;&nbsp;Logout</a></li>
+  </ul>  
+</div>
+
+
+    <div id="content">
+        
+<h1 style="text-align:center;margin:50px;">Register reimburse 1 request</h1>
+
+<form style="margin:0px auto 50px auto;width:500px;" action="in_rim" method="post" >
+     {% csrf_token %}
+    <div class="form-group">
+    <label>Subject</label>
+    <input type="name" class="form-control"  placeholder="Enter Subject Here" name="sub" required>
+  </div>
+   <div class="form-group">
+    <label>Patient Name</label>
+    <input type="name" class="form-control" pattern="[A-Z,a-z,\s]{1,}" placeholder="Enter Name Here" name="patient_name" required>
+  </div>
+
+  <div class="form-group">
+    <label>Employee No./ Student Roll No.</label>
+    <input type="name" class="form-control" pattern="[A-Z,a-z0-9]{1,10}"  placeholder="Enter Employee No./ Student Roll No." name="roll_no" required>
+  </div>
+
+  <div class="form-group">
+    <label>Relationship of patient</label>
+    <textarea class="form-control"  rows="4" placeholder="Enter Patient's Relationship" name="relationship"></textarea>
+  </div>
+
+  <div class="form-group">
+    <label>Account number</label>
+    <input type="name" class="form-control" pattern="[0-9]{1,}"  placeholder="account no." name="acc_no" required>
+  </div>
+
+  <div class="form-group">
+    <label>Break-up of Expenses</label>
+     <table border="1"  style="width:100%" id="ankur">
+      <tr>
+        <td><input type="name" class="form-control"  placeholder="particular 1" name="exp_p1" required> </td>
+          <td><input type="name" class="form-control" pattern="[0-9,.]{1,}" placeholder="amount" name="exp_amount1" required> </td>
+      </tr>
+      <tr>
+        <td><input type="name" class="form-control"  placeholder="particular 2" name="exp_p2"> </td>
+          <td><input type="name" class="form-control" pattern="[0-9,.]{1,}"  placeholder="amount" name="exp_amount2"> </td>
+      </tr>
+      <tr>
+        <td><input type="name" class="form-control"  placeholder="particular 3" name="exp_p3"> </td>
+          <td><input type="name" class="form-control" pattern="[0-9,.]{1,}" placeholder="amount" name="exp_amount3"> </td>
+      </tr>
+      <tr>
+        <td><input type="name" class="form-control"  placeholder="particular 4" name="exp_p4"> </td>
+          <td><input type="name" class="form-control" pattern="[0-9,.]{1,}" placeholder="amount" name="exp_amount4"> </td>
+       </tr>
+       <tr>
+         <td><input type="name" class="form-control"  placeholder="particular 5" name="exp_p4"> </td>
+         <td><input type="name" class="form-control" pattern="[0-9,.]{1,}" placeholder="amount" name="exp_amount5"> </td>
+       </tr>
+       <tr>
+         <td><input type="name" class="form-control"  placeholder="particular 6" name="exp_p6"> </td>
+         <td><input type="name" class="form-control" pattern="[0-9,.]{1,}" placeholder="amount" name="exp_amount7"> </td>
+       </tr>
+       <tr>
+         <td><input type="name" class="form-control"  placeholder="particular 7" name="exp_p7"> </td>
+         <td><input type="name" class="form-control" pattern="[0-9,.]{1,}" placeholder="amount" name="exp_amount7"> </td>
+       </tr>
+       <tr>
+         <td><input type="name" class="form-control"  placeholder="particular 8" name="exp_p8"> </td>
+         <td><input type="name" class="form-control" pattern="[0-9,.]{1,}" placeholder="amount" name="exp_amount8"> </td>
+       </tr>
+    </table>
+    
+    <a id="addMore">Add More</a>
+    
+  </div>
+  
+  
+  
+  <div class="form-group">
+    <label>Total amount</label>
+    <input type="name" class="form-control" pattern="[0-9,.]{1,}" placeholder="Amount" name="t_amount" required>
+  </div>
+
+<button type="submit" class="btn btn-default">Register</button>
+
+</form>
+
+    </div> <!-- /container -->
+    </div>
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{ % static 'static/res/bootstrap/js/ie10-viewport-bug-workaround.js' %}"></script>
+  <!--<script type="text/javascript" src="jquery.min.js"></script>-->
+  <script type="text/javascript" src="{% static 'complaint1/js/script.js' %}"></script>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+#nav {
+	position:	absolute;
+	top:		20px;
+	left:		0px;
+	font-size:	0.95em;
+	width:		20%;
+	height:     	300px;
+	padding:	0px;
+	font-family:	verdana, arial, clean, sans-serif;
+	background-color: #1d1d1d;
+}
+#nav h2 {
+	font-size:		1.0em;
+	text-align:		center;
+	background-color:	#0099cc;
+	color:			#fff;
+	border-radius:  	8px;
+	-moz-border-radius:	8px;
+	-webkit-border-radius:	8px;
+}
+
+#nav #welcome {
+	font-size:		1.15em;
+	text-align:		center;
+	color:			#fff;
+}
+
+.numbers {
+	font-size:		0.85em;
+	color:			#ff00ff;
+	
+}
+
+.task {
+	font-size:		5.0em;
+}

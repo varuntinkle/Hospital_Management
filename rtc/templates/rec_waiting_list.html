@@ -1,0 +1,9 @@
+ 										<h1>Scheduled Requests</h1>
+                                        <i class="fa fa-calendar"></i>
+                                        {% for i in rec_waiting_list %}
+                                        <div>
+                                            <h1>Application No. <span>{{ i.appoint_no }}</span></h1>
+                                            <h2>Patient's Name: <span>{{ i.name }}</span></h2>
+                                            <h3>Doctor's Name: <span>{{ i.doctor.name }}</span></h3>
+                                        </div>
+                                        {% endfor %}

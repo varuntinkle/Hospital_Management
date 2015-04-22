@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>IITG-Hospital Management System</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/home/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/static/home/css/grayscale.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/static/home/font-awesome/css/font-awesome.min.css"  rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="/">
+                    <i class="fa fa-play-circle"></i>  <span class="light">Home</span>Page
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/rtc/login/1" style = "color:#808080">Web RTC</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/rtc/login/2" style = "color:#808080">Complaint Booking</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/rtc/login/3" style = "color:#808080">Feedback Forum</a>
+                    </li>
+                                        <li>
+                        <a class="page-scroll" href="/rtc/med" style = "color:#808080">Medicine Search</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/rtc/login/5" style = "color:#808080">Insurance Claim</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Intro Header -->
+    <header class="intro">
+        <div class="intro-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2" style = "color:#383838 ">
+                        <h1 class="brand-heading" style = "color:#383838 ">IITG-Hospital</h1>
+                        <p class="intro-text" style = "color:#383838 ">Created by Group 2.</p>
+                        <a href="#about" class="btn btn-circle page-scroll" style = "color:#383838 ">
+                            <i class="fa fa-angle-double-down animated" style = "color:#383838 "></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>About IITG-Hospital</h2>
+                <p>The IIT Guwahati Hospital is located inside the scenic IIT Guwahati campus.</p>
+                <p>The Hospital has three Medical Officers. Dr. M Borthakur, Chief Medical Officer(NFSG) is the Head of the Medical Section. Both Dr. Leena Barua and Dr. Anuj Kr. Baruah are Chief Medical Officers(NFSG) of this Institute.</p>
+                <p>IITG hospital has an Emergency Room, Minor OT room, ECG Room, 10 numbers of Patient Cabin, 02 numbers of Isolation Cabin and 02 numbers of General Ward.
+                Hospital has 24 hrs Doctor, Nursing and Pharmacy service for its patients provided by outsourced hospital service provider. It has a Reception Counter for Patients registration, Diagnostics Laboratory with specimen collection facility for its patients from 8.00 PM to 1.00 PM provided by outsourced hospital service provider. The Hospital also has two ambulances for patient care. </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="content-section text-center">
+        <div class="download-section-1">
+            <div class="container">
+                <div class="col-lg-8 col-lg-offset-2" style = "color:#A80000   ">
+                    <h2>Web RTC</h2>
+                    <p>Real Time Communication System for working of hospital system. RTC is set up between the reception and doctor.</p>
+                    <a href="/rtc/login/1" class="btn btn-default btn-lg">Web RTC</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="content-section text-center">
+        <div class="download-section-2">
+            <div class="container">
+                <div class="col-lg-8 col-lg-offset-2" style = "color:#009966   ">
+                    <h2>Complaint Booking</h2>
+                    <p>Forum for online comlaint Booking</p>
+                    <a href="/rtc/login/2" class="btn btn-default btn-lg">Complaint Booking</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="content-section text-center">
+        <div class="download-section-3">
+            <div class="container" style = "color:#663300   ">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <h2>Feedback</h2>
+                    <p>Patients can fill feedback for check-up, Doctor can view their feedback.</p>
+                    <a href="http://HomebootstrPage.com/template-overviews/grayscale/" class="btn btn-default btn-lg">Visit Download Page</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="download" class="content-section text-center">
+        <div class="download-section-4">
+            <div class="container" style = "color:#009900   ">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <h2>Insurance Claim</h2>
+                    <p>Patients can claim for insurance through this forum.</p>
+                    <a href="http://HomebootstrPage.com/template-overviews/grayscale/" class="btn btn-default btn-lg">Visit Download Page</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Contact Section -->
+    <section id="contact" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>Contact Home BootstPage</h2>
+                <p>Feel free to email us to provide some feedback on our templates, give us suggestions for new templates and themes, or to just say hello!</p>
+                <p><a href="mailto:feedback@HomebootstrPage.com">feedback@HomebootstrPage.com</a>
+                </p>
+                <ul class="list-inline banner-social-buttons">
+                    <li>
+                        <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/IronSummitMedia/HomebootstrPage" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/+HomebootstrPage/posts" class="btn btn-default btn-lg"><i class="fa fa-google-plus fa-fw"></i> <span class="network-name">Google+</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Map Section -->
+    <div id="map"></div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container text-center">
+            <p>Copyright &copy; Your Website 2014</p>
+        </div>
+    </footer>
+    <script src="/static/home/js/jquery.easing.min.js"></script>
+    <!-- jQuery -->
+    <script src="/static/home/js/jquery.js" ></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/static/home/js/bootstrap.min.js"  ></script>
+
+    <!-- Plugin JavaScript -->
+
+
+    <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="/static/home/js/grayscale.js"></script>
+
+</body>
+
+</html>

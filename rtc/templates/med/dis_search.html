@@ -1,0 +1,19 @@
+{% if re %}
+{% for i in re %}
+	<span>{{i.name}}</span>
+	<nbsp>
+	<span class="disease">{{i.disease}}</span>
+	<br>
+{% endfor %}
+{% else %}
+<span>None to show!</span>
+{% endif %}
+<script >
+	$('.disease').click(function(){
+			var i=$(this).text();
+			//alert(i);
+			$('#autocomplete').val(i);
+			$('#search-complete').html('');
+
+	});
+</script>

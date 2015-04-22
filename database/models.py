@@ -32,35 +32,30 @@ class Medicine(models.Model):
 		return self.name
 
 class FollowUp(models.Model):
-	# rating=(('1','poor'),('2','Average'),('3','good'),('4','very good'),('5','excellent'))
-	# patient = models.ForeignKey('Patient')
-	# doctor = models.ForeignKey('Doctor')
-	# title = models.CharField(max_length=200)
-	# description = models.TextField(blank=True)
-	# rating = models.CharField(max_length=1,choices=rating)
-	################################################3
 	prescription = models.OneToOneField('Prescription', primary_key=True)
-	# expiry_date = models.DateField()
-	# new addition : is_filled
 	is_filled=models.BooleanField(default=False)
-	rating=(('1','poor'),('2','Average'),('3','good'),('4','very good'),('5','excellent'))
+	rating=(('poor','1'),('average','2'),('good','3'),('very good','4'),('excellent','5'))#conflict with what we are storing
 	patient = models.ForeignKey('Patient')
 	doctor = models.ForeignKey('Doctor')
 	title = models.CharField(max_length=200)
 	description = models.CharField(max_length=1000)
-	rating = models.CharField(max_length=1,choices=rating)
+	rating = models.CharField(max_length=15,choices=rating)
+	Doctor_delete = models.BooleanField(default=False)
+	Patient_delete = models.BooleanField(default=False)
+	Reply_from_doctor = models.TextField(blank=True)
 	def __unicode__(self):
 		return self.title
 	################################################3
 
 class Complaint(models.Model):
-	category=(('1','poor'),('2','Average'),('3','good'),('4','very good'),('5','excellent'))
 	username = models.CharField(max_length=140)
-	category = models.CharField(max_length=10,choices=category)
+	category = models.CharField(max_length=20)
 	subject = models.CharField(max_length=140)
 	complaint = models.TextField(blank=True)
 	complaint_date = models.DateTimeField()
+	process = models.CharField(max_length=50 ,default='not_seen')
 	doc_pat = models.BooleanField(default=0)
+	admintext = models.CharField(max_length=140)
 	def __unicode__(self):
 		return self.subject
 
@@ -71,6 +66,7 @@ class Prescription(models.Model):
 	medicine = models.TextField('Medicine')#########change########
 	symptoms = models.TextField(blank = True)
 	prescription_time = models.DateTimeField(blank=True)
+	medtime = models.TextField(blank = True,null=True)
 	next_visit = models.IntegerField(unique = False,null= True,blank=True)
 	def __str__(self):
 		return self.disease
@@ -111,7 +107,7 @@ class Patient(models.Model):
 	def __str__(self):
 		return self.reg_no
 class AmbulanceBooking(models.Model):
-	username = models.CharField(max_length=50)
+	username=models.CharField(max_length=50)
 	Source = models.CharField(max_length=50)
 	Destination = models.CharField(max_length=50)
 	DateBooked = models.DateTimeField('Date booked')
@@ -142,6 +138,24 @@ class Reception(models.Model):
 	image = models.FileField(upload_to="./", blank=True)
 
 
+class Internal_rim(models.Model):
+    username = models.CharField(max_length = 255)
+    roll_no = models.CharField(max_length = 10)
+    relationship= models.CharField(max_length=50, blank=True)
+    patient_name= models.CharField(max_length=255,default='Self')
+    acc_no= models.CharField(max_length=50)
+    exp_p=models.TextField()
+    exp_amount= models.TextField()
+    t_amount= models.CharField(max_length=6)
+    rim_amount= models.FloatField(max_length=10, default=0)
+    status= models.BooleanField(default=False)
+    subject=models.CharField(max_length=255)
+    rec_time = models.DateTimeField()
+    def __unicode__(self):
+		return self.username
+
+class Finance_accountant(models.Model):
+	username = models.CharField(max_length = 255)
 
 	
 

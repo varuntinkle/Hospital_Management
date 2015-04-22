@@ -23,7 +23,7 @@
                             <div class="form-group">
                                             <label>Disease Name</label>
                             {% csrf_token %}
-                                            <input class="form-control" name ="diseaseinput" placeholder="Leave blank for complete data">
+                                            <input class="form-control" name ="diseaseinput" placeholder="Disease name" required>
                                             <label>Start Date</label>
                                             <p><input id="Generate Graph" class="form-control" type="text" name="startdate_input" placeholder="YYYY-MM-DD" value=""></p>
                                             <label>End Date</label>
@@ -50,7 +50,7 @@
                             <div class="form-group">
                                             <label>Medicine Name</label>
                             {% csrf_token %}
-                                            <input class="form-control" name ="medicineinput" placeholder="Leave blank for complete data">
+                                            <input class="form-control" name ="medicineinput" placeholder="Medicine name" required>
                                             <label>Start Date</label>
                                             <p><input id="Generate Graph" class="form-control" type="text" name="startdatemed_input" placeholder="YYYY-MM-DD" value=""></p>
                                             <label>End Date</label>

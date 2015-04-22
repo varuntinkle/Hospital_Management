@@ -1,0 +1,97 @@
+
+{% load staticfiles %}
+<html>
+
+<head>
+   <title>External links</title>
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/admin.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/bootstrap.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/bootstrap.min.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/bootstrap-theme.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/bootstrap-theme.min.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/buttons.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/content.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/nav.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/styles.css' %}">
+   
+   
+   <script type="text/javascript" src="{% static 'complaint1/js/jquery-11.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint1/js/bootstrap.min.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint1/js/jquery-1.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint1/js/ui_002.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint1/js/sliding_effect.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint1/js/bootstrap.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint1/js/ui.js' %}"></script>
+
+
+</head>
+<body>
+
+<div id="masthead">
+
+		<div id="header" class="clear-block">
+			<div class="header-right">
+				<div class="header-left">
+				
+								<div id="logo">
+											
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<img src="{%static 'complaint1/ca.PNG' /%}" alt="Home" width="90%" height="25%">
+						
+									</div> </td><!-- /logo --> 
+
+ <!-- /name-and-slogan --> 
+								</div> <!-- /header-left -->
+			</div> <!-- /header-right -->
+		</div> <!-- /header -->
+
+	</div>
+   <br/>
+   <br/>
+   <br/>
+   <br/>
+   
+		<div id="ui">
+
+			<div id="nav">
+			<p id="welcome">Welcome {{ latest_rem.username }}</p>
+			<ul id="sliding-navigation">
+			<li class="sliding-element">
+			<h2>To do</h2>
+			</li>
+			<li class="sliding-element">
+			<a href="/rtc/main">&nbsp;&nbsp;&nbsp;&nbsp;Home({{ cn }}) <span class="numbers"></span></a>
+			</li>
+			<li class="sliding-element">
+			<a href="/rtc/in_rim">&nbsp;&nbsp;&nbsp;&nbsp;<left>Reimbursement Form For OPD &nbsp;&nbsp;&nbsp;&nbsp;Treatment by Institute Doctor</left> </a>
+			</li>
+			<li class="sliding-element">
+			<a href="https://shilloi.iitg.ernet.in/~medical/Reimbursement%20Form%20For%20OPD%20Treatment%20by%20Outside%20Doctor.pdf" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;<left>Reimbursement Form For OPD &nbsp;&nbsp;&nbsp;&nbsp;Treatment by Outside Doctor</left></a>
+			</li>
+			<li class="sliding-element">
+			<a href="/rtc/ins_scheme">&nbsp;&nbsp;&nbsp;&nbsp;<left>Reimbursement Using Insurance &nbsp;&nbsp;&nbsp;&nbsp;Scheme</left></a>
+			</li>
+			<li class="sliding-element">
+			<a href="https://shilloi.iitg.ernet.in/~medical/FAQ_GMIS.pdf" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;FAQ's</a>
+			</li>
+	<li class="sliding-element"><a href="/rtc/logout">&nbsp;&nbsp;&nbsp;&nbsp;Logout</a></li>
+	</ul>  
+</div>
+		
+<div id="content">
+<h2> Links for the External Inurance Scheme </h2>
+<a href="https://www.rakshatpa.com/log_main_new.jsp?id=idcard" target="_blank">Raksha Tpa ID-Card</a>
+<br/>
+<a href="http://www.rakshatpa.com/documents/Annexure01(Part%20A).pdf" target="_blank">Form for the person to be insured.</a>
+<br/>
+<a href="https://www.rakshatpa.com/documents/Annexure01(Part%20B).pdf" target="_blank">Form to be filled by the hospital</a>
+<br/>
+
+
+
+
+</div>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+	<title>booking | Complaint</title>
+	<style type="text/css">
+	*{
+		font-family: "Trebuchet MS", Helvetica, sans-serif
+	}
+
+	html, body{
+		padding: 0px;
+		margin: 0px;
+	}
+
+	#header{
+		padding: 40px 50px;
+		
+	}
+
+	#menu
+	{
+		padding-top: 70px;
+		padding-left: 20px;
+	}
+
+	.previous_complaints{
+		
+		padding-left: 400px;
+		padding-top: -100px;
+	}
+
+	#preview
+	{
+		position: fixed;
+		display: none;
+		width: 450px;
+		height: 400px;
+		left: 900px;
+		top: 300px;
+		border: 3px solid gray;
+		margin: 0;
+		
+	}
+
+	
+
+	.message{
+		position: absolute;
+		background-color: skyblue;
+		color: #000;
+		padding: 20px;
+		left: 200px;
+		top: 170px;
+	}
+
+	.styled-button-5 {
+	background-color:#ed8223;
+	color:#fff;
+	font-family:'Helvetica Neue',sans-serif;
+	font-size:18px;
+	line-height:30px;
+	border-radius:20px;
+	-webkit-border-radius:20px;
+	-moz-border-radius:20px;
+	border:0;
+	text-shadow:#C17C3A 0 -1px 0;
+	width:100px;
+	height:32px
+}        
+
+.style_sort {
+	-webkit-box-shadow:rgba(0,0,0,0.2) 0 1px 0 0;
+	-moz-box-shadow:rgba(0,0,0,0.2) 0 1px 0 0;
+	box-shadow:rgba(0,0,0,0.2) 0 1px 0 0;
+	color:#333;
+	background-color:#FA2;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border:none;
+	font-family:'Helvetica Neue',Arial,sans-serif;
+	font-size:16px;
+	font-weight:700;
+	height:32px;
+	padding:4px 16px;
+	text-shadow:#FE6 0 1px 0
+}        
+
+.previous_complaints_statusstyle
+{
+	padding-left: 400px;
+	padding-top: -100px;
+}
+
+.previous_complaints_categorystyle
+{
+	padding-left: 400px;
+	padding-top: -100px;
+
+}
+#remarks
+{
+	border: 3px double #3366FF;
+	width: 230px;
+	height: 60px;
+}
+#submit
+{
+	background:#5CCD00;
+	background:-moz-linear-gradient(top,#5CCD00 0%,#4AA400 100%);
+	background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#5CCD00),color-stop(100%,#4AA400));
+	background:-webkit-linear-gradient(top,#5CCD00 0%,#4AA400 100%);
+	background:-o-linear-gradient(top,#5CCD00 0%,#4AA400 100%);
+	background:-ms-linear-gradient(top,#5CCD00 0%,#4AA400 100%);
+	background:linear-gradient(top,#5CCD00 0%,#4AA400 100%);
+	filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#5CCD00', endColorstr='#4AA400',GradientType=0);
+	padding:10px 15px;
+	color:#fff;
+	font-family:'Helvetica Neue',sans-serif;
+	font-size:16px;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border:1px solid #459A00
+}
+
+#logout_link
+{
+    position: absolute;
+    left: 60px;
+    top: 350px;
+    background:#5CCD00;
+    background:-moz-linear-gradient(top,#5CCD00 0%,#4AA400 100%);
+    background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#5CCD00),color-stop(100%,#4AA400));
+    background:-webkit-linear-gradient(top,#5CCD00 0%,#4AA400 100%);
+    background:-o-linear-gradient(top,#5CCD00 0%,#4AA400 100%);
+    background:-ms-linear-gradient(top,#5CCD00 0%,#4AA400 100%);
+    background:linear-gradient(top,#5CCD00 0%,#4AA400 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#5CCD00', endColorstr='#4AA400',GradientType=0);
+    padding:10px 15px;
+    color:#fff;
+    font-family:'Helvetica Neue',sans-serif;
+    font-size:16px;
+    border-radius:5px;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border:1px solid #459A00
+}
+
+	</style>
+
+</head>
+<body>
+<img src="{% static "complaint/iitg.jpg" %}">
+	<div id="header">
+	
+		
+	</div>
+
+		<h1 class="message">U Have {{cn}} Unseen messages</h1>
+	
+<div id="menu">
+		
+		Sort by <select class="style_sort" onchange="sorting()" id="sortoptions">
+			<option name="sort" value="time" selected="true">time</option>
+			<option name="sort" value="category">category</option>
+			<option name="sort" value="status">status</option>
+
+		</select>
+	</div>
+<a href="/rtc/logout" id="logout_link">logout</a>
+
+<div class="previous_complaints" id="previous_complaints_main">
+	<h2>Complaints List</h2>
+
+	{% if complaint %}
+	
+	{%  for latest in complaint %}
+	
+		<ul style="margin:50px 0px;">
+			<li style="margin : 2px 0px;">category &nbsp;&nbsp;&nbsp;&nbsp;   : &nbsp;&nbsp;{{ latest.category }}</li>
+			<li style="margin : 2px 0px;">subject  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   : &nbsp;&nbsp;{{ latest.subject}}</li>
+			
+			<li style="margin : 2px 0px;">Status &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     :&nbsp;&nbsp; {{ latest.process}}</li>
+			<li style="margin : 2px 0px;">Description &nbsp;:&nbsp; &nbsp;{{ latest.complaint|slice:"10" }}</li>
+			<button class="styled-button-5" onclick="preview_function({{latest.pk}} , '{{latest.category}}' , '{{latest.subject}}' , '{{latest.complaint}}' , '{{latest.admintext}}' , '{{ latest.complaint_date}}' , '{{latest.process}}')">view full</button>
+			<p> ----------------------     --------------            ----------------</p>
+		</ul>
+
+		<!-- <a href="/complaint/{{ latest.id }}/view">view</a> -->	
+	{% endfor %}
+	{% else %}
+		<p> No recent complaints</p>
+	{% endif %}
+	</div>
+
+	<div id="preview" style="padding-left:-10px">
+	<h2 style="margin-left:40px;font-color:#FF4719">COMPLETE DESCRIPTION</h2>
+		<ul id="preview_ul">
+			<li style="margin : 3px 0px;" id="preview_category"></li>
+			<li style="margin : 3px 0px;" id="preview_subject"></li>
+			
+			<li style="margin : 3px 0px;" id="preview_process"></li>
+			<li style="margin : 3px 0px;" id="preview_time"></li>
+			<li style="margin : 3px 0px;" id="preview_description"></li>
+		</ul>
+		<form action="/rtc/complaint/viewcomplaintsave/" method="POST" style="padding-left:20px;">
+			{% csrf_token %}
+			<input type="radio" name="process" value="Processing" checked="true">Processing
+			<input type="radio" name="process" value="Completed">Completed
+			<input type="hidden" name="id_forsave" id="id_forsave" value=""><br/>
+			 &nbsp; Remarks : <br/>
+			&nbsp; &nbsp;<TEXTAREA name="remarks" id="remarks" maxlength="" value=""></TEXTAREA><br/>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="submit" id="submit">
+		</form>
+</div>
+
+<div id="previous_complaints_status" style="display:none;">
+	<div class="previous_complaints_statusstyle">
+	<P><h1>UnSeen Complaints</h1></P>
+	{% if complaint %}
+	{%  for latest in complaint %}
+	{% if latest.process == "not_seen" %}
+		<ul style="margin:50px 0px;">
+			<li style="margin : 2px 0px;">category &nbsp;&nbsp;&nbsp;&nbsp;   : &nbsp;&nbsp;{{ latest.category }}</li>
+			<li style="margin : 2px 0px;">subject  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   : &nbsp;&nbsp;{{ latest.subject}}</li>
+			
+			<li style="margin : 2px 0px;">Status &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     :&nbsp;&nbsp; {{ latest.process}}</li>
+			<li style="margin : 2px 0px;">Description &nbsp;:&nbsp; &nbsp;{{ latest.complaint|slice:"10" }}</li>
+			<button class="styled-button-5" onclick="preview_function({{latest.pk}} , '{{latest.category}}' , '{{latest.subject}}' , '{{latest.complaint}}' , '{{latest.admintext}}' , '{{ latest.complaint_date}}' , '{{latest.process}}')">view full</button>
+			<p> ----------------------     --------------            ----------------</p>
+		</ul>
+		{% endif %}	
+	{% endfor %}
+	<p> No Unseen Complaints </p>
+	{% else %}
+		<p> No recent complaints</p>
+	{% endif %}
+	</div>
+
+
+<div class="previous_complaints_statusstyle">
+	<P><h1>Complaints List of processing</h1></P>
+	{% if complaint %}
+	{%  for latest in complaint %}
+	{% if latest.process == "Processing" %}
+		<ul style="margin:50px 0px;">
+			<li style="margin : 2px 0px;">category &nbsp;&nbsp;&nbsp;&nbsp;   : &nbsp;&nbsp;{{ latest.category }}</li>
+			<li style="margin : 2px 0px;">subject  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   : &nbsp;&nbsp;{{ latest.subject}}</li>
+			
+			<li style="margin : 2px 0px;">Status &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     :&nbsp;&nbsp; {{ latest.process}}</li>
+			<li style="margin : 2px 0px;">Description &nbsp;:&nbsp; &nbsp;{{ latest.complaint|slice:"10" }}</li>
+			<button class="styled-button-5" onclick="preview_function({{latest.pk}} , '{{latest.category}}' , '{{latest.subject}}' , '{{latest.complaint}}' , '{{latest.admintext}}' , '{{ latest.complaint_date}}' , '{{latest.process}}')">view full</button>
+			<p> ----------------------     --------------            ----------------</p>
+		</ul>
+		{% endif %}	
+	{% endfor %}
+	{% else %}
+		<p> No Processing complaints</p>
+	{% endif %}
+	</div>
+
+
+<div class="previous_complaints_statusstyle">
+	<P><h1>Complaints List of Completed</h1></P>
+	{% if complaint %}
+	{%  for latest in complaint %}
+	{% if latest.process == "Completed" %}
+		<ul style="margin:50px 0px;">
+			<li style="margin : 2px 0px;">category &nbsp;&nbsp;&nbsp;&nbsp;   : &nbsp;&nbsp;{{ latest.category }}</li>
+			<li style="margin : 2px 0px;">subject  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   : &nbsp;&nbsp;{{ latest.subject}}</li>
+			
+			<li style="margin : 2px 0px;">Status &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     :&nbsp;&nbsp; {{ latest.process}}</li>
+			<li style="margin : 2px 0px;">Description &nbsp;:&nbsp; &nbsp;{{ latest.complaint|slice:"10" }}</li>
+			<button class="styled-button-5" onclick="preview_function({{latest.pk}} , '{{latest.category}}' , '{{latest.subject}}' , '{{latest.complaint}}' , '{{latest.admintext}}' , '{{ latest.complaint_date}}' , '{{latest.process}}')">view full</button>
+			<p> ----------------------     --------------            ----------------</p>
+		</ul>
+		{% endif %}	
+	{% endfor %}
+	{% else %}
+		<p> No Completed complaints</p>
+	{% endif %}
+	</div>
+</div>
+
+<div id="previous_complaints_category" style="display:none;">
+<div class="previous_complaints_categorystyle">
+	<P><h1>Complaints List of Staff</h1></P>
+	{% if complaint %}
+	{%  for latest in complaint %}
+	{% if latest.category == "staff" %}
+		<ul style="margin:50px 0px;">
+			<li style="margin : 2px 0px;">category &nbsp;&nbsp;&nbsp;&nbsp;   : &nbsp;&nbsp;{{ latest.category }}</li>
+			<li style="margin : 2px 0px;">subject  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   : &nbsp;&nbsp;{{ latest.subject}}</li>
+			
+			<li style="margin : 2px 0px;">Status &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     :&nbsp;&nbsp; {{ latest.process}}</li>
+			<li style="margin : 2px 0px;">Description &nbsp;:&nbsp; &nbsp;{{ latest.complaint|slice:"10" }}</li>
+			<button class="styled-button-5" onclick="preview_function({{latest.pk}} , '{{latest.category}}' , '{{latest.subject}}' , '{{latest.complaint}}' , '{{latest.admintext}}' , '{{ latest.complaint_date}}' , '{{latest.process}}')">view full</button>
+			<p> ----------------------     --------------            ----------------</p>
+		</ul>
+		{% endif %}	
+	{% endfor %}
+	{% else %}
+		<p> No recent complaints regarding staff</p>
+	{% endif %}
+	</div>
+
+	<div class="previous_complaints_categorystyle">
+	<P><h1>Complaints List of Doctor</h1></P>
+	{% if complaint %}
+	{%  for latest in complaint %}
+	{% if latest.category == "Doctor" %}
+		<ul style="margin:50px 0px;">
+			<li style="margin : 2px 0px;">category &nbsp;&nbsp;&nbsp;&nbsp;   : &nbsp;&nbsp;{{ latest.category }}</li>
+			<li style="margin : 2px 0px;">subject  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   : &nbsp;&nbsp;{{ latest.subject}}</li>
+			
+			<li style="margin : 2px 0px;">Status &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     :&nbsp;&nbsp; {{ latest.process}}</li>
+			<li style="margin : 2px 0px;">Description &nbsp;:&nbsp; &nbsp;{{ latest.complaint|slice:"10" }}</li>
+			<button class="styled-button-5" onclick="preview_function({{latest.pk}} , '{{latest.category}}' , '{{latest.subject}}' , '{{latest.complaint}}' , '{{latest.admintext}}' , '{{ latest.complaint_date}}' , '{{latest.process}}')">view full</button>
+			<p> ----------------------     --------------            ----------------</p>
+		</ul>
+		{% endif %}	
+	{% endfor %}
+	{% else %}
+		<p> No recent complaints regarding Doctor</p>
+	{% endif %}
+	</div>
+
+
+<div class="previous_complaints_categorystyle">
+	<P><h1>Complaints List of hygiene</h1></P>
+	{% if complaint %}
+	{%  for latest in complaint %}
+	{% if latest.category == "Hygiene" %}
+		<ul style="margin:50px 0px;">
+			<li style="margin : 2px 0px;">category &nbsp;&nbsp;&nbsp;&nbsp;   : &nbsp;&nbsp;{{ latest.category }}</li>
+			<li style="margin : 2px 0px;">subject  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   : &nbsp;&nbsp;{{ latest.subject}}</li>
+			
+			<li style="margin : 2px 0px;">Status &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     :&nbsp;&nbsp; {{ latest.process}}</li>
+			<li style="margin : 2px 0px;">Description &nbsp;:&nbsp; &nbsp;{{ latest.complaint|slice:"10" }}</li>
+			<button class="styled-button-5" onclick="preview_function({{latest.pk}} , '{{latest.category}}' , '{{latest.subject}}' , '{{latest.complaint}}' , '{{latest.admintext}}' , '{{ latest.complaint_date}}' , '{{latest.process}}')">view full</button>
+			<p> ----------------------     --------------            ----------------</p>
+		</ul>
+		{% endif %}	
+	{% endfor %}
+	{% else %}
+		<p> No complaints regarding hygiene</p>
+	{% endif %}
+	</div>
+
+	<div class="previous_complaints_categorystyle">
+	<P><h1>Complaints List of Medicine</h1></P>
+	{% if complaint %}
+	{%  for latest in complaint %}
+	{% if latest.category == "Medicine" %}
+		<ul style="margin:50px 0px;">
+			<li style="margin : 2px 0px;">category &nbsp;&nbsp;&nbsp;&nbsp;   : &nbsp;&nbsp;{{ latest.category }}</li>
+			<li style="margin : 2px 0px;">subject  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   : &nbsp;&nbsp;{{ latest.subject}}</li>
+			
+			<li style="margin : 2px 0px;">Status &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     :&nbsp;&nbsp; {{ latest.process}}</li>
+			<li style="margin : 2px 0px;">Description &nbsp;:&nbsp; &nbsp;{{ latest.complaint|slice:"10" }}</li>
+			<button class="styled-button-5" onclick="preview_function({{latest.pk}} , '{{latest.category}}' , '{{latest.subject}}' , '{{latest.complaint}}' , '{{latest.admintext}}' , '{{ latest.complaint_date}}' , '{{latest.process}}')">view full</button>
+			<p> ----------------------     --------------            ----------------</p>
+		</ul>
+		{% endif %}	
+	{% endfor %}
+	{% else %}
+		<p> No complaints regarding Medicine</p>
+	{% endif %}
+	</div>
+
+	<div class="previous_complaints_categorystyle">
+	<P><h1>Complaints List of Ambulance</h1></P>
+	{% if complaint %}
+	{%  for latest in complaint %}
+	{% if latest.category == "Ambulance" %}
+		<ul style="margin:50px 0px;">
+			<li style="margin : 2px 0px;">category &nbsp;&nbsp;&nbsp;&nbsp;   : &nbsp;&nbsp;{{ latest.category }}</li>
+			<li style="margin : 2px 0px;">subject  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   : &nbsp;&nbsp;{{ latest.subject}}</li>
+			
+			<li style="margin : 2px 0px;">Status &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     :&nbsp;&nbsp; {{ latest.process}}</li>
+			<li style="margin : 2px 0px;">Description &nbsp;:&nbsp; &nbsp;{{ latest.complaint|slice:"10" }}</li>
+			<button class="styled-button-5" onclick="preview_function({{latest.pk}} , '{{latest.category}}' , '{{latest.subject}}' , '{{latest.complaint}}' , '{{latest.admintext}}' , '{{ latest.complaint_date}}' , '{{latest.process}}')">view full</button>
+			<p> ----------------------     --------------            ----------------</p>
+		</ul>
+		{% endif %}	
+	{% endfor %}
+	{% else %}
+		<p> No complaints regarding Ambulance</p>
+	{% endif %}
+	</div>
+</div>
+<script type="text/javascript">
+	function preview_function(var_id_arg , var_category_arg , var_subject_arg , var_description_arg , var_remark_arg , var_time_arg , var_status_arg)
+	{
+		document.getElementById('preview').style.display = "block";
+		
+		document.getElementById('preview_category').innerHTML = "<b>category &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;</b>"+var_category_arg;
+		document.getElementById('preview_subject').innerHTML = "<b>subject &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;</b>"+var_subject_arg; 
+		document.getElementById('preview_description').innerHTML = "<b>Description &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</b>"+var_description_arg;
+		document.getElementById('preview_process').innerHTML = "<b>Status &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</b>"+var_status_arg;
+		document.getElementById('preview_time').innerHTML = "<b>Complaint time :&nbsp;&nbsp;</b>"+var_time_arg;
+		document.getElementById('remarks').value=var_remark_arg;
+		document.getElementById('id_forsave').value=var_id_arg;	
+	}
+
+	function sorting()
+	{
+		var sortto = document.getElementById('sortoptions').value;
+		if(sortto == "status")
+		{
+			document.getElementById('previous_complaints_main').style.display="none";
+			document.getElementById('previous_complaints_category').style.display="none";
+			document.getElementById('previous_complaints_status').style.display="block";
+		}
+		if(sortto=="time")
+		{
+			document.getElementById('previous_complaints_status').style.display="none";
+			document.getElementById('previous_complaints_category').style.display="none";
+			document.getElementById('previous_complaints_main').style.display="block";
+		}
+		if(sortto=="category")
+		{
+			document.getElementById("previous_complaints_main").style.display="none";
+			document.getElementById("previous_complaints_status").style.display="none";
+			document.getElementById("previous_complaints_category").style.display="block";
+		}
+	}
+
+	</script>
+
+
+</body>
+
+</html>

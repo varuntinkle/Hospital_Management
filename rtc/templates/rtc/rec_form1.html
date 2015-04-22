@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>register patient</title>
+</head>
+<body>
+
+<form action="rec_form" method="post">
+    {% csrf_token %}
+
+        <div class="form-group">
+            <input class="form-control" placeholder="Name" name="name">
+        </div>
+        <div class="form-group">
+            <input class="form-control" placeholder="reg_no" name="reg_no">
+        </div>
+        <div class="form-group">
+            <input class="form-control" placeholder="problem" name="problem">
+        </div>
+        <div class="form-group">
+            <input class="form-control" placeholder="submit_date" name="submit_date">
+        </div>
+        <div class="form-group">
+            <input class="form-control" placeholder="appoint_date" name="appoint_date">
+        </div>
+        <div class="form-group">
+            <input class="form-control" placeholder="appoint_no" name="appoint_no">
+        </div>
+        <div class="form-group">
+            <input class="form-control" placeholder="doctor" name="doctor">
+        </div>
+        <div class="form-group">
+            <input class="form-control" placeholder="done" name="done">
+        </div>
+        <div class="form-group">
+            <input class="form-control" placeholder="outsider" name="outsider">
+        </div>
+
+        <input type="submit" class="submit" value="Register"></input>
+</form>
+
+
+</body>
+</html>

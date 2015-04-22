@@ -1,0 +1,15 @@
+{% if res %}
+{% for i in res %}
+	<span class="medicine_name">{{i.name}}</span>
+	<br>
+{% endfor %}
+{% else %}
+<span>None to show!</span>
+{% endif %}
+<script >
+	$('.medicine_name').click(function(){
+			var i=$(this).text();
+			$(this).parent().prev().val(i);
+			$(this).parent().html('');
+	});
+</script>

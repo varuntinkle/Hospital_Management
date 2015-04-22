@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'blog',
     'database',
     'system',
+    'rtc',
 )
 
 MIDDLEWARE_CLASSES = (

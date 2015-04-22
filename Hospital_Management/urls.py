@@ -8,5 +8,5 @@ urlpatterns = [
      url(r'^noticeboard/', include('blog.urls')),
      url(r'^system/', include('system.urls')),
     url(r'^', include('login.urls') ),
-  
+  	url(r'^rtc/', include('rtc.urls')),
 ]
