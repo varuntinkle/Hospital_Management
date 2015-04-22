@@ -40,6 +40,8 @@ def index(request):
             Bookings = AmbulanceBooking.objects.filter(username=username)
             object_pat = object_pat[0]
             object_pres = Prescription.objects.filter(reg_no = object_pat)
+            for pres in object_pres:
+                pres.medicine = pres.medicine.replace('u',' ').replace(',',' ').replace('[',' ').replace(']',' ').replace('\'',' ')
             object_notice = Post.objects.all().order_by('-date')[:5]
             context_dict = {'object_doc':object_doc, 'object_pres':object_pres,
             'object_reg': Object_Searched,'object_pat': object_pat, 
@@ -167,11 +169,12 @@ def doc_pres(request):
             doctor=Doctor.objects.get(username = username)
             object_notice = Post.objects.all().order_by('-date')[:5]
             prescriptions = Prescription.objects.filter(doctor = doctor)
+            for pres in prescriptions:
+                pres.medicine=pres.medicine.replace('u',' ').replace(',',' ').replace('[',' ').replace(']',' ').replace('\'',' ')
             context_dict = {'object_notice':object_notice,'object_pres': prescriptions}
             return render(request,'login/doctor_pres_his.html', context_dict)
         else:
-            return render_to_response('login/permission_error.html')
-    
+            return render_to_response('login/permission_error.html')    
                
 def set_amb_sch(request):
     if request.method=="POST":
