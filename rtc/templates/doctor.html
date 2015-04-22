@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+{% csrf_token %}
+<html lang="en">
+    <head>
+        <title>Doctor's Dashboard</title>
+        <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+       
+        <link rel="stylesheet" type="text/css" href= "{% static "res/css/doctor.css" %}">
+    </head>
+    <body>
+        
+        
+        <div id="sideBar">
+            <div id="topBar">
+                <p>Coming Patients</p>
+                <div id="waitinglist">
+                    {% for patient in waiting_list %}
+                    <a href="" id="{{patient.reg_no.reg_no}}"> {{patient.name}}</a>
+                    
+                    {% endfor%}
+                </div>
+            </div>
+            <div id="bottomBar">
+                <p>Completed Patients</p>
+                <div id="completedlist">
+                   
+                    {% for patient in completed_list %}
+
+                  <a href="" id="{{patient.reg_no.reg_no}}"> {{patient.name}}</a>
+                    
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+        <div id="leftSideBar">
+            <div>
+                <a class="active">Current Patient</a>
+                <a>Case History</a>
+                <a>Yesterday</a>
+                <a>Last Week</a>
+                <a>Last Month</a>
+                <a href="/rtc/logout"> Log Out</a>
+            </div>
+        </div>
+        
+        <div id="content">
+            <div id="currentPatient">
+                <h1>Patient Details</h1>
+                <div id="patient_details">
+                    <h1>Name: <span>{{curpat.name}}</span></h1>
+                    <h3>Age: <span>{{curpat.reg_no.age}}</span> years</h3>
+                    <h4>Height: <span>{{curpat.reg_no.height}}</span> cm</h4>
+                    <h5>Weight: <span>{{curpat.reg_no.weight}}</span> kgs</h5>
+                </div>
+                <h1>Prescribe a medicine</h1>
+                <form  method="post" action="/rtc/doctor_home">
+                 {% csrf_token %}
+                    <h1>Enter Disease Diagnosed</h1>
+                    <input type="text" placeholder="Disease" name="disease">
+                    <h1>Enter Symptoms</h1>
+                    <input type="text" placeholder="Symptoms" name="symptoms">
+                    <h1>Enter the mediciene names</h1>
+
+                    <input type="text" placeholder="Name of Mediciene" name="med1" class="autocomplete">
+                    <div class="search"> </div>
+                     <select name="time1">
+                                <option value="1M">1M</option>
+                                <option value="1E">1E</option>
+                                <option value="1N">1N</option>
+                                <option value="2ME">2ME</option>
+                                <option value="2MN">2MN</option>
+                                <option value="2EN">2EN</option>
+                                <option value="3MEN">3MEN</option>
+                                <option value="other">other</option>
+                    </select> 
+                    
+                    <input type="text" placeholder="Name of Mediciene" name="med2" class="autocomplete ankur-02">
+
+                   <div class="search"> </div>
+                    <select name="time2" class="ankur-02">
+                                <option value="1M">1M</option>
+                                <option value="1E">1E</option>
+                                <option value="1N">1N</option>
+                                <option value="2ME">2ME</option>
+                                <option value="2MN">2MN</option>
+                                <option value="2EN">2EN</option>
+                                <option value="3MEN">3MEN</option>
+                                <option value="other">other</option>
+                    </select> 
+                    <input type="text" placeholder="Name of Mediciene" name="med3" class="autocomplete ankur-03">
+                   <div class="search"> </div>
+                    <select name="time3" class="ankur-03">
+                                <option value="1M">1M</option>
+                                <option value="1E">1E</option>
+                                <option value="1N">1N</option>
+                                <option value="2ME">2ME</option>
+                                <option value="2MN">2MN</option>
+                                <option value="2EN">2EN</option>
+                                <option value="3MEN">3MEN</option>
+                                <option value="other">other</option>
+                    </select> 
+                    <input type="text" placeholder="Name of Mediciene" name="med4" class="autocomplete ankur-04">
+                   <div class="search"> </div>
+                    <select name="time4" class="ankur-04">
+                                <option value="1M">1M</option>
+                                <option value="1E">1E</option>
+                                <option value="1N">1N</option>
+                                <option value="2ME">2ME</option>
+                                <option value="2MN">2MN</option>
+                                <option value="2EN">2EN</option>
+                                <option value="3MEN">3MEN</option>
+                                <option value="other">other</option>
+                    </select> 
+                    <input type="text" placeholder="Name of Mediciene" name="med5" class="autocomplete ankur-05">
+                    <div class="search"> </div>
+                    <select name="time5" class="ankur-05">
+                                <option value="1M">1M</option>
+                                <option value="1E">1E</option>
+                                <option value="1N">1N</option>
+                                <option value="2ME">2ME</option>
+                                <option value="2MN">2MN</option>
+                                <option value="2EN">2EN</option>
+                                <option value="3MEN">3MEN</option>
+                                <option value="other">other</option>
+                    </select>
+
+                    <button type="button" id="addMore">Add More</button>
+
+
+
+                    <h1>Next Visit</h1>
+                    <input type="text" placeholder="Next Visit" name="next_visit">
+                   
+                    <button type="submit">Prescribe Medicienes</button>  
+                </form>
+            </div>
+            <div id="caseHistory">
+                <h1>Case History</h1>
+                <ul>
+                    <table class="table table-striped table-bordered table-hover" id="ankur-yesterday">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Reg no</th>
+                                            <th>Disease</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for i in history %}
+                                        <tr class="ankur-click">
+                                           <td>{{ forloop.counter }} </td>
+                                            <td> {{i.reg_no.name}}</td>
+                                            <td>{{i.reg_no}} </td>
+                                            <td> {{i.disease}}</td>
+                                            <td> {{ i.prescription_time}}</td>
+                                        </tr>
+                                        <tr class="ankur-data">
+                                            <td colspan="4">
+                                                <ul>
+                                                    <li> {{i.reg_no.name}} </li>
+                                                    <li> {{i.reg_no}} </li>
+                                                    <li> {{i.disease}} </li>
+                                                    <li> {{ i.prescription_time}} </li>
+                                                    <li> {{ i.medicine}}</li>
+                                                    <li> {{ i.medtime }}</li>
+                                                    
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                          
+                                    </tbody>
+                                        
+                                        
+                                </table>
+                   
+                </ul>
+            </div>
+            <div id="yesterday">
+                <h1>Yesterday patients</h1>
+                <ul>
+                    <!-- <li>
+                        {% for patient in yest_list %}
+                        <a> {{patient.disease}}</a>
+                        {% endfor%}
+                    </li> -->
+                     <table class="table table-striped table-bordered table-hover" id="ankur-yesterday" width="100">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Reg no</th>
+                                            <th>Disease</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for i in yest_list%}
+                                        <tr class="ankur-click">
+                                            <td>{{ forloop.counter }} </td>
+                                            <td> {{i.reg_no.name}}</td>
+                                            <td>{{i.reg_no}} </td>
+                                            <td> {{i.disease}}</td>
+                                            <td> {{ i.prescription_time}}</td>
+                                        </tr>
+                                        <tr class="ankur-data" >
+                                            <td colspan="5">
+                                                 <ul>
+                                                    <li> {{i.reg_no.name}} </li>
+                                                    <li> {{i.reg_no}} </li>
+                                                    <li> {{i.disease}} </li>
+                                                    <li> {{ i.prescription_time}} </li>
+                                                    <li> {{ i.medicine}}</li>
+                                                    <li>{{ i.medtime }}</li>
+                            
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                     {% endfor %}   
+                                    </tbody>
+                                </table>
+                    
+                </ul>
+            </div>
+            <div id="lastWeek">
+                <h1>Last week patients</h1>
+                <ul>
+                    <table class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Reg no</th>
+                                            <th>Disease</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for i in week_list%}
+                                        <tr class="ankur-click">
+                                            <td> {{ forloop.counter }}  </td>
+                                            <td> {{i.reg_no.name}}</td>
+                                            <td>{{i.reg_no}} </td>
+                                            <td> {{i.disease}}</td>
+                                            <td> {{ i.prescription_time}}</td>
+                                        </tr>
+                                        <tr class="ankur-data">
+                                            <td colspan="5">
+                                                <ul>
+                                                    <li> {{i.reg_no.name}} </li>
+                                                    <li> {{i.reg_no}} </li>
+                                                    <li> {{i.disease}} </li>
+                                                    <li> {{ i.prescription_time}} </li>
+                                                    <li> {{ i.medicine}}</li>
+                                                    <li>{{ i.medtime }}</li>
+                            
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                       
+                                     {% endfor %}   
+                                    </tbody>
+                                </table>
+
+                </ul>
+            </div>
+            <div id="lastMonth">
+                <h1>Last month patients</h1>
+                <ul>
+                    <li>
+                        <table class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr >
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Reg no</th>
+                                            <th>Disease</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for i in month_list%}
+                                        <tr class="ankur-click">
+                                            <td>{{ forloop.counter }}  </td>
+                                            <td> {{i.reg_no.name}}</td>
+                                            <td>{{i.reg_no}} </td>
+                                            <td> {{i.disease}}</td>
+                                            <td>{{ i.prescription_time}} </td>
+                                        </tr>
+                                        <tr class="ankur-data">
+                                            <td colspan="5">
+                                               <ul>
+                                                    <li> {{i.reg_no.name}} </li>
+                                                    <li> {{i.reg_no}} </li>
+                                                    <li> {{i.disease}} </li>
+                                                    <li> {{ i.prescription_time}} </li>
+                                                    <li> {{ i.medicine}}</li>
+                                                    <li>{{ i.medtime }}</li>
+                            
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                     {% endfor %}   
+                                    </tbody>
+                                </table>
+                    </li>
+                    
+                </ul>
+            </div>
+           
+        </div>
+        
+        <script type="text/javascript" src="{% static "res/bootstrap/js/jquery.min.js"%}"></script>
+        <script type="text/javascript" src="{% static "res/js/doctor.js"%}"></script>
+        
+        <script type="text/javascript" >        
+        /*<!-- check for another case history click -->*/
+            
+            /*$('#case_history').click(function(){
+
+                var reg_no = {{ Patient.reg_no }}
+                 $.ajax({ url: "/patient_history/",
+                        type: 'POST',
+                        data:{reg_no:reg_no}
+                        success: function(data) {
+                                                   $(this).html(data);
+                                                },
+                        }); 
+
+            });  */  
+
+/*
+            $("#done").click(function() {
+
+
+            var reg_no =$("#waitinglist > :first").attr('id');
+                $.ajax({ url: "/rtc/current_patient/",
+                        type: 'POST',
+                        data:{reg_no:reg_no},
+                        success: function(data) {
+                                                   $('#patient_details').html(data);
+                                                },
+                        });     
+        
+            });
+        
+*/
+            $('.autocomplete').keyup(function(){
+                var value = $(this).val();
+                var div1=$(this).next();
+                if(value!=''){
+                    $.ajax({
+                        url:"/rtc/med_search1",
+                        type:'POST',
+                        data: {value:value},
+                        success: function(data){
+                            /*$(this).next().html(data);*/
+                            div1.html(data);
+                        },
+                    }); 
+                }
+                else{
+
+                    /*$(this).next().html('');*/
+                    div1.html('');
+                }
+
+
+        
+        
+            }); 
+
+
+            function refresh(){
+                $.ajax({ url: "/rtc/waiting_list",
+                        type: 'POST',
+                        success: function(data) {
+                                                   $('#waitinglist').html(data);
+                                            },
+                        }); 
+
+                $.ajax({ url: "/rtc/completed_list",
+                        type: 'POST',
+                        success: function(data) {
+                                                   $('#completedlist').html(data);
+                                            },
+                        });
+               
+            } 
+
+            $(function(){
+
+                            refresh();
+                            var int = setInterval("refresh()", 1000);
+
+            });           
+
+
+        </script>
+
+        
+    </body>
+</html>

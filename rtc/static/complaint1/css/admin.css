@@ -1,0 +1,15 @@
+#ui {
+	position:	relative;
+	top:		0px;
+	left:		0px;
+	margin-left:	2.5%;
+}
+
+h1 {
+	font-size:		1.2em;
+	text-align:		center;
+	background-color:	#0099cc;
+	color:			#fff;
+	padding:		7px;
+	margin:			5px auto;
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+{% csrf_token %}
+<html>
+	<head>
+	<SCRIPT language="javascript">
+		function checkTextField(field) {
+    if (field.value == '') {
+        alert("Response not in correct format!!");
+    }
+}
+	
+		</SCRIPT>
+		<title>FollowUp Form</title>
+		<link rel="stylesheet" type="text/css" href="{% static "res/css/bootstrap.min.css" %}">
+		<link rel="stylesheet" type="text/css" href="{% static "res/css/studfollowup.css" %}">
+		{% if messages %}
+			<ul class="messages">
+  			{% for message in messages %}
+  			<li{% if message.tags %} class="{{ message.tags }}"{% endif %}><H3 style="color:red">Followup Not Saved</H3>{{ message }}</li>
+  			{% endfor %}
+			</ul>
+		{% endif %}
+
+		
+	</head>
+	<body>
+		<h2 align="justify">Doctor's Name:{{list.doctor.username}}</h2>
+		<h4>Disease:{{list.disease}}</h4>
+		<h4>Prescription Time:{{list.prescription_time}}</h4>
+		
+		<hr size="8">
+		<hr size="8">
+		
+		<form action="/rtc/followup/{{list.id}}" method="post">
+		{% csrf_token %}
+			<label align="left">Fill up your response...</label>
+			<input id="title" type="text" name="title" placeholder="Title">
+			<textarea id="description" type="text" name="description" placeholder="Description" rows="8"></textarea>
+			<!--<input id="rating" type="text" name="rating" placeholder="Rating">-->
+			<select name="rating"  id="rating" align="right">
+				<option>Good</option>
+				<option>Average</option>
+				<option>Poor</option>
+				<option>Very Good</option>
+				<option>Excellent</option>
+			</select></p>
+
+			
+			<button type="submit" onclick="checkTextField(rating)">Submit</button>
+			
+			
+		</form>
+	</body>
+</html>

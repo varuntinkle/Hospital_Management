@@ -1,0 +1,118 @@
+{% load staticfiles %}
+<html xmlns="http://www.w3.org/1999/html">
+
+<head>
+   <title>Complaint</title>
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/admin.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/bootstrap.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/bootstrap.min.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/bootstrap-theme.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/bootstrap-theme.min.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/buttons.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/content.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/nav.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/styles.css' %}">
+   
+   
+   <script type="text/javascript" src="{% static 'complaint1/js/jquery-11.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint1/js/bootstrap.min.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint1/js/jquery-1.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint1/js/ui_002.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint1/js/sliding_effect.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint1/js/bootstrap.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint1/js/ui.js' %}"></script>
+
+
+</head>
+<body>
+
+<div id="masthead">
+
+		<div id="header" class="clear-block">
+			<div class="header-right">
+				<div class="header-left">
+				
+								<div id="logo">
+											
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<img src="{%static 'complaint1/ca.PNG' /%}" alt="Home" width="90%" height="25%">
+
+									</div> </td><!-- /logo --> 
+
+ <!-- /name-and-slogan --> 
+								</div> <!-- /header-left -->
+			</div> <!-- /header-right -->
+		</div> <!-- /header -->
+
+	</div>
+   <br/>
+   <br/>
+   <br/>
+   <br/>
+   
+		<div id="ui">
+
+			<div id="nav">
+			<p id="welcome">Welcome </p>
+			<ul id="sliding-navigation">
+			<li class="sliding-element">
+			<h2>To do</h2>
+			</li>
+			<li class="sliding-element">
+			<a href="/rtc/med_account">&nbsp;&nbsp;&nbsp;&nbsp;Home({{ cn }}) <span class="numbers"></span></a>
+			</li>
+	        <li class="sliding-element"><a href="/rtc/logout">&nbsp;&nbsp;&nbsp;&nbsp;Logout</a></li>
+	</ul>  
+</div>
+
+<div id="content">
+
+{% for obj in rim_objects %}
+
+<form action="/rtc/req_acc" method="post">
+    {% csrf_token %}
+
+ <table  style="width:70%">
+  <col width="30%">
+  <col width="40%">
+ <tr><td>Username: </td> <td> {{ obj.username}}</td></tr>
+<tr> <td> Roll no.</td> <td> {{obj.roll_no}}</td>
+<tr><td> Relationship with Patient:</td> <td> {{obj.relationship}}</td> </tr>
+<tr> <td> Patient name: </td>  <td> {{obj.patient_name}} </td> </tr>
+<tr> <td>  Account number: </td> <td> {{obj.acc_no}} </td> </tr>
+</table>
+     <table border="1"  style="width:50%">
+    <tr> <td>Particular </td> <td>Amount </td></tr>
+{% for item1 in list3 %}
+<tr>
+    <td>{{item1.part}} </td>
+    <td> {{item1.amount}} </td>
+</tr>
+
+{% endfor %}
+</table>
+ </br>
+<b> Total amount requested:  {{obj.t_amount}} </b> <br><br>
+
+ <label> Reimburse amount:</label>   <input class="form-control" pattern="[0-9,.]{1,}" placeholder="amount" name="amount" required>
+<input type="hidden" value={{obj.pk}} name="primary_key">
+<br>
+    <input type="hidden" value={{obj.t_amount}} name="t_amount">
+
+ <p class="text-danger">{% if error_message %}{{ error_message }}{% endif %}</p>
+
+    <input type="submit" class="submit" value="Reimburse Submit">
+</form>
+{% endfor %}
+
+
+</div>
+
+
+                </div>
+            </div>
+            </div>
+        </div>
+</body>
+</html>
+

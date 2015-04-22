@@ -1,0 +1,75 @@
+<head>
+	<title>previous complaints</title>
+	<style type="text/css">
+	#previous_complaints{
+		padding-left: 400px;
+		padding-top: 100px;
+	}
+	#menu
+	{
+		padding-top: 70px;
+		padding-left: 20px;
+	}
+	</style>
+</head>
+
+<body>
+{% if cn %}
+		<h1>u have {{ cn }}  unseen messages</h1>
+	{% else %}
+		<h1>u have no unseen messages</h1>
+	{% endif %}
+	<div id="menu">
+		Welcome <br/>
+		<a href="/rtc/complaint/adminmain">Home</a><br/>
+		<a href="/rtc/complaint/category">category</a><br/>
+		<a href="/rtc/complaint/status">status</a><br/>
+		
+		
+	</div>
+	<div id="previous_complaints">
+	
+	{% if complaint %}
+	{%  for latest in complaint %}
+	<p>Your previous complaints</p>
+		<ul>
+			<li>id:{{latest.pk}}</li>
+			<li>category : {{ latest.category }}</li>
+			<li>subject : {{ latest.subject}}</li>
+			<li>Description : {{ latest.complaint }}</li>
+			<li>Status : {{ latest.process}}</li>
+			<li>Time:{{ latest.complaint_date}}</li>
+		</ul>
+		{% if latest.process == "not_seen" %}
+		<form action="/rtc/complaint/{{ latest.pk }}/viewcomplaintsave/" method="POST">
+		{% csrf_token %}
+		
+		<p>Remarks : </p><TEXTAREA type="text" name="admintext" rows='4' cols="50" placeholder="{{ latest.admintext }}" required></TEXTAREA><br/><br/>
+		<input type="radio" name="process" value="Processing" checked >Processing<br>
+		<input type="radio" name="process" value="Completed">Completed <br/><br/>
+		<input type="submit" value="save">
+		
+		</form>
+		{% endif %}
+		{% if latest.process == "Completed" %}
+		<form action="/rtc/complaint/{{ latest.pk }}/viewcomplaintsave/" method="POST">
+		{% csrf_token %}
+		
+		<p>Remarks :{{ latest.admintext }} </p>
+		
+		</form>
+		{% endif %}
+		{% if latest.process == "Processing" %}
+		<p>Remarks : </p><TEXTAREA type="text" name="admintext" rows='4' cols="50" placeholder="{{ latest.admintext }}" required></TEXTAREA><br/><br/>
+		<input type="radio" name="process" value="Processing" checked >Processing<br>
+		<input type="radio" name="process" value="Completed">Completed <br/><br/>
+		<input type="submit" value="save">
+		
+		</form>
+		{% endif %}		
+	{% endfor %}
+	{% else %}
+		<p> No complaint found</p>
+	{% endif %}
+	</div>
+</body>	

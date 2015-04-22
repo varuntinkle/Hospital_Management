@@ -1,0 +1,43 @@
+.accepted{
+    width: 300px;
+    padding: 20px;
+    border-radius: 20px;
+    border: 4px solid transparent;
+    transition: 0.5s;
+}
+
+.accepted:hover{
+    border-color: #222;
+}
+
+.accepted > i{
+    font-size: 120px;
+    color: green;
+    padding: 5px;
+}
+
+.accepted > h4{
+    padding: 10px
+}
+
+.accepted > p{
+    text-align: justify;
+}
+
+.accepted > span{
+    display: block;
+    font-family: verdana;
+    font-size: 12px;
+}
+
+.accepted > button{
+    margin: 10px;
+}
+
+.rejected{
+    
+}
+
+.pending{
+    
+}

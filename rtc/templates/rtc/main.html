@@ -1,0 +1,217 @@
+{% load staticfiles %}
+<html>
+
+<head>
+   <title>Complaint</title>
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/admin.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/bootstrap.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/bootstrap.min.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/bootstrap-theme.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/bootstrap-theme.min.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/buttons.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/content.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/nav.css' %}">
+   <link rel="stylesheet" type="text/css" href= "{% static 'complaint1/css/styles.css' %}">
+   
+   
+   <script type="text/javascript" src="{% static 'complaint1/js/jquery-11.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint1/js/bootstrap.min.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint1/js/jquery-1.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint1/js/ui_002.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint1/js/sliding_effect.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint1/js/bootstrap.js' %}"></script>
+   <script type="text/javascript" src="{% static 'complaint1/js/ui.js' %}"></script>
+
+
+</head>
+<body>
+
+<div id="masthead">
+
+		<div id="header" class="clear-block">
+			<div class="header-right">
+				<div class="header-left">
+				
+								<div id="logo">
+											
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<img src="{%static 'complaint1/ca.PNG' /%}" alt="Home" width="90%" height="25%">
+						
+									</div> </td><!-- /logo --> 
+
+ <!-- /name-and-slogan --> 
+								</div> <!-- /header-left -->
+			</div> <!-- /header-right -->
+		</div> <!-- /header -->
+
+	</div>
+   <br/>
+   <br/>
+   <br/>
+   <br/>
+   
+		<div id="ui">
+
+			<div id="nav">
+			<p id="welcome">Welcome {{ latest_rem.username }}</p>
+			<ul id="sliding-navigation">
+			<li class="sliding-element">
+			<h2>To do</h2>
+			</li>
+			<li class="sliding-element">
+			<a href="/rtc/main">&nbsp;&nbsp;&nbsp;&nbsp;Home({{ cn }}) <span class="numbers"></span></a>
+			</li>
+			<li class="sliding-element">
+			<a href="/rtc/in_rim">&nbsp;&nbsp;&nbsp;&nbsp;<left>Reimbursement Form For OPD &nbsp;&nbsp;&nbsp;&nbsp;Treatment by Institute Doctor</left> </a>
+			</li>
+			<li class="sliding-element">
+			<a href="https://shilloi.iitg.ernet.in/~medical/Reimbursement%20Form%20For%20OPD%20Treatment%20by%20Outside%20Doctor.pdf" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;<left>Reimbursement Form For OPD &nbsp;&nbsp;&nbsp;&nbsp;Treatment by Outside Doctor</left></a>
+			</li>
+			<li class="sliding-element">
+			<a href="/rtc/ins_scheme">&nbsp;&nbsp;&nbsp;&nbsp;<left>Reimbursement Using Insurance &nbsp;&nbsp;&nbsp;&nbsp;Scheme</left></a>
+			</li>
+			<li class="sliding-element">
+			<a href="https://shilloi.iitg.ernet.in/~medical/FAQ_GMIS.pdf" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;FAQ's</a>
+			</li>
+	<li class="sliding-element"><a href="/rtc/logout">&nbsp;&nbsp;&nbsp;&nbsp;Logout</a></li>
+	</ul>  
+</div>
+		
+			<div id="content"><h2>Your Claims</h2>	
+</br></br>
+<table>
+{% if latest_rem %}
+{%  for latest in latest_rem %}
+<tr>
+<td width="90%">{{forloop.counter}}. {{ latest.subject }}</td>
+
+<td> <a href="#" data-toggle="modal" 
+ data-target="#{{ latest.id }}"><button type="button" class="btn btn-primary">view</button></a>
+ </td>
+
+</tr>
+{% endfor %}
+	{% else %}
+			<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; No Reimbursement Request</p>
+	{% endif %}
+</table>	
+		</div>
+</div> 
+
+
+
+{% if latest_rem %}
+{%  for latest in latest_rem %}
+<div class="modal fade" id="{{ latest.id }}" tabindex="-1" 
+role="dialog" aria-labelledby="helpModalLabel"     aria-hidden="true">
+            <div class="modal-dialog">      
+        <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" 
+                        data-dismiss="modal">
+                            <span aria-hidden="true">&times;
+                            </span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel">
+                            Reimburse Request</h4>
+                    </div>
+                       <div class="modal-body">
+
+<table>
+			<tr>
+				<td>
+					<b>Username:  </b> &nbsp;&nbsp;&nbsp;&nbsp;
+				</td>
+				<td>
+					<i>{{ latest.username}}</i>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>Subject:  </b> &nbsp;&nbsp;&nbsp;&nbsp;
+				</td>
+				<td>
+					<i>{{ latest.subject}}</i>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>Roll No. :</b>&nbsp;&nbsp;&nbsp;&nbsp;
+				</td>
+				<td>
+					<i>{{ latest.roll_no}}</i>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>Relationship :</b>&nbsp;&nbsp;&nbsp;&nbsp;
+				</td>
+				<td>
+					<i><p> {{ latest.relationship }}</p></i>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>Patient Name:</b>&nbsp;&nbsp;&nbsp;&nbsp;
+				</td>
+				<td>
+					<i> {{ latest.patient_name}}</i>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>Account Number:</b>&nbsp;&nbsp;&nbsp;&nbsp;
+				</td>
+				<td>
+					<i>{{ latest.acc_no}}</i>
+				</td>
+			</tr>
+            <tr>
+				<td>
+					<b>Amount Requested:</b>&nbsp;&nbsp;&nbsp;&nbsp;
+				</td>
+				<td>
+					<i>{{ latest.t_amount}}</i>
+				</td>
+			</tr>
+            <tr>
+				<td>
+					<b>Status:</b>&nbsp;&nbsp;&nbsp;&nbsp;
+				</td>
+				<td>
+					<i>{{ latest.status}}</i>
+				</td>
+			</tr>
+
+            <tr>
+				<td>
+					<b>Reimburse amount:</b>&nbsp;&nbsp;&nbsp;&nbsp;
+				</td>
+				<td>
+					<i>{{ latest.rim_amount}}</i>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>Date Booked:  </b> &nbsp;&nbsp;&nbsp;&nbsp;
+				</td>
+				<td>
+					<i>{{ latest.rec_time}}</i>
+				</td>
+			</tr>
+
+
+
+</table>
+   </div>
+
+        <div class="modal-footer">
+       <button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endfor %}
+	{% endif %}
+</body>
+</html>
+

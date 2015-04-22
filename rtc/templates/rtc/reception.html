@@ -1,0 +1,12 @@
+
+
+<p> hello world </p>
+
+<a href="{% url 'rec_form' %}"> Add patient </a>
+
+
+{% for request in request_list %}
+
+<p> {{ request.reg_no }},  <br>  ,</p>
+{% endfor %}
+

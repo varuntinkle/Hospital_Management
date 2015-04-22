@@ -1,0 +1,302 @@
+
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+
+<head>
+     <script language="javascript">
+
+        function check(){
+            var len = document.getElementById('table-1').rows.length;
+            if (len == 1){
+                document.getElementById('table-1').style.display = "none";
+                document.getElementById('controls1').style.display = "none";
+                 document.getElementById("emptymsg1").innerHTML = "No Records to Display!!";
+            }
+
+            var len2 = document.getElementById('table-2').rows.length;
+            if (len2 == 1){
+                document.getElementById('table-2').style.display = "none";
+                document.getElementById('controls2').style.display = "none";
+                document.getElementById("emptymsg2").innerHTML = "No Records to Display!!";
+            }
+
+            
+
+        }
+         function replied()
+         {
+            document.getElementById('replied').style.display = "block";
+            document.getElementById('controls1').style.display = "block";
+            document.getElementById('controls2').style.display = "none";
+            document.getElementById('pending').style.display = "none";
+            document.getElementById('replied').style.display = "block";
+            var len = document.getElementById('table-1').rows.length;
+            if (len == 1){
+                document.getElementById('table-1').style.display = "none";
+                document.getElementById('controls1').style.display = "none";
+                document.getElementById("emptymsg1").innerHTML = "No Records to Display!!";
+                
+            }
+        }
+
+         function pending()
+         {
+            document.getElementById('pending').style.display = "block";
+            document.getElementById('controls1').style.display = "none";
+            document.getElementById('controls2').style.display = "block";
+            document.getElementById('replied').style.display = "none";
+            var len = document.getElementById('table-2').rows.length;
+            if (len == 1){
+                document.getElementById('table-2').style.display = "none";
+                document.getElementById('controls2').style.display = "none";
+                 document.getElementById("emptymsg2").innerHTML = "No Records to Display!!";
+         }
+     }
+         function checkAll(ele){
+                var checkboxes = document.getElementsByTagName('input');
+                if (ele.checked){
+                    for (var i = 0; i < checkboxes.length; i++){
+                        if (checkboxes[i].type == 'checkbox'){
+                            checkboxes[i].checked = true;
+                        }
+                    }
+                }
+                else{
+                    for(var i = 0; i < checkboxes.length; i++){
+                        console.log(i)
+                        if (checkboxes[i].type == 'checkbox') {
+                            checkboxes[i].checked = false;
+                        }
+                    }
+                }
+            }
+
+
+            
+
+     </script>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin - Bootstrap Admin Template</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static "home/css/bootstrap.min.css" %}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static "home/css/sb-admin.css" %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{% static "home/font-awesome/css/font-awesome.min.css" %}"rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body onload="check()">
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            
+            
+            
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">{{regno.name}}</a>
+                </div>
+                
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{user}}<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="/rtc/logout">Log Out</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+            
+           
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li>
+                        <a onclick="replied()"href="#"><i class="fa fa-fw fa-dashboard"></i> Replied Followups</a>
+                    </li>
+                    <li>
+                        <a onclick="pending()" href="#"><i class="fa fa-fw fa-bar-chart-o"></i> Pending Followups</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Welcome to Follow up Portal
+                  
+                        </h1>
+                        <ol class="breadcrumb">
+    
+        <form action="/rtc/followup/" method="post">
+            {% csrf_token %}
+        
+        
+        
+        <div id="pending"  style="display:block;" class="answer_list" >
+                    <h3 id="emptymsg2"></h3>
+                    <div id="controls2" style="display:block;">
+                    <input  type="submit" value="delete selected" align="right">
+                    <input  type="reset" value="reset selction" align="right">
+                    <!-- <label><input type="checkbox" onchange="checkAll(this)" name="chk[]" > Toggle All</label> -->
+                </div>
+                    <table class="table" id="table-2">
+                    
+                    <tr>
+                        <td><input type="checkbox" onchange="checkAll(this)" name="chk[]" ></td>
+                        <td>Doctor's Name</td>
+                        <td>Prescription ID</td>
+                        <td>Disease</td>
+                        <td>Prescription Time</td>
+                        <td>next visit</td>
+                    </tr>
+                    {% for item in list %}
+                    {% if item.id not in hide  and  item.id in show%}
+
+
+
+                    <tr>
+                        <td><input  type="checkbox" value={{item.id}} align="right" name="to_del" id="{{item.id}}"></td>
+                        <td><a href="studfollowup/{{item.id}}">{{item.doctor.name}}</td>
+                        <td>{{item.id}}</td>
+
+                        <td>{{item.disease}}</td>
+                        <td>{{item.prescription_time}}</td>
+                        <td>{{item.next_visit}}</td>
+                    </tr>
+
+                    {% endif %}
+                    {% endfor %}
+
+                   
+
+                </table>
+
+
+        
+    </div>
+    
+
+    </form>
+    
+                <form action="/rtc/followup/" method="post">
+                {% csrf_token %}
+                <div id="replied"  style="display:none;" class="answer_list" >
+                <div id="controls1" style="display:none;">
+                    <input  type="submit" value="delete selected" align="right">
+                    <input  type="reset" value="reset selction" align="right">
+                    <!-- <label><input type="checkbox" onchange="checkAll(this)" name="chk[]" > Toggle All</label> -->
+                </div>
+                <h3 id="emptymsg1"></h3>
+                <table class="table" id="table-1">
+                    <tr>
+                        <td><input type="checkbox" onchange="checkAll(this)" name="chk[]" ></td>
+                        <td>Doctor's Name</td>
+                        <td>Prescription ID</td>
+                        <td>Disease</td>
+                        <td>Prescription Time</td>
+                        <td>Reply</td>
+                    </tr>
+
+                    {% for item in list %}
+                    {% for el in followup %}
+                    {% if  el.prescription.id == item.id  %}
+                    {% if el.Reply_from_doctor  != ""  %}
+
+                    <tr>
+                        <td><input type="checkbox" value={{item.id}} align="right" name="to_del" id="{{item.id}}"></td>
+                        <td>{{item.doctor.name}}</td>
+                        <td>{{item.id}}</td>
+                        <td>{{item.disease}}</td>
+                        <td>{{item.prescription_time}}</td>
+
+                        <td><p>{{ el.Reply_from_doctor }}</p></td>
+                    </tr>
+
+                    {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                    {% endfor %}
+                    </table>
+                     
+            </div>
+            
+             
+            </form>
+        
+
+               
+
+                    
+
+     
+
+
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- /.row -->
+
+            </div>
+            <!-- /.container-fluid -->
+
+           
+
+        </div>
+        <!-- /<>#page-wrapper -->
+
+         
+
+
+    </div>
+
+    
+
+    <!-- jQuery -->
+    <script src="{% static "home/js/jquery.js" %}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static "home/js/bootstrap.min.js" %}"></script>
+
+</body>
+
+</html>
